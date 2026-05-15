@@ -1,68 +1,126 @@
 "use client";
 
-import { useState } from "react";
+import { useTransition, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function SearchBox() {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const [destination, setDestination] = useState("");
-  const [dates, setDates] = useState("");
-  const [guests, setGuests] = useState("2 adults · 0 children · 1 room");
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [error, setError] = useState("");
+
+  const today = new Date().toISOString().split("T")[0];
 
   const handleSearch = () => {
-    const query = new URLSearchParams({
-      destination,
-      dates,
-      guests,
+    setError("");
+
+    if (!destination.trim()) {
+      setError("Please enter a destination to search.");
+      return;
+    }
+
+    if (checkIn && checkOut && checkOut <= checkIn) {
+      setError("Check-out date must be after check-in date.");
+      return;
+    }
+
+    const query = new URLSearchParams({ destination });
+    if (checkIn) query.set("checkIn", checkIn);
+    if (checkOut) query.set("checkOut", checkOut);
+
+    startTransition(() => {
+      router.push(`/results?${query.toString()}`);
     });
-
-    console.log("Searching with:", {
-      destination,
-      dates,
-      guests,
-    });
-
-    console.log("URL:", `/results?${query.toString()}`);
-
-    router.push(`/results?${query.toString()}`);
   };
 
   return (
-    <div className="mt-10 rounded-xl border-4 border-yellow-400 bg-white p-4 shadow-lg">
-      <div className="grid gap-4 md:grid-cols-4">
-        <input
-          type="text"
-          placeholder="Where are you going?"
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
-          className="rounded-md border border-gray-300 px-4 py-3 text-gray-800 outline-none"
-        />
+    <div className="bg-white rounded-2xl shadow-[0_8px_40px_rgba(15,31,61,0.16)] border border-white/80 overflow-visible">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center p-2 md:p-2.5 gap-0">
+        {/* Destination */}
+        <div className="flex flex-1 items-center px-5 py-4 md:py-3 border-b md:border-b-0 md:border-r border-gray-100">
+          <div className="flex flex-col w-full">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#071B63]/50 mb-1">
+              Destination
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[#071B63]/40 text-base shrink-0">
+                location_on
+              </span>
+              <input
+                type="text"
+                placeholder="Where would you like to go?"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                className="bg-transparent border-none focus:ring-0 text-sm p-0 w-full truncate text-gray-900 font-medium outline-none placeholder:text-gray-400"
+              />
+            </div>
+          </div>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Check-in — Check-out"
-          value={dates}
-          onChange={(e) => setDates(e.target.value)}
-          className="rounded-md border border-gray-300 px-4 py-3 text-gray-800 outline-none"
-        />
+        {/* Check In */}
+        <div className="flex items-center px-5 py-4 md:py-3 border-b md:border-b-0 md:border-r border-gray-100">
+          <div className="flex flex-col w-full min-w-[130px]">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#071B63]/50 mb-1">
+              Check In
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[#071B63]/40 text-base shrink-0">
+                event
+              </span>
+              <input
+                type="date"
+                value={checkIn}
+                min={today}
+                onChange={(e) => setCheckIn(e.target.value)}
+                className="bg-transparent border-none focus:ring-0 text-sm p-0 w-full text-gray-900 font-medium outline-none"
+              />
+            </div>
+          </div>
+        </div>
 
-        <input
-          type="text"
-          placeholder="2 adults · 0 children · 1 room"
-          value={guests}
-          onChange={(e) => setGuests(e.target.value)}
-          className="rounded-md border border-gray-300 px-4 py-3 text-gray-800 outline-none"
-        />
+        {/* Check Out */}
+        <div className="flex items-center px-5 py-4 md:py-3">
+          <div className="flex flex-col w-full min-w-[130px]">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#071B63]/50 mb-1">
+              Check Out
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[#071B63]/40 text-base shrink-0">
+                event
+              </span>
+              <input
+                type="date"
+                value={checkOut}
+                min={checkIn || today}
+                onChange={(e) => setCheckOut(e.target.value)}
+                className="bg-transparent border-none focus:ring-0 text-sm p-0 w-full text-gray-900 font-medium outline-none"
+              />
+            </div>
+          </div>
+        </div>
 
-        <button
-          type="button"
-          onClick={handleSearch}
-          className="rounded-md bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-700"
-        >
-          Search
-        </button>
+        {/* Search button */}
+        <div className="px-3 pt-3 pb-3 md:p-1.5 md:pl-3 shrink-0">
+          <button
+            onClick={handleSearch}
+            disabled={isPending}
+            className="w-full md:w-auto bg-[#071B63] text-white text-sm font-semibold px-8 py-3.5 rounded-xl hover:bg-[#123EAF] active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          >
+            <span className="material-symbols-outlined text-base">search</span>
+            {isPending ? "Searching…" : "Search"}
+          </button>
+        </div>
       </div>
+
+      {error && (
+        <div className="px-6 pb-4 -mt-1">
+          <p className="text-xs text-red-600 text-center">{error}</p>
+        </div>
+      )}
     </div>
   );
 }

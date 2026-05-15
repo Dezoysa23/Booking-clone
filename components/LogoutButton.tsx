@@ -11,19 +11,13 @@ export default function LogoutButton() {
     try {
       setIsLoggingOut(true);
 
-      const response = await fetch("/api/auth/logout", {
-        method: "POST",
-      });
-
-      if (!response.ok) {
-        throw new Error("Logout failed.");
-      }
+      await fetch("/api/auth/logout", { method: "POST" });
 
       router.push("/login");
       router.refresh();
     } catch (error) {
-      console.error(error);
-      alert("Logout failed.");
+      console.error("Logout failed:", error);
+      router.push("/login");
     } finally {
       setIsLoggingOut(false);
     }
@@ -34,9 +28,9 @@ export default function LogoutButton() {
       type="button"
       onClick={handleLogout}
       disabled={isLoggingOut}
-      className="rounded-md border border-white px-4 py-2 text-sm font-medium hover:bg-white hover:text-blue-900 disabled:opacity-70"
+      className="text-white/50 hover:text-red-300 text-sm font-medium px-3 py-1.5 rounded-full hover:bg-white/5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      {isLoggingOut ? "Logging out..." : "Logout"}
+      {isLoggingOut ? "Signing out..." : "Sign out"}
     </button>
   );
 }

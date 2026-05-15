@@ -1,77 +1,314 @@
+import Image from "next/image";
+import Link from "next/link";
+import type { Property } from "@prisma/client";
 import SearchBox from "@/components/SearchBox";
-import DestinationCard from "@/components/DestinationCard";
 import PropertyCard from "@/components/PropertyCard";
-import { destinations } from "@/data/destinations";
+import DestinationCard from "@/components/DestinationCard";
 import { prisma } from "@/lib/prisma";
 
+const DESTINATIONS = [
+  {
+    title: "Galle",
+    subtitle: "Colonial coast & golden sands",
+    image:
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop",
+    href: "/results?destination=Galle",
+  },
+  {
+    title: "Ella",
+    subtitle: "Misty peaks & tea estates",
+    image:
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop",
+    href: "/results?destination=Ella",
+  },
+  {
+    title: "Mirissa",
+    subtitle: "Palm beaches & blue horizons",
+    image:
+      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop",
+    href: "/results?destination=Mirissa",
+  },
+  {
+    title: "Kandy",
+    subtitle: "Culture, temples & cool air",
+    image:
+      "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?q=80&w=800&auto=format&fit=crop",
+    href: "/results?destination=Kandy",
+  },
+];
+
 export default async function Home() {
-  const featuredProperties = await prisma.property.findMany({
-    orderBy: [
-      { rating: "desc" },
-      { id: "asc" },
-    ],
-    take: 4,
-  });
+  let featuredProperties: Property[] = [];
+  try {
+    featuredProperties = await prisma.property.findMany({
+      orderBy: [{ rating: "desc" }, { id: "asc" }],
+      take: 3,
+    });
+  } catch (error) {
+    console.error("[Home] Failed to fetch featured properties:", error);
+  }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <section className="bg-blue-900 px-6 py-16 text-white">
-        <div className="mx-auto max-w-7xl">
-          <h1 className="max-w-3xl text-5xl font-bold leading-tight">
-            Find your next stay with confidence
-          </h1>
+    <div className="bg-[#faf8f5]">
+      {/* ─── Hero ─── */}
+      <section className="px-4 md:px-16 max-w-[1280px] mx-auto pt-6 md:pt-8">
+        {/* Image container — overflow-hidden here ONLY clips the hero image to rounded corners */}
+        <div className="relative w-full h-[460px] md:h-[600px] rounded-3xl overflow-hidden shadow-[0_8px_40px_rgba(15,31,61,0.18)]">
+          <Image
+            src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2069&auto=format&fit=crop"
+            alt="Pearlora — Luxury stays across Sri Lanka"
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+          />
+          {/* Gradient overlay + heading — sits entirely within the image container */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0f1f3d]/65 via-[#0f1f3d]/20 to-[#0f1f3d]/78 flex flex-col justify-center items-center text-center px-6 pb-12">
+            {/* Eyebrow */}
+            <div className="flex items-center gap-4 mb-6">
+              <span className="hidden sm:block h-px w-12 bg-[#D8B45A]/60" />
+              <div className="flex items-center gap-2">
+                <span className="text-[#D8B45A] text-sm">✦</span>
+                <span className="text-[#D8B45A] text-xs font-semibold tracking-[0.2em] uppercase">
+                  Sri Lanka&apos;s Premier Booking Platform
+                </span>
+                <span className="text-[#D8B45A] text-sm">✦</span>
+              </div>
+              <span className="hidden sm:block h-px w-12 bg-[#D8B45A]/60" />
+            </div>
 
-          <p className="mt-4 max-w-2xl text-lg text-blue-100">
-            Search hotels, compare prices, and book the perfect room for your
-            trip.
-          </p>
+            <h1
+              className="font-[family-name:var(--font-playfair-display)] text-white max-w-3xl mb-4 leading-tight font-semibold"
+              style={{ fontSize: "clamp(1.9rem, 5vw, 3.75rem)" }}
+            >
+              Discover Your Perfect Stay in Sri Lanka
+            </h1>
+            <p className="text-white/75 text-base md:text-lg max-w-xl leading-relaxed">
+              From Coastlines to Hilltops — Pearlora curates extraordinary stays
+              for the discerning traveller.
+            </p>
+          </div>
+        </div>
 
+        {/* Search box — outside the overflow-hidden container so it is never clipped.
+            Negative margin creates the floating-over-hero visual overlap. */}
+        <div className="mx-auto max-w-4xl -mt-8 md:-mt-10 relative z-10">
           <SearchBox />
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-12">
-        <h2 className="text-3xl font-bold text-gray-900">
-          Explore popular destinations
-        </h2>
+      {/* ─── Trust Pillars ─── */}
+      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mt-14 md:mt-16 mb-24">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4">
+            <div className="shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-[#071B63]/5">
+              <span className="material-symbols-outlined text-[#071B63] text-xl">
+                verified
+              </span>
+            </div>
+            <div>
+              <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+                Curated by Experts
+              </h3>
+              <p className="mt-1 text-sm text-gray-500 leading-relaxed">
+                Every property is handpicked and vetted for quality, comfort,
+                and character.
+              </p>
+            </div>
+          </div>
 
-        <p className="mt-2 text-gray-600">
-          Discover trending places travelers love to book.
-        </p>
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4">
+            <div className="shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-[#071B63]/5">
+              <span className="material-symbols-outlined text-[#071B63] text-xl">
+                lock
+              </span>
+            </div>
+            <div>
+              <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+                Secure &amp; Simple
+              </h3>
+              <p className="mt-1 text-sm text-gray-500 leading-relaxed">
+                Book with confidence. Your data and reservations are always
+                protected.
+              </p>
+            </div>
+          </div>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
-          {destinations.map((item) => (
-            <DestinationCard
-              key={item.title}
-              title={item.title}
-              image={item.image}
-              properties={item.properties}
-            />
-          ))}
-        </div>ssssl
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4">
+            <div className="shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-[#071B63]/5">
+              <span className="material-symbols-outlined text-[#071B63] text-xl">
+                map
+              </span>
+            </div>
+            <div>
+              <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+                Sri Lanka Specialists
+              </h3>
+              <p className="mt-1 text-sm text-gray-500 leading-relaxed">
+                Deep local knowledge — from Galle to Sigiriya, we know every
+                hidden gem.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-16">
-        <h2 className="text-3xl font-bold text-gray-900">
-          Browse featured properties
-        </h2>
+      {/* ─── Popular Destinations ─── */}
+      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+        <div className="flex justify-between items-end mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-[#D8B45A]" />
+              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
+                Explore Sri Lanka
+              </span>
+            </div>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#0f1f3d]">
+              Popular Destinations
+            </h2>
+            <p className="mt-2 text-sm text-gray-500 max-w-md leading-relaxed">
+              Discover handpicked locations — each one a story waiting to be
+              written.
+            </p>
+          </div>
+          <Link
+            href="/results?destination="
+            className="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors tracking-wide"
+          >
+            Browse all
+            <span className="material-symbols-outlined text-base">
+              arrow_forward
+            </span>
+          </Link>
+        </div>
 
-        <p className="mt-2 text-gray-600">
-          Hand-picked stays with great ratings and value.
-        </p>
-
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {featuredProperties.map((property) => (
-            <PropertyCard
-              key={property.id}
-              id={property.id}
-              name={property.name}
-              location={property.location}
-              rating={property.rating}
-              price={property.price}
-              image={property.image}
-            />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {DESTINATIONS.map((dest) => (
+            <DestinationCard key={dest.title} {...dest} />
           ))}
+        </div>
+
+        <div className="mt-6 flex justify-center md:hidden">
+          <Link
+            href="/results?destination="
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors"
+          >
+            Browse all destinations
+            <span className="material-symbols-outlined text-base">
+              arrow_forward
+            </span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ─── Featured Stays ─── */}
+      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+        <div className="flex justify-between items-end mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-[#D8B45A]" />
+              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
+                Handpicked for You
+              </span>
+            </div>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#0f1f3d] max-w-lg">
+              Featured Stays
+            </h2>
+            <p className="mt-2 text-sm text-gray-500 max-w-md leading-relaxed">
+              Exceptional properties selected for comfort, location, and
+              character.
+            </p>
+          </div>
+          <Link
+            href="/results?destination="
+            className="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors tracking-wide"
+          >
+            View all
+            <span className="material-symbols-outlined text-base">
+              arrow_forward
+            </span>
+          </Link>
+        </div>
+
+        {featuredProperties.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredProperties.map((property) => (
+              <PropertyCard
+                key={property.id}
+                id={property.id}
+                name={property.name}
+                location={property.location}
+                rating={property.rating}
+                price={property.price}
+                image={property.image}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-16 text-center">
+            <p className="text-gray-400 text-sm">
+              Properties coming soon. Check back shortly.
+            </p>
+          </div>
+        )}
+
+        <div className="mt-8 flex justify-center md:hidden">
+          <Link
+            href="/results?destination="
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors"
+          >
+            View all properties
+            <span className="material-symbols-outlined text-base">
+              arrow_forward
+            </span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ─── Brand CTA ─── */}
+      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+        <div className="relative rounded-3xl bg-[#0f1f3d] overflow-hidden px-10 py-16 flex flex-col md:flex-row items-center justify-between gap-10">
+          {/* Decorative concentric rings */}
+          <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full border border-[#D8B45A]/10" />
+          <div className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full border border-[#D8B45A]/10" />
+          <div className="pointer-events-none absolute -right-2 -top-2 h-36 w-36 rounded-full border border-[#D8B45A]/10" />
+
+          <div className="relative z-10 text-center md:text-left">
+            <div className="flex items-center gap-2.5 mb-3 justify-center md:justify-start">
+              <Image
+                src="/brand/pearlora-logo.svg"
+                alt="Pearlora"
+                width={26}
+                height={26}
+                className="rounded object-contain shrink-0"
+                unoptimized
+              />
+              <span className="font-[family-name:var(--font-playfair-display)] text-white text-3xl font-semibold">
+                Pearlora
+              </span>
+            </div>
+            <p className="text-[#D8B45A] text-xs font-semibold tracking-[0.18em] uppercase mb-3">
+              From Coastlines to Hilltops
+            </p>
+            <p className="text-white/60 text-sm max-w-sm leading-relaxed">
+              Curating extraordinary stays for the discerning traveller across
+              Sri Lanka — from colonial coastal forts to misty highland retreats.
+            </p>
+          </div>
+
+          <div className="relative z-10 flex flex-col sm:flex-row gap-3 shrink-0">
+            <Link
+              href="/signup"
+              className="bg-[#D8B45A] text-[#0f1f3d] font-bold px-8 py-3 rounded-full hover:bg-[#c9a84c] transition-colors text-sm tracking-wide text-center"
+            >
+              Start Your Journey
+            </Link>
+            <Link
+              href="/results?destination="
+              className="border border-white/20 text-white font-semibold px-8 py-3 rounded-full hover:bg-white/10 transition-colors text-sm tracking-wide text-center"
+            >
+              Browse Properties
+            </Link>
+          </div>
         </div>
       </section>
     </div>

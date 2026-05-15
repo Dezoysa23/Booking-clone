@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-import { SESSION_COOKIE_NAME } from "@/lib/auth";
+import { SESSION_COOKIE_NAME, createSessionToken } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, password } = body;
+    const email =
+      typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+    const password =
+      typeof body.password === "string" ? body.password : "";
 
     if (!email || !password) {
       return NextResponse.json(
@@ -15,8 +18,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email },
+    const user = await prisma.user.findFirst({
+      where: { email: { equals: email, mode: "insensitive" } },
     });
 
     if (!user || !user.password) {
@@ -35,15 +38,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const response = NextResponse.json({
-      success: true,
-      userId: user.id,
-    });
+    const sessionToken = createSessionToken(user.id);
 
-    response.cookies.set(SESSION_COOKIE_NAME, user.id, {
+    const response = NextResponse.json({ success: true });
+
+    response.cookies.set(SESSION_COOKIE_NAME, sessionToken, {
       httpOnly: true,
       sameSite: "lax",
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
@@ -57,4 +59,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}
+}

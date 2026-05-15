@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 
+type RouteParams = { params: Promise<{ id: string }> };
+
 function parseGallery(galleryText: string | undefined, fallbackImage: string): string[] {
   if (!galleryText) return [fallbackImage];
   const urls = galleryText
@@ -15,22 +17,32 @@ function safeString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-export async function POST(request: Request) {
-  try {
-    const currentUser = await getCurrentUser();
+async function authorizeAdmin() {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    return { response: NextResponse.json({ error: "You must be logged in." }, { status: 401 }) };
+  }
+  if (currentUser.role !== "ADMIN") {
+    return { response: NextResponse.json({ error: "You are not allowed to do this." }, { status: 403 }) };
+  }
+  return { user: currentUser };
+}
 
-    if (!currentUser) {
-      return NextResponse.json(
-        { error: "You must be logged in." },
-        { status: 401 }
-      );
+export async function PATCH(request: Request, { params }: RouteParams) {
+  try {
+    const auth = await authorizeAdmin();
+    if ("response" in auth) return auth.response;
+
+    const { id } = await params;
+    const propertyId = Number(id);
+
+    if (Number.isNaN(propertyId)) {
+      return NextResponse.json({ error: "Invalid property ID." }, { status: 400 });
     }
 
-    if (currentUser.role !== "ADMIN") {
-      return NextResponse.json(
-        { error: "You are not allowed to do this." },
-        { status: 403 }
-      );
+    const existing = await prisma.property.findUnique({ where: { id: propertyId } });
+    if (!existing) {
+      return NextResponse.json({ error: "Property not found." }, { status: 404 });
     }
 
     const body = await request.json();
@@ -88,20 +100,15 @@ export async function POST(request: Request) {
     const ratingNum = Number(body.rating);
 
     if (isNaN(priceNum) || priceNum <= 0) {
-      return NextResponse.json(
-        { error: "Price must be a positive number." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Price must be a positive number." }, { status: 400 });
     }
 
     if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 10) {
-      return NextResponse.json(
-        { error: "Rating must be between 1 and 10." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Rating must be between 1 and 10." }, { status: 400 });
     }
 
-    const property = await prisma.property.create({
+    const updated = await prisma.property.update({
+      where: { id: propertyId },
       data: {
         name,
         location,
@@ -113,16 +120,38 @@ export async function POST(request: Request) {
           ? amenities.split(",").map((item: string) => item.trim()).filter(Boolean)
           : [],
         gallery: parseGallery(galleryText, image),
-        reviews: 0,
       },
     });
 
-    return NextResponse.json({ success: true, property });
+    return NextResponse.json({ success: true, property: updated });
   } catch (error) {
-    console.error("Create property failed:", error);
-    return NextResponse.json(
-      { error: "Failed to create property." },
-      { status: 500 }
-    );
+    console.error("Update property failed:", error);
+    return NextResponse.json({ error: "Failed to update property." }, { status: 500 });
+  }
+}
+
+export async function DELETE(_request: Request, { params }: RouteParams) {
+  try {
+    const auth = await authorizeAdmin();
+    if ("response" in auth) return auth.response;
+
+    const { id } = await params;
+    const propertyId = Number(id);
+
+    if (Number.isNaN(propertyId)) {
+      return NextResponse.json({ error: "Invalid property ID." }, { status: 400 });
+    }
+
+    const existing = await prisma.property.findUnique({ where: { id: propertyId } });
+    if (!existing) {
+      return NextResponse.json({ error: "Property not found." }, { status: 404 });
+    }
+
+    await prisma.property.delete({ where: { id: propertyId } });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Delete property failed:", error);
+    return NextResponse.json({ error: "Failed to delete property." }, { status: 500 });
   }
 }

@@ -1,72 +1,73 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
 import LogoutButton from "@/components/LogoutButton";
+import NavLinks from "@/components/NavLinks";
 
 export default async function Navbar() {
   const currentUser = await getCurrentUser();
 
   return (
-    <header className="bg-blue-900 text-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-2xl font-bold">
-          Booking Clone
-        </Link>
-
-        <nav className="hidden gap-6 md:flex">
-          <Link href="/" className="text-sm hover:text-blue-200">
-            Stays
-          </Link>ss
-          <Link href="/bookings" className="text-sm hover:text-blue-200">
-            Bookings
+    <header className="bg-[#0f1f3d] w-full top-0 sticky z-50 border-b border-white/10">
+      <div className="flex justify-between items-center w-full px-4 md:px-16 py-4 max-w-[1280px] mx-auto">
+        <div className="flex items-center gap-8">
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight hover:opacity-90 transition-opacity"
+          >
+            <Image
+              src="/brand/pearlora-logo.svg"
+              alt="Pearlora"
+              width={32}
+              height={32}
+              className="rounded-md object-contain shrink-0"
+              unoptimized
+            />
+            <span className="font-[family-name:var(--font-playfair-display)]">
+              Pearlora
+            </span>
           </Link>
-          <a href="#" className="text-sm hover:text-blue-200">
-            Flights
-          </a>
-          <a href="#" className="text-sm hover:text-blue-200">
-            Car Rentals
-          </a>
-          <a href="#" className="text-sm hover:text-blue-200">
-            Attractions
-          </a>
-        </nav>
+
+          <NavLinks />
+        </div>
 
         <div className="flex items-center gap-3">
-         {currentUser ? (
-  <>
-    <Link
-      href="/account"
-      className="rounded-md bg-blue-800 px-3 py-2 text-sm text-white hover:bg-blue-700"
-    >
-      {currentUser.name
-        ? `Hi, ${currentUser.name}`
-        : currentUser.email
-        ? currentUser.email
-        : "Account"}
-    </Link>
-{currentUser.role === "ADMIN" && (
-  <Link
-    href="/admin"
-    className="rounded-md bg-yellow-500 px-3 py-2 text-sm font-medium text-black hover:bg-yellow-400"
-  >
-    Admin
-  </Link>
-)}
-    <LogoutButton />
-  </>
-) : (
+          {currentUser ? (
+            <>
+              {currentUser.role === "ADMIN" && (
+                <Link
+                  href="/admin"
+                  className="text-[#D8B45A] hover:text-[#e8c96a] text-sm font-semibold tracking-wide transition-colors"
+                >
+                  Admin
+                </Link>
+              )}
+              <Link
+                href="/account"
+                className="flex items-center gap-2 hover:bg-white/10 px-3 py-1.5 rounded-full transition-colors"
+              >
+                <span className="material-symbols-outlined text-[#D8B45A] text-sm">
+                  person
+                </span>
+                <span className="hidden md:inline text-white/75 text-sm font-medium max-w-[140px] truncate">
+                  {currentUser.name || currentUser.email}
+                </span>
+              </Link>
+              <LogoutButton />
+            </>
+          ) : (
             <>
               <Link
                 href="/login"
-                className="rounded-md border border-white px-4 py-2 text-sm font-medium hover:bg-white hover:text-blue-900"
+                className="hidden md:block text-white/60 hover:text-white text-sm font-medium transition-colors"
               >
                 Sign in
               </Link>
-
               <Link
                 href="/signup"
-                className="rounded-md bg-white px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-100"
+                className="bg-[#D8B45A] text-[#0f1f3d] text-sm font-bold px-5 py-2 rounded-full hover:bg-[#c9a84c] transition-colors tracking-wide"
               >
-                Register
+                Get Started
               </Link>
             </>
           )}

@@ -1,10 +1,11 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
 
 type RouteParams = { params: Promise<{ id: string }> };
 
-export async function PATCH(_request: Request, { params }: RouteParams) {
+// GET /api/bookings/[id] — fetch a single booking (must own it)
+export async function GET(_request: Request, { params }: RouteParams) {
   try {
     const userId = await getSessionUserId();
 
@@ -27,6 +28,7 @@ export async function PATCH(_request: Request, { params }: RouteParams) {
 
     const booking = await prisma.booking.findUnique({
       where: { id: bookingId },
+      include: { property: true },
     });
 
     if (!booking) {
@@ -38,28 +40,16 @@ export async function PATCH(_request: Request, { params }: RouteParams) {
 
     if (booking.userId !== userId) {
       return NextResponse.json(
-        { error: "You are not allowed to cancel this booking." },
+        { error: "You are not allowed to view this booking." },
         { status: 403 }
       );
     }
 
-    if (booking.status === "CANCELLED") {
-      return NextResponse.json(
-        { error: "This booking is already cancelled." },
-        { status: 400 }
-      );
-    }
-
-    await prisma.booking.update({
-      where: { id: bookingId },
-      data: { status: "CANCELLED" },
-    });
-
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ booking });
   } catch (error) {
-    console.error("Cancel booking failed:", error);
+    console.error("Failed to fetch booking:", error);
     return NextResponse.json(
-      { error: "Failed to cancel booking." },
+      { error: "Failed to fetch booking." },
       { status: 500 }
     );
   }

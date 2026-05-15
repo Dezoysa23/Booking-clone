@@ -1,10 +1,15 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
-import CreatePropertyForm from "@/components/CreatePropertyForm";
+import { prisma } from "@/lib/prisma";
+import EditPropertyForm from "@/components/EditPropertyForm";
 
-export default async function NewPropertyPage() {
+type EditPropertyPageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function EditPropertyPage({ params }: EditPropertyPageProps) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -15,6 +20,32 @@ export default async function NewPropertyPage() {
     redirect("/");
   }
 
+  const { id } = await params;
+  const propertyId = Number(id);
+
+  if (Number.isNaN(propertyId)) {
+    notFound();
+  }
+
+  const property = await prisma.property.findUnique({
+    where: { id: propertyId },
+    select: {
+      id: true,
+      name: true,
+      location: true,
+      price: true,
+      rating: true,
+      image: true,
+      description: true,
+      amenities: true,
+      gallery: true,
+    },
+  });
+
+  if (!property) {
+    notFound();
+  }
+
   return (
     <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-4xl">
@@ -23,7 +54,7 @@ export default async function NewPropertyPage() {
           <span className="text-gray-300">›</span>
           <Link href="/admin/properties" className="hover:text-[#071B63] transition-colors">Properties</Link>
           <span className="text-gray-300">›</span>
-          <span className="text-[#071B63] font-medium">New Property</span>
+          <span className="text-[#071B63] font-medium">Edit #{property.id}</span>
         </div>
         <div className="flex items-center gap-2.5 mb-6">
           <Image
@@ -38,7 +69,7 @@ export default async function NewPropertyPage() {
             Pearlora Admin
           </span>
         </div>
-        <CreatePropertyForm />
+        <EditPropertyForm property={property} />
       </div>
     </main>
   );

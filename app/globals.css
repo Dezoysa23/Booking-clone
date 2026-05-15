@@ -1,26 +1,166 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* === PEARLORA — Deep Royal Navy + Champagne Gold + Pearl Ivory === */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* ── Pearlora Logo Brand Palette ── */
+  --color-brand-navy:  #071B63;
+  --color-brand-royal: #123EAF;
+  --color-brand-ocean: #1D63D8;
+  --color-brand-gold:  #D8B45A;
+  --color-brand-pearl: #F7F4ED;
+  --color-brand-mist:  #E5E7EB;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Primary: Deep Royal Navy */
+  --color-primary: #071B63;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #1e3660;
+  --color-on-primary-container: #d4dff5;
+  --color-primary-fixed: #dde8ff;
+  --color-primary-fixed-dim: #b0c4e8;
+  --color-on-primary-fixed: #0a1628;
+  --color-on-primary-fixed-variant: #283d60;
+
+  /* Secondary: Champagne Gold */
+  --color-secondary: #96700a;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #f5e6b8;
+  --color-on-secondary-container: #2d1f00;
+  --color-secondary-fixed: #fde68a;
+  --color-secondary-fixed-dim: #ddc46a;
+  --color-on-secondary-fixed: #241700;
+  --color-on-secondary-fixed-variant: #523c00;
+
+  /* Tertiary: Coastal Sage */
+  --color-tertiary: #1a4535;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #c4e8d6;
+  --color-on-tertiary-container: #00210f;
+  --color-tertiary-fixed: #d0eadf;
+  --color-tertiary-fixed-dim: #b4d6c4;
+  --color-on-tertiary-fixed: #001e0d;
+  --color-on-tertiary-fixed-variant: #2a5040;
+
+  /* Error */
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #410002;
+
+  /* Neutral: Pearl Ivory Surfaces */
+  --color-background: #faf8f5;
+  --color-on-background: #1a1815;
+  --color-surface: #faf8f5;
+  --color-on-surface: #1a1815;
+  --color-surface-variant: #e4e1d8;
+  --color-on-surface-variant: #47453e;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f4f1ec;
+  --color-surface-container: #eeeae3;
+  --color-surface-container-high: #e7e3db;
+  --color-surface-container-highest: #e1ddd5;
+  --color-surface-bright: #faf8f5;
+  --color-surface-dim: #d7d3cb;
+  --color-surface-tint: #0f1f3d;
+
+  /* Outlines */
+  --color-outline: #79766d;
+  --color-outline-variant: #c9c5bc;
+
+  /* Inverse */
+  --color-inverse-surface: #2f2d28;
+  --color-inverse-on-surface: #f2eeea;
+  --color-inverse-primary: #b0c4e8;
+
+  /* Spacing */
+  --spacing-unit: 8px;
+  --spacing-margin-desktop: 64px;
+  --spacing-section-gap: 120px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+  --spacing-container-max: 1280px;
+
+  /* Typography */
+  --font-body-lg: var(--font-plus-jakarta-sans);
+  --font-headline-lg-mobile: var(--font-playfair-display);
+  --font-headline-lg: var(--font-playfair-display);
+  --font-headline-sm: var(--font-playfair-display);
+  --font-headline-md: var(--font-playfair-display);
+  --font-display-lg: var(--font-playfair-display);
+  --font-body-md: var(--font-plus-jakarta-sans);
+  --font-label-md: var(--font-plus-jakarta-sans);
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--font-weight: 400;
+
+  --text-headline-lg-mobile: 36px;
+  --text-headline-lg-mobile--line-height: 1.2;
+  --text-headline-lg-mobile--font-weight: 500;
+
+  --text-headline-lg: 48px;
+  --text-headline-lg--line-height: 1.2;
+  --text-headline-lg--font-weight: 500;
+
+  --text-headline-sm: 24px;
+  --text-headline-sm--line-height: 1.4;
+  --text-headline-sm--font-weight: 600;
+
+  --text-headline-md: 32px;
+  --text-headline-md--line-height: 1.3;
+  --text-headline-md--font-weight: 500;
+
+  --text-display-lg: 64px;
+  --text-display-lg--line-height: 1.1;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 600;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-body-md--font-weight: 400;
+
+  --text-label-md: 14px;
+  --text-label-md--line-height: 1.2;
+  --text-label-md--letter-spacing: 0.05em;
+  --text-label-md--font-weight: 600;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1;
+}
+
+.shadow-ambient {
+  box-shadow: 0 4px 20px rgba(15, 31, 61, 0.06);
+}
+
+.shadow-hover {
+  box-shadow: 0 8px 30px rgba(15, 31, 61, 0.12);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* Pearlora gold shimmer divider */
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D8B45A 40%, #D8B45A 60%, transparent);
+  opacity: 0.4;
+}
+
+/* Admin page gradient header */
+.admin-header-gradient {
+  background: linear-gradient(135deg, #071B63 0%, #123EAF 60%, #1D63D8 100%);
 }

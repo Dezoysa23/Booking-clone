@@ -24,9 +24,23 @@ export async function PATCH(request: Request) {
       );
     }
 
-    if (newPassword.length < 6) {
+    if (newPassword.length < 8) {
       return NextResponse.json(
-        { error: "New password must be at least 6 characters long." },
+        { error: "New password must be at least 8 characters long." },
+        { status: 400 }
+      );
+    }
+
+    if (newPassword.length > 72) {
+      return NextResponse.json(
+        { error: "New password must be 72 characters or fewer." },
+        { status: 400 }
+      );
+    }
+
+    if (newPassword === currentPassword) {
+      return NextResponse.json(
+        { error: "New password must be different from your current password." },
         { status: 400 }
       );
     }
