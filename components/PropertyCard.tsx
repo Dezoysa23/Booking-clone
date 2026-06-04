@@ -19,7 +19,7 @@ export default function PropertyCard({
   image,
 }: Props) {
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col h-full">
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#D8B45A]/30 flex flex-col h-full">
       <div className="relative h-60 overflow-hidden shrink-0">
         <Image
           src={image}
@@ -58,9 +58,10 @@ export default function PropertyCard({
           </div>
           <Link
             href={`/properties/${id}`}
-            className="rounded-xl bg-[#071B63] px-4 py-2 text-xs font-semibold text-white hover:bg-[#123EAF] transition-colors"
+            className="rounded-xl bg-[#071B63] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#D8B45A] hover:text-[#0f1f3d] transition-all duration-200 flex items-center gap-1"
           >
             View Details
+            <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </Link>
         </div>
       </div>

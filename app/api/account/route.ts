@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
+import { verifyCsrfOrigin } from "@/lib/security/csrf";
 
 // GET /api/account — returns the current logged-in user's profile
 export async function GET() {
@@ -43,6 +44,9 @@ export async function GET() {
 
 // PATCH /api/account — update the current user's display name
 export async function PATCH(request: Request) {
+  if (!verifyCsrfOrigin(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
+  }
   try {
     const userId = await getSessionUserId();
 

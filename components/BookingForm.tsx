@@ -1,7 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+
+type DateRange = { checkIn: string; checkOut: string };
 
 type Props = {
   propertyId: number;
@@ -9,10 +11,24 @@ type Props = {
   pricePerNight: number;
 };
 
-export default function BookingForm({
-  propertyId,
-  pricePerNight,
-}: Props) {
+function datesOverlap(
+  newIn: Date,
+  newOut: Date,
+  existIn: Date,
+  existOut: Date
+): boolean {
+  return newIn < existOut && newOut > existIn;
+}
+
+function formatDateShort(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+export default function BookingForm({ propertyId, pricePerNight }: Props) {
   const router = useRouter();
 
   const [checkIn, setCheckIn] = useState("");
@@ -21,16 +37,42 @@ export default function BookingForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [bookedRanges, setBookedRanges] = useState<DateRange[]>([]);
+  const [availabilityLoading, setAvailabilityLoading] = useState(true);
+  const [availabilityError, setAvailabilityError] = useState(false);
+
   const today = new Date().toISOString().split("T")[0];
+
+  useEffect(() => {
+    fetch(`/api/properties/${propertyId}/availability`)
+      .then((r) => r.json())
+      .then((data) => {
+        setBookedRanges(data.ranges ?? []);
+        setAvailabilityLoading(false);
+      })
+      .catch(() => {
+        setAvailabilityError(true);
+        setAvailabilityLoading(false);
+      });
+  }, [propertyId]);
 
   const numberOfNights = useMemo(() => {
     if (!checkIn || !checkOut) return 0;
-    const diffInMs = new Date(checkOut).getTime() - new Date(checkIn).getTime();
-    const days = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+    const diff = new Date(checkOut).getTime() - new Date(checkIn).getTime();
+    const days = Math.round(diff / (1000 * 60 * 60 * 24));
     return days > 0 ? days : 0;
   }, [checkIn, checkOut]);
 
   const totalPrice = numberOfNights * pricePerNight;
+
+  const selectedDatesConflict = useMemo(() => {
+    if (!checkIn || !checkOut) return false;
+    const newIn = new Date(checkIn);
+    const newOut = new Date(checkOut);
+    return bookedRanges.some((r) =>
+      datesOverlap(newIn, newOut, new Date(r.checkIn), new Date(r.checkOut))
+    );
+  }, [checkIn, checkOut, bookedRanges]);
 
   const handleBooking = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -56,19 +98,18 @@ export default function BookingForm({
       return;
     }
 
+    if (selectedDatesConflict) {
+      setErrorMessage("These dates are already booked. Please choose different dates.");
+      return;
+    }
+
     try {
       setIsSubmitting(true);
 
-      // nights and totalPrice are computed server-side from the property's actual price.
       const response = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          propertyId,
-          checkIn,
-          checkOut,
-          guests,
-        }),
+        body: JSON.stringify({ propertyId, checkIn, checkOut, guests }),
       });
 
       const data = await response.json();
@@ -98,8 +139,9 @@ export default function BookingForm({
       onSubmit={handleBooking}
       className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden sticky top-24"
     >
-      <div className="bg-[#0f1f3d] px-6 py-5">
-        <p className="text-xs font-semibold uppercase tracking-widest text-[#c9a84c]">
+      {/* Header */}
+      <div className="bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6b] px-6 py-5">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A]">
           Price per night
         </p>
         <p className="mt-1 text-2xl font-bold text-white">
@@ -108,6 +150,39 @@ export default function BookingForm({
       </div>
 
       <div className="p-6 space-y-4">
+        {/* Availability status */}
+        {availabilityLoading && (
+          <div className="flex items-center gap-2 rounded-lg bg-[#faf8f5] border border-gray-100 px-4 py-2.5">
+            <span className="h-2 w-2 rounded-full bg-[#D8B45A] animate-pulse" />
+            <span className="text-xs text-gray-500">Checking availability…</span>
+          </div>
+        )}
+        {availabilityError && (
+          <div className="flex items-center gap-2 rounded-lg bg-amber-50 border border-amber-100 px-4 py-2.5">
+            <span className="material-symbols-outlined text-amber-500 text-sm">warning</span>
+            <span className="text-xs text-amber-700">
+              Could not load availability. Dates may be checked on submit.
+            </span>
+          </div>
+        )}
+
+        {/* Booked date ranges */}
+        {!availabilityLoading && !availabilityError && bookedRanges.length > 0 && (
+          <div className="rounded-lg bg-red-50 border border-red-100 px-4 py-3">
+            <p className="text-xs font-semibold text-red-700 mb-1.5 flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-sm">event_busy</span>
+              Already booked dates
+            </p>
+            <ul className="space-y-0.5">
+              {bookedRanges.map((r, i) => (
+                <li key={i} className="text-xs text-red-600">
+                  {formatDateShort(r.checkIn)} → {formatDateShort(r.checkOut)}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div>
           <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
             Check-in
@@ -116,9 +191,11 @@ export default function BookingForm({
             type="date"
             value={checkIn}
             min={today}
-            onChange={(e) => setCheckIn(e.target.value)}
+            onChange={(e) => { setCheckIn(e.target.value); setErrorMessage(""); }}
             disabled={isSubmitting}
-            className={inputClass}
+            className={`${inputClass} ${
+              selectedDatesConflict && checkIn ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100" : ""
+            }`}
           />
         </div>
 
@@ -130,11 +207,23 @@ export default function BookingForm({
             type="date"
             value={checkOut}
             min={checkIn || today}
-            onChange={(e) => setCheckOut(e.target.value)}
+            onChange={(e) => { setCheckOut(e.target.value); setErrorMessage(""); }}
             disabled={isSubmitting}
-            className={inputClass}
+            className={`${inputClass} ${
+              selectedDatesConflict && checkOut ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-red-100" : ""
+            }`}
           />
         </div>
+
+        {/* Conflict warning shown inline */}
+        {selectedDatesConflict && (
+          <div className="flex items-start gap-2 rounded-lg bg-red-50 border border-red-100 px-3 py-2.5">
+            <span className="material-symbols-outlined text-red-500 text-sm mt-0.5 shrink-0">block</span>
+            <p className="text-xs text-red-700 leading-relaxed">
+              Your selected dates overlap with an existing booking. Please choose different dates.
+            </p>
+          </div>
+        )}
 
         <div>
           <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
@@ -151,7 +240,7 @@ export default function BookingForm({
           />
         </div>
 
-        {/* Summary */}
+        {/* Price summary */}
         <div className="rounded-xl bg-[#faf8f5] border border-gray-100 px-4 py-4 space-y-1.5">
           {numberOfNights === 0 ? (
             <p className="text-xs text-gray-400 text-center py-1">
@@ -190,14 +279,14 @@ export default function BookingForm({
 
         <button
           type="submit"
-          disabled={isSubmitting}
-          className="w-full rounded-lg bg-[#0f1f3d] px-4 py-3.5 text-sm font-bold text-white hover:bg-[#1a3060] transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+          disabled={isSubmitting || selectedDatesConflict}
+          className="w-full rounded-lg bg-gradient-to-r from-[#0f1f3d] to-[#1a3a6b] px-4 py-3.5 text-sm font-bold text-white hover:from-[#1a3060] hover:to-[#264d8c] transition-all disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isSubmitting ? "Reserving..." : "Reserve Now"}
+          {isSubmitting ? "Reserving…" : "Reserve Now"}
         </button>
 
         <p className="text-center text-xs text-gray-400">
-          No charge will be made until confirmed.
+          Your booking will be confirmed instantly.
         </p>
       </div>
     </form>

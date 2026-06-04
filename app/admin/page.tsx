@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { isSuperAdmin } from "@/lib/roles";
 
 export default async function AdminPage() {
   const currentUser = await getCurrentUser();
@@ -11,7 +12,7 @@ export default async function AdminPage() {
     redirect("/login");
   }
 
-  if (currentUser.role !== "ADMIN") {
+  if (!isSuperAdmin(currentUser)) {
     redirect("/");
   }
 
@@ -190,7 +191,7 @@ export default async function AdminPage() {
         <h2 className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/40 mb-4">
           Quick Actions
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <Link
             href="/admin/properties"
             className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#071B63]/20 transition-all"
@@ -240,6 +241,83 @@ export default async function AdminPage() {
             <p className="mt-1 text-xs text-gray-500">
               View and manage reservations.
             </p>
+          </Link>
+
+          <Link
+            href="/admin/users"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#071B63]/20 transition-all"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#071B63]/8 mb-4">
+              <span className="material-symbols-outlined text-[#071B63] text-base">
+                group
+              </span>
+            </div>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+              Users
+            </h2>
+            <p className="mt-1 text-xs text-gray-500">
+              View all registered accounts.
+            </p>
+          </Link>
+
+          <Link
+            href="/admin/subscriptions"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D8B45A]/40 transition-all"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D8B45A]/15 mb-4">
+              <span className="material-symbols-outlined text-[#8a6c2a] text-base">
+                workspace_premium
+              </span>
+            </div>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+              Subscriptions
+            </h2>
+            <p className="mt-1 text-xs text-gray-500">
+              Host plan subscriptions.
+            </p>
+          </Link>
+
+          <Link
+            href="/admin/payments"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-green-200 transition-all"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-50 mb-4">
+              <span className="material-symbols-outlined text-green-600 text-base">
+                payments
+              </span>
+            </div>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+              Payments
+            </h2>
+            <p className="mt-1 text-xs text-gray-500">
+              Billing and revenue history.
+            </p>
+          </Link>
+
+          <Link
+            href="/admin/calendar"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D8B45A]/40 transition-all"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D8B45A]/10 mb-4">
+              <span className="material-symbols-outlined text-[#B8860B] text-base">calendar_month</span>
+            </div>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+              Platform Calendar
+            </h2>
+            <p className="mt-1 text-xs text-gray-500">Bookings, payments &amp; events.</p>
+          </Link>
+
+          <Link
+            href="/admin/user-photos"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-amber-200 transition-all"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 mb-4">
+              <span className="material-symbols-outlined text-amber-600 text-base">photo_library</span>
+            </div>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+              Photo Moderation
+            </h2>
+            <p className="mt-1 text-xs text-gray-500">Review guest-submitted photos.</p>
           </Link>
 
           <Link

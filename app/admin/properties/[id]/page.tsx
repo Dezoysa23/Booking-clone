@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { isSuperAdmin } from "@/lib/roles";
 import EditPropertyForm from "@/components/EditPropertyForm";
 
 type EditPropertyPageProps = {
@@ -16,7 +17,7 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
     redirect("/login");
   }
 
-  if (currentUser.role !== "ADMIN") {
+  if (!isSuperAdmin(currentUser)) {
     redirect("/");
   }
 
@@ -39,6 +40,10 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
       description: true,
       amenities: true,
       gallery: true,
+      maxGuests: true,
+      facilities: true,
+      houseRules: true,
+      areaInfo: true,
     },
   });
 

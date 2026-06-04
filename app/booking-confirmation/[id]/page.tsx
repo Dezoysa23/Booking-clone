@@ -145,7 +145,7 @@ export default async function BookingConfirmationPage({
 
             {/* Total */}
             <div className="mt-6 flex items-center justify-between rounded-xl bg-[#0f1f3d] px-6 py-5">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#c9a84c]">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A]">
                 {booking.status === "CONFIRMED" ? "Total Paid" : "Total"}
               </p>
               <p className="text-2xl font-bold text-white">

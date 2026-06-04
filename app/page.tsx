@@ -99,8 +99,8 @@ export default async function Home() {
       {/* ─── Trust Pillars ─── */}
       <section className="px-4 md:px-16 max-w-[1280px] mx-auto mt-14 md:mt-16 mb-24">
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4">
-            <div className="shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-[#071B63]/5">
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4 hover:border-[#D8B45A]/40 hover:shadow-md transition-all duration-200">
+            <div className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#071B63]/10 to-[#071B63]/5">
               <span className="material-symbols-outlined text-[#071B63] text-xl">
                 verified
               </span>
@@ -116,9 +116,9 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4">
-            <div className="shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-[#071B63]/5">
-              <span className="material-symbols-outlined text-[#071B63] text-xl">
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4 hover:border-[#D8B45A]/40 hover:shadow-md transition-all duration-200">
+            <div className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#D8B45A]/15 to-[#D8B45A]/5">
+              <span className="material-symbols-outlined text-[#B8860B] text-xl">
                 lock
               </span>
             </div>
@@ -133,9 +133,9 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4">
-            <div className="shrink-0 flex h-11 w-11 items-center justify-center rounded-full bg-[#071B63]/5">
-              <span className="material-symbols-outlined text-[#071B63] text-xl">
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4 hover:border-[#D8B45A]/40 hover:shadow-md transition-all duration-200">
+            <div className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-100 to-emerald-50">
+              <span className="material-symbols-outlined text-emerald-600 text-xl">
                 map
               </span>
             </div>
@@ -260,6 +260,115 @@ export default async function Home() {
             <span className="material-symbols-outlined text-base">
               arrow_forward
             </span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ─── How It Works ─── */}
+      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-[#D8B45A]" />
+              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
+                Simple &amp; Transparent
+              </span>
+            </div>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#0f1f3d]">
+              How Pearlora Works
+            </h2>
+            <p className="mt-2 text-sm text-gray-500 max-w-md leading-relaxed">
+              Whether you&apos;re booking a stay or listing a property, getting started takes just a few steps.
+            </p>
+          </div>
+          <Link
+            href="/how-it-works"
+            className="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors tracking-wide"
+          >
+            Full guide
+            <span className="material-symbols-outlined text-base">arrow_forward</span>
+          </Link>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* For Travellers */}
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-8 flex flex-col gap-5">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#071B63]/8">
+                <span className="material-symbols-outlined text-[#071B63] text-xl">travel_explore</span>
+              </div>
+              <div>
+                <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[#D8B45A]">For Travellers</p>
+                <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
+                  Find &amp; book your perfect stay
+                </h3>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              {[
+                { icon: "search", label: "Search your destination" },
+                { icon: "tune", label: "Filter by price, guests &amp; rating" },
+                { icon: "calendar_month", label: "Choose available dates" },
+                { icon: "check_circle", label: "Book instantly &amp; get a confirmation" },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-[#071B63] text-lg">{item.icon}</span>
+                  <span className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: item.label }} />
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/results?destination="
+              className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[#071B63] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+            >
+              Start Searching
+              <span className="material-symbols-outlined text-base">arrow_forward</span>
+            </Link>
+          </div>
+
+          {/* For Hosts */}
+          <div className="rounded-2xl bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6b] border border-[#D8B45A]/20 shadow-sm p-8 flex flex-col gap-5">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D8B45A]/15">
+                <span className="material-symbols-outlined text-[#D8B45A] text-xl">home_work</span>
+              </div>
+              <div>
+                <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[#D8B45A]">For Hosts</p>
+                <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-white">
+                  List &amp; manage your properties
+                </h3>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              {[
+                { icon: "person_add", label: "Create your account" },
+                { icon: "workspace_premium", label: "Choose a subscription plan" },
+                { icon: "add_home", label: "Upload photos &amp; set your price" },
+                { icon: "bar_chart", label: "Track bookings &amp; performance" },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-[#D8B45A] text-lg">{item.icon}</span>
+                  <span className="text-sm text-white/75" dangerouslySetInnerHTML={{ __html: item.label }} />
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/become-a-host"
+              className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[#D8B45A] px-6 py-2.5 text-sm font-semibold text-[#0f1f3d] hover:bg-[#c9a84c] transition-colors"
+            >
+              Become a Host
+              <span className="material-symbols-outlined text-base">arrow_forward</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-6 flex justify-center md:hidden">
+          <Link
+            href="/how-it-works"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors"
+          >
+            Read the full guide
+            <span className="material-symbols-outlined text-base">arrow_forward</span>
           </Link>
         </div>
       </section>

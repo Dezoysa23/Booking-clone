@@ -12,6 +12,10 @@ type Property = {
   description: string;
   amenities: string[];
   gallery: string[];
+  maxGuests: number | null;
+  facilities: string[];
+  houseRules: unknown;
+  areaInfo: unknown;
 };
 
 type Props = {

@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
+import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { assertPropertyAvailable } from "@/lib/bookings/availability";
+import { sendBookingConfirmationEmail } from "@/lib/email/templates/booking-confirmation";
 
 // GET /api/bookings — returns all bookings for the logged-in user
 export async function GET() {
@@ -34,6 +37,9 @@ export async function GET() {
 // nights and totalPrice are computed server-side from the property's actual price.
 // Never trust these values from the client.
 export async function POST(request: Request) {
+  if (!verifyCsrfOrigin(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
+  }
   try {
     const userId = await getSessionUserId();
 
@@ -102,7 +108,7 @@ export async function POST(request: Request) {
     // Fetch property to get authoritative price (never trust client-sent price)
     const property = await prisma.property.findUnique({
       where: { id: propertyIdNum },
-      select: { id: true, price: true },
+      select: { id: true, price: true, name: true },
     });
 
     if (!property) {
@@ -123,6 +129,17 @@ export async function POST(request: Request) {
       );
     }
 
+    // Server-side availability check — prevents overlapping bookings even if
+    // the client bypasses the frontend check
+    try {
+      await assertPropertyAvailable(propertyIdNum, checkInDate, checkOutDate);
+    } catch (err) {
+      return NextResponse.json(
+        { error: err instanceof Error ? err.message : "These dates are not available." },
+        { status: 409 }
+      );
+    }
+
     const totalPrice = nightsNum * property.price;
 
     const booking = await prisma.booking.create({
@@ -134,8 +151,29 @@ export async function POST(request: Request) {
         guests: guestsNum,
         nights: nightsNum,
         totalPrice,
+        status: "CONFIRMED",
       },
     });
+
+    // Send confirmation email — fire-and-forget, never fail the booking on email error
+    const userRecord = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true, name: true },
+    }).catch(() => null);
+
+    if (userRecord) {
+      sendBookingConfirmationEmail({
+        toEmail: userRecord.email,
+        toName: userRecord.name ?? undefined,
+        bookingId: booking.id,
+        propertyName: property.name,
+        checkIn: checkInDate,
+        checkOut: checkOutDate,
+        guests: guestsNum,
+        nights: nightsNum,
+        totalPrice,
+      }).catch((err) => console.error("[Email] Confirmation send failed:", err));
+    }
 
     return NextResponse.json({ success: true, bookingId: booking.id });
   } catch (error) {

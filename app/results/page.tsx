@@ -11,7 +11,9 @@ type ResultsPageProps = {
     minPrice?: string;
     maxPrice?: string;
     minRating?: string;
+    guests?: string;
     sortBy?: string;
+    facilities?: string;
   }>;
 };
 
@@ -29,7 +31,10 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
   const minPrice = safeNum(params.minPrice);
   const maxPrice = safeNum(params.maxPrice);
   const minRating = safeNum(params.minRating);
+  const guests = safeNum(params.guests);
   const sortBy = params.sortBy || "";
+  const facilitiesParam = params.facilities?.trim() || "";
+  const facilities = facilitiesParam ? facilitiesParam.split(",").filter(Boolean) : [];
 
   let orderBy:
     | { price: "asc" | "desc" }
@@ -61,6 +66,15 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
             }
           : {}),
         ...(minRating !== undefined ? { rating: { gte: minRating } } : {}),
+        ...(guests !== undefined
+          ? {
+              OR: [
+                { maxGuests: null },
+                { maxGuests: { gte: guests } },
+              ],
+            }
+          : {}),
+        ...(facilities.length > 0 ? { facilities: { hasSome: facilities } } : {}),
       },
       orderBy,
     });

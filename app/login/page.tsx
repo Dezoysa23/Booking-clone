@@ -61,7 +61,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 text-[#0f1f3d]">
-            <span className="text-[#c9a84c] text-lg">✦</span>
+            <span className="text-[#D8B45A] text-lg">✦</span>
             <span className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold">
               Pearlora
             </span>
@@ -90,7 +90,10 @@ export default function LoginPage() {
             </div>
           )}
 
-          <div className="mt-6 space-y-5">
+          <form
+            className="mt-6 space-y-5"
+            onSubmit={(e) => { e.preventDefault(); handleLogin(); }}
+          >
             <div>
               <label className="mb-1.5 block text-sm font-medium text-gray-700">
                 Email Address
@@ -119,20 +122,18 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* type="button" — no form, no native submission, always calls handler */}
             <button
-              type="button"
-              onClick={handleLogin}
+              type="submit"
               disabled={isLoading}
               className="w-full rounded-lg bg-[#0f1f3d] px-4 py-3 text-sm font-semibold text-white hover:bg-[#1a3060] transition-colors disabled:opacity-60"
             >
               {isLoading ? "Signing in..." : "Sign In"}
             </button>
-          </div>
+          </form>
 
           <p className="mt-6 text-center text-sm text-gray-500">
             Don&apos;t have an account?{" "}
-            <Link href="/signup" className="font-semibold text-[#0f1f3d] hover:text-[#c9a84c] transition-colors">
+            <Link href="/signup" className="font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors">
               Sign up
             </Link>
           </p>

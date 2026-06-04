@@ -1,10 +1,14 @@
 ﻿import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
+import { verifyCsrfOrigin } from "@/lib/security/csrf";
 
 type RouteParams = { params: Promise<{ id: string }> };
 
-export async function PATCH(_request: Request, { params }: RouteParams) {
+export async function PATCH(request: Request, { params }: RouteParams) {
+  if (!verifyCsrfOrigin(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
+  }
   try {
     const userId = await getSessionUserId();
 

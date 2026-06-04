@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { roleLabel } from "@/lib/roles";
 import EditProfileForm from "@/components/EditProfileForm";
 import ChangePasswordForm from "@/components/ChangePasswordForm";
 
@@ -53,7 +54,7 @@ export default async function AccountPage() {
                 </h1>
                 <p className="mt-0.5 text-sm text-gray-500">{currentUser.email}</p>
                 <span className="mt-1.5 inline-block rounded-full bg-[#0f1f3d]/8 px-3 py-0.5 text-xs font-semibold text-[#0f1f3d] tracking-wide">
-                  {currentUser.role === "ADMIN" ? "Administrator" : "Member"}
+                  {roleLabel(currentUser.role)}
                 </span>
               </div>
             </div>
@@ -73,7 +74,7 @@ export default async function AccountPage() {
                 <p className="mt-2 text-3xl font-bold text-[#0f1f3d]">{cancelledBookings}</p>
               </div>
               <div className="rounded-xl bg-[#0f1f3d] p-5">
-                <p className="text-xs font-semibold uppercase tracking-widest text-[#c9a84c]">Total Spent</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A]">Total Spent</p>
                 <p className="mt-2 text-2xl font-bold text-white">
                   LKR {totalSpent.toLocaleString()}
                 </p>

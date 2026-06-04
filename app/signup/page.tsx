@@ -11,7 +11,6 @@ export default function SignupPage() {
   const [message, setMessage] = useState("");
 
   const handleSignup = async () => {
-    setStatus("loading");
     setMessage("");
 
     if (!name.trim()) {
@@ -25,6 +24,8 @@ export default function SignupPage() {
       setMessage("Password must be at least 8 characters long.");
       return;
     }
+
+    setStatus("loading");
 
     try {
       const response = await fetch("/api/auth/signup", {
@@ -68,7 +69,7 @@ export default function SignupPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 text-[#0f1f3d]">
-            <span className="text-[#c9a84c] text-lg">✦</span>
+            <span className="text-[#D8B45A] text-lg">✦</span>
             <span className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold">
               Pearlora
             </span>
@@ -97,7 +98,10 @@ export default function SignupPage() {
             </div>
           )}
 
-          <div className="mt-6 space-y-5">
+          <form
+            className="mt-6 space-y-5"
+            onSubmit={(e) => { e.preventDefault(); handleSignup(); }}
+          >
             <div>
               <label className="mb-1.5 block text-sm font-medium text-gray-700">
                 Full Name
@@ -141,20 +145,18 @@ export default function SignupPage() {
               <p className="mt-1 text-xs text-gray-400">Minimum 8 characters.</p>
             </div>
 
-            {/* type="button" prevents any native form submission */}
             <button
-              type="button"
-              onClick={handleSignup}
+              type="submit"
               disabled={isLoading}
               className="w-full rounded-lg bg-[#0f1f3d] px-4 py-3 text-sm font-semibold text-white hover:bg-[#1a3060] transition-colors disabled:opacity-60"
             >
               {isLoading ? "Creating account..." : "Create Account"}
             </button>
-          </div>
+          </form>
 
           <p className="mt-6 text-center text-sm text-gray-500">
             Already have an account?{" "}
-            <Link href="/login" className="font-semibold text-[#0f1f3d] hover:text-[#c9a84c] transition-colors">
+            <Link href="/login" className="font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors">
               Sign in
             </Link>
           </p>

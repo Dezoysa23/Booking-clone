@@ -32,24 +32,13 @@ export default function Footer() {
             Navigate
           </p>
           <div className="flex flex-col gap-3 text-sm">
-            <Link
-              href="/"
-              className="text-white/55 hover:text-white transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/bookings"
-              className="text-white/55 hover:text-white transition-colors"
-            >
-              My Bookings
-            </Link>
-            <Link
-              href="/account"
-              className="text-white/55 hover:text-white transition-colors"
-            >
-              My Account
-            </Link>
+            <Link href="/" className="text-white/55 hover:text-white transition-colors">Home</Link>
+            <Link href="/results" className="text-white/55 hover:text-white transition-colors">Browse Properties</Link>
+            <Link href="/pricing" className="text-white/55 hover:text-white transition-colors">Host Pricing</Link>
+            <Link href="/become-a-host" className="text-white/55 hover:text-white transition-colors">Become a Host</Link>
+            <Link href="/how-it-works" className="text-white/55 hover:text-white transition-colors">How It Works</Link>
+            <Link href="/bookings" className="text-white/55 hover:text-white transition-colors">My Bookings</Link>
+            <Link href="/account" className="text-white/55 hover:text-white transition-colors">My Account</Link>
           </div>
         </div>
 
@@ -58,24 +47,18 @@ export default function Footer() {
             Support
           </p>
           <div className="flex flex-col gap-3 text-sm">
-            <a
-              href="#"
-              className="text-white/55 hover:text-[#D8B45A] transition-colors"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="text-white/55 hover:text-[#D8B45A] transition-colors"
-            >
-              Terms of Service
-            </a>
-            <a
-              href="#"
-              className="text-white/55 hover:text-[#D8B45A] transition-colors"
-            >
-              Contact Support
-            </a>
+            <Link href="/how-it-works" className="text-white/55 hover:text-[#D8B45A] transition-colors">
+              How It Works
+            </Link>
+            <Link href="/become-a-host" className="text-white/55 hover:text-[#D8B45A] transition-colors">
+              Host Guide
+            </Link>
+            <Link href="/pricing" className="text-white/55 hover:text-[#D8B45A] transition-colors">
+              Subscription Plans
+            </Link>
+            <Link href="/account" className="text-white/55 hover:text-[#D8B45A] transition-colors">
+              Account Settings
+            </Link>
           </div>
         </div>
       </div>

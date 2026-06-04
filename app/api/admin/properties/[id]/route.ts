@@ -1,16 +1,16 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { isSuperAdmin } from "@/lib/roles";
+import { verifyCsrfOrigin } from "@/lib/security/csrf";
 
 type RouteParams = { params: Promise<{ id: string }> };
 
-function parseGallery(galleryText: string | undefined, fallbackImage: string): string[] {
-  if (!galleryText) return [fallbackImage];
-  const urls = galleryText
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
-  return urls.length > 0 ? urls : [fallbackImage];
+function isValidImagePath(p: string): boolean {
+  if (!p || p.length > 2048) return false;
+  if (p.startsWith("http://") || p.startsWith("https://")) return true;
+  if (p.startsWith("/uploads/properties/") && !p.includes("..") && !p.includes("\0")) return true;
+  return false;
 }
 
 function safeString(value: unknown): string {
@@ -22,13 +22,16 @@ async function authorizeAdmin() {
   if (!currentUser) {
     return { response: NextResponse.json({ error: "You must be logged in." }, { status: 401 }) };
   }
-  if (currentUser.role !== "ADMIN") {
+  if (!isSuperAdmin(currentUser)) {
     return { response: NextResponse.json({ error: "You are not allowed to do this." }, { status: 403 }) };
   }
   return { user: currentUser };
 }
 
 export async function PATCH(request: Request, { params }: RouteParams) {
+  if (!verifyCsrfOrigin(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
+  }
   try {
     const auth = await authorizeAdmin();
     if ("response" in auth) return auth.response;
@@ -52,11 +55,22 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     const image = safeString(body.image);
     const description = safeString(body.description);
     const amenities = typeof body.amenities === "string" ? body.amenities : "";
-    const galleryText = typeof body.galleryText === "string" ? body.galleryText : "";
+    const gallery: string[] = Array.isArray(body.gallery)
+      ? body.gallery.map(safeString).filter(Boolean)
+      : [];
+    const maxGuests =
+      body.maxGuests !== null && body.maxGuests !== undefined
+        ? Number(body.maxGuests)
+        : null;
+    const facilities: string[] = Array.isArray(body.facilities)
+      ? body.facilities.map(safeString).filter(Boolean)
+      : [];
+    const houseRules = body.houseRules && typeof body.houseRules === "object" ? body.houseRules : null;
+    const areaInfo = body.areaInfo && typeof body.areaInfo === "object" ? body.areaInfo : null;
 
     if (!name || !location || !image || !description) {
       return NextResponse.json(
-        { error: "Name, location, image URL, and description are required." },
+        { error: "Name, location, image, and description are required." },
         { status: 400 }
       );
     }
@@ -82,16 +96,21 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       );
     }
 
-    if (!image.startsWith("https://") && !image.startsWith("http://")) {
+    if (!isValidImagePath(image)) {
+      return NextResponse.json({ error: "Invalid main image." }, { status: 400 });
+    }
+
+    if (gallery.length > 10) {
       return NextResponse.json(
-        { error: "Image URL must start with http:// or https://" },
+        { error: "Maximum 10 gallery images allowed." },
         { status: 400 }
       );
     }
 
-    if (image.length > 2048) {
+    const invalidGallery = gallery.find((u) => !isValidImagePath(u));
+    if (invalidGallery) {
       return NextResponse.json(
-        { error: "Image URL is too long." },
+        { error: "One or more gallery images are invalid." },
         { status: 400 }
       );
     }
@@ -119,7 +138,11 @@ export async function PATCH(request: Request, { params }: RouteParams) {
         amenities: amenities
           ? amenities.split(",").map((item: string) => item.trim()).filter(Boolean)
           : [],
-        gallery: parseGallery(galleryText, image),
+        gallery: gallery.length > 0 ? gallery : [image],
+        maxGuests: maxGuests !== null && !isNaN(maxGuests) && maxGuests > 0 ? maxGuests : null,
+        facilities,
+        houseRules: houseRules,
+        areaInfo: areaInfo,
       },
     });
 
@@ -130,7 +153,10 @@ export async function PATCH(request: Request, { params }: RouteParams) {
   }
 }
 
-export async function DELETE(_request: Request, { params }: RouteParams) {
+export async function DELETE(request: Request, { params }: RouteParams) {
+  if (!verifyCsrfOrigin(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
+  }
   try {
     const auth = await authorizeAdmin();
     if ("response" in auth) return auth.response;

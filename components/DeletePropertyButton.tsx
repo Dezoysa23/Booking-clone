@@ -6,11 +6,13 @@ import { useState } from "react";
 type Props = {
   propertyId: number;
   propertyName: string;
+  apiBase?: string;
+  redirectPath?: string;
 };
 
 type Phase = "idle" | "confirm" | "deleting";
 
-export default function DeletePropertyButton({ propertyId, propertyName }: Props) {
+export default function DeletePropertyButton({ propertyId, propertyName, apiBase = "/api/admin/properties", redirectPath }: Props) {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -30,7 +32,7 @@ export default function DeletePropertyButton({ propertyId, propertyName }: Props
     setErrorMessage("");
 
     try {
-      const response = await fetch(`/api/admin/properties/${propertyId}`, {
+      const response = await fetch(`${apiBase}/${propertyId}`, {
         method: "DELETE",
       });
 
@@ -42,7 +44,11 @@ export default function DeletePropertyButton({ propertyId, propertyName }: Props
         return;
       }
 
-      router.refresh();
+      if (redirectPath) {
+        router.push(redirectPath);
+      } else {
+        router.refresh();
+      }
     } catch {
       setErrorMessage("Failed to delete. Please try again.");
       setPhase("idle");

@@ -9,49 +9,139 @@ datasource db {
 }
 
 model Booking {
-  id         Int           @id @default(autoincrement())
-  checkIn    DateTime
-  checkOut   DateTime
-  guests     Int
-  nights     Int
-  totalPrice Int
-  status     BookingStatus @default(PENDING)
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime
-  userId     String?
-  propertyId Int
-  Property   Property      @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-  User       User?         @relation(fields: [userId], references: [id])
+  id                   Int           @id @default(autoincrement())
+  checkIn              DateTime
+  checkOut             DateTime
+  guests               Int
+  nights               Int
+  totalPrice           Int
+  status               BookingStatus @default(PENDING)
+  reminderEmailSentAt  DateTime?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  userId               String?
+  propertyId           Int
+  property             Property      @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  user                 User?         @relation(fields: [userId], references: [id])
 
   @@index([propertyId])
   @@index([userId])
 }
 
 model Property {
-  id          Int       @id @default(autoincrement())
-  name        String
-  location    String
-  rating      Float
-  price       Int
-  image       String
-  description String
-  gallery     String[]
-  amenities   String[]
-  reviews     Int
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime
-  Booking     Booking[]
+  id               Int                 @id @default(autoincrement())
+  name             String
+  location         String
+  rating           Float
+  price            Int
+  image            String
+  description      String
+  gallery          String[]
+  amenities        String[]
+  facilities       String[]            @default([])
+  houseRules       Json?
+  areaInfo         Json?
+  reviews          Int
+  maxGuests        Int?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  hostId           String?
+  host             User?               @relation("HostProperties", fields: [hostId], references: [id])
+  bookings         Booking[]
+  nearbyHighlights NearbyHighlight[]
+  userPhotos       UserPropertyPhoto[]
+
+  @@index([hostId])
 }
 
 model User {
-  id        String    @id
-  name      String?
-  email     String    @unique
-  password  String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime
-  role      UserRole  @default(USER)
-  Booking   Booking[]
+  id           String              @id @default(cuid())
+  name         String?
+  email        String              @unique
+  password     String?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  role         UserRole            @default(USER)
+  bookings     Booking[]
+  properties   Property[]          @relation("HostProperties")
+  subscription Subscription?
+  payments     Payment[]
+  sessions     UserSession[]
+  userPhotos   UserPropertyPhoto[]
+}
+
+model SubscriptionPlan {
+  id            String         @id @default(cuid())
+  name          String
+  slug          String         @unique
+  description   String
+  monthlyPrice  Int
+  yearlyPrice   Int
+  propertyLimit Int
+  features      String[]
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id           String             @id @default(cuid())
+  userId       String             @unique
+  planId       String
+  status       SubscriptionStatus @default(INACTIVE)
+  billingCycle BillingCycle
+  startDate    DateTime?
+  endDate      DateTime?
+  renewalDate  DateTime?
+  cancelledAt  DateTime?
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  user         User               @relation(fields: [userId], references: [id])
+  plan         SubscriptionPlan   @relation(fields: [planId], references: [id])
+  payments     Payment[]
+
+  @@index([userId])
+  @@index([planId])
+}
+
+model Payment {
+  id                   String        @id @default(cuid())
+  subscriptionId       String
+  userId               String
+  amount               Int
+  currency             String        @default("LKR")
+  provider             String        @default("manual")
+  paymentStatus        PaymentStatus @default(PENDING)
+  transactionReference String?
+  providerSessionId    String?
+  providerCustomerId   String?
+  paidAt               DateTime?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  subscription         Subscription  @relation(fields: [subscriptionId], references: [id])
+  user                 User          @relation(fields: [userId], references: [id])
+
+  @@index([subscriptionId])
+  @@index([userId])
+}
+
+model UserSession {
+  id          String    @id @default(cuid())
+  userId      String
+  sessionId   String    @unique
+  userAgent   String?
+  ipAddress   String?
+  isRevoked   Boolean   @default(false)
+  revokedAt   DateTime?
+  expiresAt   DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([sessionId])
+  @@index([expiresAt])
 }
 
 enum BookingStatus {
@@ -62,5 +152,86 @@ enum BookingStatus {
 
 enum UserRole {
   USER
+  HOST
   ADMIN
+  SUPER_ADMIN
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  CANCELLED
+  PAST_DUE
+  EXPIRED
+}
+
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+enum NearbyHighlightCategory {
+  VIEWPOINT
+  BEACH
+  NATURE
+  RESTAURANT
+  CAFE
+  CULTURE
+  HISTORY
+  SHOPPING
+  ACTIVITY
+  TRANSPORT
+  OTHER
+}
+
+model NearbyHighlight {
+  id           String                  @id @default(cuid())
+  propertyId   Int
+  title        String
+  description  String?
+  category     NearbyHighlightCategory @default(OTHER)
+  distance     Float?
+  distanceUnit String?                 @default("km")
+  locationName String?
+  imageUrl     String?
+  isActive     Boolean                 @default(true)
+  sortOrder    Int                     @default(0)
+  createdAt    DateTime                @default(now())
+  updatedAt    DateTime                @updatedAt
+  property     Property                @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId])
+}
+
+enum UserPropertyPhotoStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model UserPropertyPhoto {
+  id           String                  @id @default(cuid())
+  propertyId   Int
+  userId       String
+  imageUrl     String
+  caption      String?
+  category     String?
+  status       UserPropertyPhotoStatus @default(PENDING)
+  reviewedById String?
+  reviewedAt   DateTime?
+  createdAt    DateTime                @default(now())
+  updatedAt    DateTime                @updatedAt
+  property     Property                @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  user         User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId])
+  @@index([userId])
 }

@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { isSuperAdmin } from "@/lib/roles";
+import { verifyCsrfOrigin } from "@/lib/security/csrf";
 
-function parseGallery(galleryText: string | undefined, fallbackImage: string): string[] {
-  if (!galleryText) return [fallbackImage];
-  const urls = galleryText
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
-  return urls.length > 0 ? urls : [fallbackImage];
+function isValidImagePath(p: string): boolean {
+  if (!p || p.length > 2048) return false;
+  if (p.startsWith("http://") || p.startsWith("https://")) return true;
+  if (p.startsWith("/uploads/properties/") && !p.includes("..") && !p.includes("\0")) return true;
+  return false;
 }
 
 function safeString(value: unknown): string {
@@ -16,21 +16,18 @@ function safeString(value: unknown): string {
 }
 
 export async function POST(request: Request) {
+  if (!verifyCsrfOrigin(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
+  }
   try {
     const currentUser = await getCurrentUser();
 
     if (!currentUser) {
-      return NextResponse.json(
-        { error: "You must be logged in." },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "You must be logged in." }, { status: 401 });
     }
 
-    if (currentUser.role !== "ADMIN") {
-      return NextResponse.json(
-        { error: "You are not allowed to do this." },
-        { status: 403 }
-      );
+    if (!isSuperAdmin(currentUser)) {
+      return NextResponse.json({ error: "You are not allowed to do this." }, { status: 403 });
     }
 
     const body = await request.json();
@@ -40,11 +37,22 @@ export async function POST(request: Request) {
     const image = safeString(body.image);
     const description = safeString(body.description);
     const amenities = typeof body.amenities === "string" ? body.amenities : "";
-    const galleryText = typeof body.galleryText === "string" ? body.galleryText : "";
+    const gallery: string[] = Array.isArray(body.gallery)
+      ? body.gallery.map(safeString).filter(Boolean)
+      : [];
+    const maxGuests =
+      body.maxGuests !== null && body.maxGuests !== undefined
+        ? Number(body.maxGuests)
+        : null;
+    const facilities: string[] = Array.isArray(body.facilities)
+      ? body.facilities.map(safeString).filter(Boolean)
+      : [];
+    const houseRules = body.houseRules && typeof body.houseRules === "object" ? body.houseRules : null;
+    const areaInfo = body.areaInfo && typeof body.areaInfo === "object" ? body.areaInfo : null;
 
     if (!name || !location || !image || !description) {
       return NextResponse.json(
-        { error: "Name, location, image URL, and description are required." },
+        { error: "Name, location, image, and description are required." },
         { status: 400 }
       );
     }
@@ -70,16 +78,21 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!image.startsWith("https://") && !image.startsWith("http://")) {
+    if (!isValidImagePath(image)) {
+      return NextResponse.json({ error: "Invalid main image." }, { status: 400 });
+    }
+
+    if (gallery.length > 10) {
       return NextResponse.json(
-        { error: "Image URL must start with http:// or https://" },
+        { error: "Maximum 10 gallery images allowed." },
         { status: 400 }
       );
     }
 
-    if (image.length > 2048) {
+    const invalidGallery = gallery.find((u) => !isValidImagePath(u));
+    if (invalidGallery) {
       return NextResponse.json(
-        { error: "Image URL is too long." },
+        { error: "One or more gallery images are invalid." },
         { status: 400 }
       );
     }
@@ -88,17 +101,11 @@ export async function POST(request: Request) {
     const ratingNum = Number(body.rating);
 
     if (isNaN(priceNum) || priceNum <= 0) {
-      return NextResponse.json(
-        { error: "Price must be a positive number." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Price must be a positive number." }, { status: 400 });
     }
 
     if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 10) {
-      return NextResponse.json(
-        { error: "Rating must be between 1 and 10." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Rating must be between 1 and 10." }, { status: 400 });
     }
 
     const property = await prisma.property.create({
@@ -112,17 +119,18 @@ export async function POST(request: Request) {
         amenities: amenities
           ? amenities.split(",").map((item: string) => item.trim()).filter(Boolean)
           : [],
-        gallery: parseGallery(galleryText, image),
+        gallery: gallery.length > 0 ? gallery : [image],
+        maxGuests: maxGuests !== null && !isNaN(maxGuests) && maxGuests > 0 ? maxGuests : null,
         reviews: 0,
+        facilities,
+        houseRules: houseRules,
+        areaInfo: areaInfo,
       },
     });
 
     return NextResponse.json({ success: true, property });
   } catch (error) {
     console.error("Create property failed:", error);
-    return NextResponse.json(
-      { error: "Failed to create property." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create property." }, { status: 500 });
   }
 }

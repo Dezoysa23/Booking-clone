@@ -118,7 +118,7 @@ export default async function BookingsPage() {
 
                   <div className="mt-4 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-[#0f1f3d] px-5 py-4">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-widest text-[#c9a84c]">Total</p>
+                      <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A]">Total</p>
                       <p className="mt-0.5 text-xl font-bold text-white">
                         LKR {booking.totalPrice.toLocaleString()}
                       </p>

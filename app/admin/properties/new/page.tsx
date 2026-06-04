@@ -2,6 +2,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
+import { isSuperAdmin } from "@/lib/roles";
 import CreatePropertyForm from "@/components/CreatePropertyForm";
 
 export default async function NewPropertyPage() {
@@ -11,7 +12,7 @@ export default async function NewPropertyPage() {
     redirect("/login");
   }
 
-  if (currentUser.role !== "ADMIN") {
+  if (!isSuperAdmin(currentUser)) {
     redirect("/");
   }
 

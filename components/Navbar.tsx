@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
+import { isSuperAdmin, isHostOrAdmin } from "@/lib/roles";
 import LogoutButton from "@/components/LogoutButton";
 import NavLinks from "@/components/NavLinks";
+import SuperAdminCalendarWidget from "@/components/SuperAdminCalendarWidget";
 
 export default async function Navbar() {
   const currentUser = await getCurrentUser();
@@ -29,17 +31,28 @@ export default async function Navbar() {
           </Link>
 
           <NavLinks />
+          {currentUser && isSuperAdmin(currentUser) && (
+            <SuperAdminCalendarWidget />
+          )}
         </div>
 
         <div className="flex items-center gap-3">
           {currentUser ? (
             <>
-              {currentUser.role === "ADMIN" && (
+              {isSuperAdmin(currentUser) && (
                 <Link
                   href="/admin"
                   className="text-[#D8B45A] hover:text-[#e8c96a] text-sm font-semibold tracking-wide transition-colors"
                 >
                   Admin
+                </Link>
+              )}
+              {isHostOrAdmin(currentUser) && !isSuperAdmin(currentUser) && (
+                <Link
+                  href="/host/dashboard"
+                  className="text-[#D8B45A] hover:text-[#e8c96a] text-sm font-semibold tracking-wide transition-colors"
+                >
+                  Host Portal
                 </Link>
               )}
               <Link
@@ -57,6 +70,12 @@ export default async function Navbar() {
             </>
           ) : (
             <>
+              <Link
+                href="/pricing"
+                className="hidden md:block text-white/60 hover:text-white text-sm font-medium transition-colors"
+              >
+                Host your property
+              </Link>
               <Link
                 href="/login"
                 className="hidden md:block text-white/60 hover:text-white text-sm font-medium transition-colors"

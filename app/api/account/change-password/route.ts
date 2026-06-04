@@ -2,8 +2,12 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
+import { verifyCsrfOrigin } from "@/lib/security/csrf";
 
 export async function PATCH(request: Request) {
+  if (!verifyCsrfOrigin(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
+  }
   try {
     const userId = await getSessionUserId();
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { isSuperAdmin } from "@/lib/roles";
 import DeletePropertyButton from "@/components/DeletePropertyButton";
 
 type Props = {
@@ -15,7 +16,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
     redirect("/login");
   }
 
-  if (currentUser.role !== "ADMIN") {
+  if (!isSuperAdmin(currentUser)) {
     redirect("/");
   }
 

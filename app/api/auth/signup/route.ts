@@ -2,8 +2,31 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { SESSION_COOKIE_NAME, createSessionToken } from "@/lib/auth";
+import { checkRateLimit } from "@/lib/security/rate-limit";
+import { getClientIp } from "@/lib/security/get-client-ip";
+import { verifyCsrfOrigin } from "@/lib/security/csrf";
 
 export async function POST(request: Request) {
+  if (!verifyCsrfOrigin(request)) {
+    return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
+  }
+
+  const ip = getClientIp(request);
+
+  // Rate limit: 5 signups per 10 min per IP
+  const ipLimit = checkRateLimit(`signup:ip:${ip}`, 5, 10 * 60 * 1000);
+  if (!ipLimit.success) {
+    return NextResponse.json(
+      { error: "Too many signup attempts. Please try again later." },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(ipLimit.resetAt - Math.floor(Date.now() / 1000)),
+        },
+      }
+    );
+  }
+
   try {
     const body = await request.json();
     const name = typeof body.name === "string" ? body.name.trim() : "";
@@ -67,7 +90,11 @@ export async function POST(request: Request) {
       },
     });
 
-    const sessionToken = createSessionToken(user.id);
+    const sessionToken = await createSessionToken(user.id, {
+      ipAddress: ip,
+      userAgent: request.headers.get("user-agent") ?? undefined,
+    });
+
     const response = NextResponse.json({ success: true });
     response.cookies.set(SESSION_COOKIE_NAME, sessionToken, {
       httpOnly: true,
@@ -79,10 +106,6 @@ export async function POST(request: Request) {
     return response;
   } catch (error) {
     console.error("Signup failed:", error);
-
-    return NextResponse.json(
-      { error: "Failed to create account." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create account." }, { status: 500 });
   }
 }

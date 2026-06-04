@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { isSuperAdmin } from "@/lib/roles";
 
 const STATUS_STYLES: Record<string, string> = {
   CONFIRMED: "bg-green-50 text-green-700 border border-green-100",
@@ -26,7 +27,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
     redirect("/login");
   }
 
-  if (currentUser.role !== "ADMIN") {
+  if (!isSuperAdmin(currentUser)) {
     redirect("/");
   }
 

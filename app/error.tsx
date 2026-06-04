@@ -22,7 +22,7 @@ export default function GlobalError({ error, reset }: Props) {
           </span>
         </div>
         <div className="flex items-center justify-center gap-2 mb-4">
-          <span className="text-[#c9a84c] text-sm">✦</span>
+          <span className="text-[#D8B45A] text-sm">✦</span>
           <span className="text-xs font-semibold tracking-widest uppercase text-gray-400">
             Something went wrong
           </span>
