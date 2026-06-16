@@ -26,6 +26,7 @@ model Booking {
 
   @@index([propertyId])
   @@index([userId])
+  @@index([status, checkIn])
 }
 
 model Property {
@@ -50,24 +51,40 @@ model Property {
   bookings         Booking[]
   nearbyHighlights NearbyHighlight[]
   userPhotos       UserPropertyPhoto[]
+  rooms            Room[]
 
   @@index([hostId])
 }
 
 model User {
-  id           String              @id @default(cuid())
-  name         String?
-  email        String              @unique
-  password     String?
-  createdAt    DateTime            @default(now())
-  updatedAt    DateTime            @updatedAt
-  role         UserRole            @default(USER)
-  bookings     Booking[]
-  properties   Property[]          @relation("HostProperties")
-  subscription Subscription?
-  payments     Payment[]
-  sessions     UserSession[]
-  userPhotos   UserPropertyPhoto[]
+  id                 String               @id @default(cuid())
+  name               String?
+  email              String               @unique
+  password           String?
+  emailVerified      DateTime?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  role               UserRole             @default(USER)
+  bookings           Booking[]
+  properties         Property[]           @relation("HostProperties")
+  subscription       Subscription?
+  payments           Payment[]
+  sessions           UserSession[]
+  userPhotos         UserPropertyPhoto[]
+  emailVerifications EmailVerification[]
+}
+
+model EmailVerification {
+  id        String    @id @default(cuid())
+  userId    String
+  codeHash  String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
 }
 
 model SubscriptionPlan {
@@ -142,6 +159,7 @@ model UserSession {
   @@index([userId])
   @@index([sessionId])
   @@index([expiresAt])
+  @@index([userId, isRevoked])
 }
 
 enum BookingStatus {
@@ -209,6 +227,46 @@ model NearbyHighlight {
   property     Property                @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 
   @@index([propertyId])
+}
+
+enum AvailabilityBlockReason {
+  MAINTENANCE
+  PERSONAL_USE
+  RENOVATION
+  CLEANING
+  SEASONAL_CLOSURE
+  OTHER
+}
+
+model Room {
+  id                 String                  @id @default(cuid())
+  propertyId         Int
+  name               String
+  description        String?
+  maxGuests          Int?
+  isActive           Boolean                 @default(true)
+  sortOrder          Int                     @default(0)
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+  property           Property                @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  availabilityBlocks RoomAvailabilityBlock[]
+
+  @@index([propertyId])
+}
+
+model RoomAvailabilityBlock {
+  id         String                  @id @default(cuid())
+  roomId     String
+  startDate  DateTime
+  endDate    DateTime
+  reason     AvailabilityBlockReason @default(OTHER)
+  note       String?
+  createdAt  DateTime                @default(now())
+  updatedAt  DateTime                @updatedAt
+  room       Room                    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@index([roomId])
+  @@index([startDate, endDate])
 }
 
 enum UserPropertyPhotoStatus {

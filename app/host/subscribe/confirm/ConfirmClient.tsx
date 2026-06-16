@@ -50,7 +50,7 @@ export default function ConfirmClient() {
       <div className="w-full max-w-md rounded-2xl bg-white border border-gray-100 shadow-sm p-10 text-center">
         <div className="flex justify-center mb-6">
           <Image
-            src="/brand/pearlora-logo.svg"
+            src="/brand/pearlora-logo.jpg"
             alt="Pearlora"
             width={40}
             height={40}

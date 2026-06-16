@@ -131,3 +131,15 @@ export async function getCurrentUser() {
     return null;
   }
 }
+
+/** Revoke every active session for a user. Call after password change or account compromise. */
+export async function revokeAllUserSessions(userId: string): Promise<void> {
+  await prisma.userSession
+    .updateMany({
+      where: { userId, isRevoked: false },
+      data: { isRevoked: true, revokedAt: new Date() },
+    })
+    .catch((err) => {
+      console.error("[auth] Failed to revoke all user sessions:", err);
+    });
+}

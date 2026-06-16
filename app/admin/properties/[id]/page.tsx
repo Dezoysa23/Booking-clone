@@ -63,7 +63,7 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
         </div>
         <div className="flex items-center gap-2.5 mb-6">
           <Image
-            src="/brand/pearlora-logo.svg"
+            src="/brand/pearlora-logo.jpg"
             alt="Pearlora"
             width={24}
             height={24}

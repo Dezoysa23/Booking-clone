@@ -18,7 +18,7 @@ export default async function Navbar() {
             className="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight hover:opacity-90 transition-opacity"
           >
             <Image
-              src="/brand/pearlora-logo.svg"
+              src="/brand/pearlora-logo.jpg"
               alt="Pearlora"
               width={32}
               height={32}

@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
 import { assertPropertyAvailable } from "@/lib/bookings/availability";
 import { sendBookingConfirmationEmail } from "@/lib/email/templates/booking-confirmation";
+import { createBookingSchema, firstError } from "@/lib/validation/schemas";
 
 // GET /api/bookings — returns all bookings for the logged-in user
 export async function GET() {
@@ -50,57 +52,21 @@ export async function POST(request: Request) {
       );
     }
 
-    const body = await request.json();
-    const { propertyId, checkIn, checkOut, guests } = body;
-
-    if (!propertyId || !checkIn || !checkOut || !guests) {
-      return NextResponse.json(
-        { error: "Missing required booking fields." },
-        { status: 400 }
-      );
+    const raw = await request.json();
+    const parsed = createBookingSchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json({ error: firstError(parsed.error) }, { status: 400 });
     }
+    const { propertyId: propertyIdNum, checkIn, checkOut, guests: guestsNum } = parsed.data;
 
-    // Validate and parse dates
     const checkInDate = new Date(checkIn);
     const checkOutDate = new Date(checkOut);
-
-    if (isNaN(checkInDate.getTime()) || isNaN(checkOutDate.getTime())) {
-      return NextResponse.json(
-        { error: "Invalid check-in or check-out date." },
-        { status: 400 }
-      );
-    }
-
-    if (checkOutDate <= checkInDate) {
-      return NextResponse.json(
-        { error: "Check-out date must be after check-in date." },
-        { status: 400 }
-      );
-    }
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     if (checkInDate < today) {
       return NextResponse.json(
         { error: "Check-in date cannot be in the past." },
-        { status: 400 }
-      );
-    }
-
-    // Validate guests
-    const guestsNum = Number(guests);
-    if (!Number.isInteger(guestsNum) || guestsNum < 1 || guestsNum > 20) {
-      return NextResponse.json(
-        { error: "Guests must be between 1 and 20." },
-        { status: 400 }
-      );
-    }
-
-    // Validate property ID
-    const propertyIdNum = Number(propertyId);
-    if (isNaN(propertyIdNum) || !Number.isInteger(propertyIdNum)) {
-      return NextResponse.json(
-        { error: "Invalid property ID." },
         { status: 400 }
       );
     }
@@ -129,31 +95,46 @@ export async function POST(request: Request) {
       );
     }
 
-    // Server-side availability check — prevents overlapping bookings even if
-    // the client bypasses the frontend check
-    try {
-      await assertPropertyAvailable(propertyIdNum, checkInDate, checkOutDate);
-    } catch (err) {
-      return NextResponse.json(
-        { error: err instanceof Error ? err.message : "These dates are not available." },
-        { status: 409 }
-      );
-    }
-
     const totalPrice = nightsNum * property.price;
 
-    const booking = await prisma.booking.create({
-      data: {
-        userId,
-        propertyId: propertyIdNum,
-        checkIn: checkInDate,
-        checkOut: checkOutDate,
-        guests: guestsNum,
-        nights: nightsNum,
-        totalPrice,
-        status: "CONFIRMED",
-      },
-    });
+    // Availability check and booking creation run inside a SERIALIZABLE transaction
+    // so concurrent requests cannot both pass the overlap check and create a double-booking.
+    // Prisma P2034 = transaction serialization failure — treat as 409, same as a conflict.
+    let booking;
+    try {
+      booking = await prisma.$transaction(
+        async (tx) => {
+          await assertPropertyAvailable(propertyIdNum, checkInDate, checkOutDate, tx);
+          return tx.booking.create({
+            data: {
+              userId,
+              propertyId: propertyIdNum,
+              checkIn: checkInDate,
+              checkOut: checkOutDate,
+              guests: guestsNum,
+              nights: nightsNum,
+              totalPrice,
+              status: "CONFIRMED",
+            },
+          });
+        },
+        { isolationLevel: Prisma.TransactionIsolationLevel.Serializable }
+      );
+    } catch (err) {
+      if (
+        err instanceof Prisma.PrismaClientKnownRequestError &&
+        err.code === "P2034"
+      ) {
+        return NextResponse.json(
+          { error: "These dates are not available. Please try again." },
+          { status: 409 }
+        );
+      }
+      if (err instanceof Error && err.message.includes("not available")) {
+        return NextResponse.json({ error: err.message }, { status: 409 });
+      }
+      throw err; // unexpected error — propagates to the outer catch → 500
+    }
 
     // Send confirmation email — fire-and-forget, never fail the booking on email error
     const userRecord = await prisma.user.findUnique({

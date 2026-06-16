@@ -110,6 +110,11 @@ export default async function HostPropertiesPage() {
                         className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors">
                         Edit
                       </Link>
+                      <Link href={`/host/properties/${property.id}/availability`}
+                        className="rounded-lg border border-[#D8B45A]/40 bg-white px-3 py-1.5 text-xs font-medium text-[#8a6c2a] hover:bg-[#fdf8ee] transition-colors flex items-center gap-1">
+                        <span className="material-symbols-outlined text-xs">calendar_month</span>
+                        Availability
+                      </Link>
                       <DeletePropertyButton
                         propertyId={property.id}
                         propertyName={property.name}

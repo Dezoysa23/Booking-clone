@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/prisma";
+import type { Prisma } from "@prisma/client";
 
 export type DateRange = { checkIn: Date; checkOut: Date };
 
-// Active statuses that block date availability
+// Active booking statuses that block date availability
 const ACTIVE_STATUSES = ["CONFIRMED", "PENDING"] as const;
 
 export async function getBookedDateRanges(propertyId: number): Promise<DateRange[]> {
@@ -17,17 +18,25 @@ export async function getBookedDateRanges(propertyId: number): Promise<DateRange
 }
 
 /**
- * Throws an error if the requested dates conflict with any active booking.
- * Call this before creating a booking to enforce server-side availability.
+ * Throws an error if the requested dates conflict with any active booking OR
+ * any manual RoomAvailabilityBlock on any room belonging to the property.
  *
- * Overlap rule: newCheckIn < existingCheckOut AND newCheckOut > existingCheckIn
+ * Overlap rule: newStart < existingEnd AND newEnd > existingStart
+ *
+ * Pass a Prisma transaction client (`tx`) when calling from inside a
+ * `prisma.$transaction` block — this makes the check and the subsequent
+ * booking creation atomic and prevents double-booking under concurrent requests.
  */
 export async function assertPropertyAvailable(
   propertyId: number,
   checkIn: Date,
-  checkOut: Date
+  checkOut: Date,
+  tx?: Prisma.TransactionClient
 ): Promise<void> {
-  const conflict = await prisma.booking.findFirst({
+  const db = tx ?? prisma;
+
+  // 1 — Check existing bookings
+  const bookingConflict = await db.booking.findFirst({
     where: {
       propertyId,
       status: { in: [...ACTIVE_STATUSES] },
@@ -37,7 +46,23 @@ export async function assertPropertyAvailable(
     select: { id: true },
   });
 
-  if (conflict) {
+  if (bookingConflict) {
     throw new Error("These dates are not available. Please choose different dates.");
+  }
+
+  // 2 — Check manual room availability blocks for any room on this property
+  const blockConflict = await db.roomAvailabilityBlock.findFirst({
+    where: {
+      room: { propertyId },
+      startDate: { lt: checkOut },
+      endDate: { gt: checkIn },
+    },
+    select: { id: true, reason: true },
+  });
+
+  if (blockConflict) {
+    throw new Error(
+      "These dates are not available — the property is temporarily blocked (e.g. maintenance or closure). Please choose different dates."
+    );
   }
 }

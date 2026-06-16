@@ -1,8 +1,19 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-import { getSessionUserId } from "@/lib/auth";
+import {
+  getSessionUserId,
+  revokeAllUserSessions,
+  createSessionToken,
+  SESSION_COOKIE_NAME,
+} from "@/lib/auth";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { checkRateLimit } from "@/lib/security/rate-limit";
+import { getClientIp } from "@/lib/security/get-client-ip";
+import { changePasswordSchema, firstError } from "@/lib/validation/schemas";
+
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
 export async function PATCH(request: Request) {
   if (!verifyCsrfOrigin(request)) {
@@ -18,36 +29,24 @@ export async function PATCH(request: Request) {
       );
     }
 
-    const body = await request.json();
-    const { currentPassword, newPassword } = body;
-
-    if (!currentPassword || !newPassword) {
+    // Rate-limit by userId to prevent brute-forcing the current password
+    const rl = checkRateLimit(`change-pwd:${userId}`, RATE_LIMIT, RATE_WINDOW_MS);
+    if (!rl.success) {
       return NextResponse.json(
-        { error: "Current password and new password are required." },
-        { status: 400 }
+        { error: "Too many password change attempts. Please try again later." },
+        {
+          status: 429,
+          headers: { "Retry-After": String(rl.resetAt - Math.floor(Date.now() / 1000)) },
+        }
       );
     }
 
-    if (newPassword.length < 8) {
-      return NextResponse.json(
-        { error: "New password must be at least 8 characters long." },
-        { status: 400 }
-      );
+    const raw = await request.json();
+    const parsed = changePasswordSchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json({ error: firstError(parsed.error) }, { status: 400 });
     }
-
-    if (newPassword.length > 72) {
-      return NextResponse.json(
-        { error: "New password must be 72 characters or fewer." },
-        { status: 400 }
-      );
-    }
-
-    if (newPassword === currentPassword) {
-      return NextResponse.json(
-        { error: "New password must be different from your current password." },
-        { status: 400 }
-      );
-    }
+    const { currentPassword, newPassword } = parsed.data;
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
@@ -76,14 +75,27 @@ export async function PATCH(request: Request) {
 
     await prisma.user.update({
       where: { id: userId },
-      data: {
-        password: hashedNewPassword,
-      },
+      data: { password: hashedNewPassword },
     });
 
-    return NextResponse.json({
-      success: true,
+    // Revoke all existing sessions so any stolen session token is immediately invalidated,
+    // then issue a fresh session so the current user stays logged in transparently.
+    await revokeAllUserSessions(userId);
+
+    const newToken = await createSessionToken(userId, {
+      ipAddress: getClientIp(request),
+      userAgent: request.headers.get("user-agent") ?? undefined,
     });
+
+    const response = NextResponse.json({ success: true });
+    response.cookies.set(SESSION_COOKIE_NAME, newToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+    return response;
   } catch (error) {
     console.error("Change password failed:", error);
 

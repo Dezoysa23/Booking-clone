@@ -74,6 +74,16 @@ export async function POST(request: Request) {
       );
     }
 
+    if (name.length > 200) {
+      return NextResponse.json({ error: "Property name must be 200 characters or fewer." }, { status: 400 });
+    }
+    if (location.length > 200) {
+      return NextResponse.json({ error: "Location must be 200 characters or fewer." }, { status: 400 });
+    }
+    if (description.length > 5000) {
+      return NextResponse.json({ error: "Description must be 5000 characters or fewer." }, { status: 400 });
+    }
+
     if (!isValidImagePath(image)) {
       return NextResponse.json({ error: "Invalid main image." }, { status: 400 });
     }

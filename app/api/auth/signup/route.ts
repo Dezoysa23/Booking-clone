@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-import { SESSION_COOKIE_NAME, createSessionToken } from "@/lib/auth";
+import { createAndSendVerificationCode } from "@/lib/verification";
 import { checkRateLimit } from "@/lib/security/rate-limit";
 import { getClientIp } from "@/lib/security/get-client-ip";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { signupSchema, firstError } from "@/lib/validation/schemas";
 
 export async function POST(request: Request) {
   if (!verifyCsrfOrigin(request)) {
@@ -28,54 +29,26 @@ export async function POST(request: Request) {
   }
 
   try {
-    const body = await request.json();
-    const name = typeof body.name === "string" ? body.name.trim() : "";
-    const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
-    const password = typeof body.password === "string" ? body.password : "";
-
-    if (!name || !email || !password) {
-      return NextResponse.json(
-        { error: "Name, email, and password are required." },
-        { status: 400 }
-      );
+    const raw = await request.json();
+    const parsed = signupSchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json({ error: firstError(parsed.error) }, { status: 400 });
     }
+    const { name, email, password } = parsed.data;
 
-    if (name.length > 100) {
-      return NextResponse.json(
-        { error: "Name must be 100 characters or fewer." },
-        { status: 400 }
-      );
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email) || email.length > 254) {
-      return NextResponse.json(
-        { error: "Please enter a valid email address." },
-        { status: 400 }
-      );
-    }
-
-    if (password.length < 8) {
-      return NextResponse.json(
-        { error: "Password must be at least 8 characters long." },
-        { status: 400 }
-      );
-    }
-
-    if (password.length > 72) {
-      return NextResponse.json(
-        { error: "Password must be 72 characters or fewer." },
-        { status: 400 }
-      );
-    }
-
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    const existingUser = await prisma.user.findUnique({ where: { email } });
 
     if (existingUser) {
+      if (!existingUser.emailVerified) {
+        // Unverified account — resend the code and guide them to verify
+        await createAndSendVerificationCode(existingUser.id, existingUser.email, existingUser.name);
+        return NextResponse.json(
+          { needsVerification: true, email: existingUser.email },
+          { status: 200 }
+        );
+      }
       return NextResponse.json(
-        { error: "An account with this email already exists." },
+        { error: "An account with this email already exists. Please sign in." },
         { status: 400 }
       );
     }
@@ -83,27 +56,13 @@ export async function POST(request: Request) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-      },
+      data: { name, email, password: hashedPassword },
     });
 
-    const sessionToken = await createSessionToken(user.id, {
-      ipAddress: ip,
-      userAgent: request.headers.get("user-agent") ?? undefined,
-    });
+    // Send verification code — no session until email is verified
+    await createAndSendVerificationCode(user.id, user.email, user.name);
 
-    const response = NextResponse.json({ success: true });
-    response.cookies.set(SESSION_COOKIE_NAME, sessionToken, {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
-    return response;
+    return NextResponse.json({ success: true, needsVerification: true, email: user.email });
   } catch (error) {
     console.error("Signup failed:", error);
     return NextResponse.json({ error: "Failed to create account." }, { status: 500 });
