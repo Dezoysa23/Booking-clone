@@ -28,15 +28,15 @@ export default function DestinationCard({ title, subtitle, image, href }: Props)
         />
 
         {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060f22]/85 via-[#0f1f3d]/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#101A30]/85 via-[#14213D]/20 to-transparent" />
 
         {/* Hover overlay brightener */}
-        <div className="absolute inset-0 bg-[#071B63]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-[#14213D]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Arrow badge — appears on hover */}
         <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-1 group-hover:translate-x-0">
-          <div className="bg-[#D8B45A] rounded-full p-1.5 shadow-md">
-            <span className="material-symbols-outlined text-[#0f1f3d] text-sm">arrow_forward</span>
+          <div className="bg-[#D9A94D] rounded-full p-1.5 shadow-md">
+            <span className="material-symbols-outlined text-[#14213D] text-sm">arrow_forward</span>
           </div>
         </div>
 

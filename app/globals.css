@@ -4,15 +4,15 @@
   /* === PEARLORA — Deep Royal Navy + Champagne Gold + Pearl Ivory === */
 
   /* ── Pearlora Logo Brand Palette ── */
-  --color-brand-navy:  #071B63;
-  --color-brand-royal: #123EAF;
-  --color-brand-ocean: #1D63D8;
-  --color-brand-gold:  #D8B45A;
-  --color-brand-pearl: #F7F4ED;
+  --color-brand-navy:  #14213D;
+  --color-brand-royal: #16233F;
+  --color-brand-ocean: #2A3A5C;
+  --color-brand-gold:  #D9A94D;
+  --color-brand-pearl: #F8F2E9;
   --color-brand-mist:  #E5E7EB;
 
   /* Primary: Deep Royal Navy */
-  --color-primary: #071B63;
+  --color-primary: #14213D;
   --color-on-primary: #ffffff;
   --color-primary-container: #1e3660;
   --color-on-primary-container: #d4dff5;
@@ -48,9 +48,9 @@
   --color-on-error-container: #410002;
 
   /* Neutral: Pearl Ivory Surfaces */
-  --color-background: #faf8f5;
+  --color-background: #F8F2E9;
   --color-on-background: #1a1815;
-  --color-surface: #faf8f5;
+  --color-surface: #F8F2E9;
   --color-on-surface: #1a1815;
   --color-surface-variant: #e4e1d8;
   --color-on-surface-variant: #47453e;
@@ -59,9 +59,9 @@
   --color-surface-container: #eeeae3;
   --color-surface-container-high: #e7e3db;
   --color-surface-container-highest: #e1ddd5;
-  --color-surface-bright: #faf8f5;
+  --color-surface-bright: #F8F2E9;
   --color-surface-dim: #d7d3cb;
-  --color-surface-tint: #0f1f3d;
+  --color-surface-tint: #14213D;
 
   /* Outlines */
   --color-outline: #79766d;
@@ -156,13 +156,13 @@ body {
 /* Pearlora gold shimmer divider */
 .divider-gold {
   height: 1px;
-  background: linear-gradient(90deg, transparent, #D8B45A 40%, #D8B45A 60%, transparent);
+  background: linear-gradient(90deg, transparent, #D9A94D 40%, #D9A94D 60%, transparent);
   opacity: 0.4;
 }
 
 /* Admin page gradient header */
 .admin-header-gradient {
-  background: linear-gradient(135deg, #071B63 0%, #123EAF 60%, #1D63D8 100%);
+  background: linear-gradient(135deg, #14213D 0%, #16233F 60%, #2A3A5C 100%);
 }
 
 /* ─── Global component polish ───────────────────────────────────────────── */
@@ -181,7 +181,7 @@ body {
 }
 .pearlora-input:hover { border-color: #d1d5db; }
 .pearlora-input:focus {
-  border-color: #071B63;
+  border-color: #14213D;
   background: #fff;
   box-shadow: 0 0 0 3px rgba(7, 27, 99, 0.08);
 }
@@ -191,7 +191,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 0.75rem;
-  background: linear-gradient(135deg, #0f1f3d 0%, #071B63 60%, #123EAF 100%);
+  background: linear-gradient(135deg, #14213D 0%, #14213D 60%, #16233F 100%);
   padding: 0.75rem 1.5rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -206,14 +206,14 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: #D8B45A;
+  background: #D9A94D;
   padding: 0.625rem 1.5rem;
   font-size: 0.875rem;
   font-weight: 700;
-  color: #0f1f3d;
+  color: #14213D;
   transition: background 0.15s ease, transform 0.12s ease;
 }
-.pearlora-btn-gold:hover { background: #c9a84c; }
+.pearlora-btn-gold:hover { background: #c99a3f; }
 .pearlora-btn-gold:active { transform: scale(0.97); }
 
 .pearlora-card {
@@ -239,7 +239,7 @@ body {
   display: block;
   height: 1px;
   width: 2rem;
-  background: #D8B45A;
+  background: #D9A94D;
   flex-shrink: 0;
 }
 

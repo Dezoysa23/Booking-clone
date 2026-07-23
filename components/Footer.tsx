@@ -24,9 +24,9 @@ const SUPPORT_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="w-full mt-[120px] bg-[#0a1628] text-white border-t border-[#D8B45A]/15">
+    <footer className="w-full mt-[120px] bg-[#0a1628] text-white border-t border-[#D9A94D]/15">
       {/* Gold shimmer top border */}
-      <div className="h-px bg-gradient-to-r from-transparent via-[#D8B45A]/30 to-transparent" />
+      <div className="h-px bg-gradient-to-r from-transparent via-[#D9A94D]/30 to-transparent" />
 
       <div className="max-w-[1280px] mx-auto px-4 md:px-16 pt-14 pb-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
@@ -50,15 +50,15 @@ export default function Footer() {
               From Coastlines to Hilltops — extraordinary stays, curated for you.
             </p>
             <div className="flex items-center gap-2 mt-1">
-              <span className="h-px flex-1 bg-[#D8B45A]/15" />
-              <span className="text-[#D8B45A]/50 text-[10px] font-semibold tracking-[0.18em] uppercase">Sri Lanka</span>
-              <span className="h-px flex-1 bg-[#D8B45A]/15" />
+              <span className="h-px flex-1 bg-[#D9A94D]/15" />
+              <span className="text-[#D9A94D]/50 text-[10px] font-semibold tracking-[0.18em] uppercase">Sri Lanka</span>
+              <span className="h-px flex-1 bg-[#D9A94D]/15" />
             </div>
           </div>
 
           {/* Navigate */}
           <div className="flex flex-col gap-4">
-            <p className="text-[#D8B45A] text-[10px] font-bold tracking-[0.22em] uppercase">Explore</p>
+            <p className="text-[#D9A94D] text-[10px] font-bold tracking-[0.22em] uppercase">Explore</p>
             <div className="flex flex-col gap-2.5 text-sm">
               {NAV_LINKS.map(({ href, label }) => (
                 <Link key={href} href={href} className="text-white/50 hover:text-white transition-colors duration-150">
@@ -70,7 +70,7 @@ export default function Footer() {
 
           {/* Account */}
           <div className="flex flex-col gap-4">
-            <p className="text-[#D8B45A] text-[10px] font-bold tracking-[0.22em] uppercase">Account</p>
+            <p className="text-[#D9A94D] text-[10px] font-bold tracking-[0.22em] uppercase">Account</p>
             <div className="flex flex-col gap-2.5 text-sm">
               {ACCOUNT_LINKS.map(({ href, label }) => (
                 <Link key={href} href={href} className="text-white/50 hover:text-white transition-colors duration-150">
@@ -82,10 +82,10 @@ export default function Footer() {
 
           {/* Support */}
           <div className="flex flex-col gap-4">
-            <p className="text-[#D8B45A] text-[10px] font-bold tracking-[0.22em] uppercase">Support</p>
+            <p className="text-[#D9A94D] text-[10px] font-bold tracking-[0.22em] uppercase">Support</p>
             <div className="flex flex-col gap-2.5 text-sm">
               {SUPPORT_LINKS.map(({ href, label }) => (
-                <Link key={href} href={href} className="text-white/50 hover:text-[#D8B45A] transition-colors duration-150">
+                <Link key={href} href={href} className="text-white/50 hover:text-[#D9A94D] transition-colors duration-150">
                   {label}
                 </Link>
               ))}

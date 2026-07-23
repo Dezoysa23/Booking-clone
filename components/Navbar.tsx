@@ -10,7 +10,7 @@ export default async function Navbar() {
   const currentUser = await getCurrentUser();
 
   return (
-    <header className="bg-[#0f1f3d] w-full top-0 sticky z-50 border-b border-white/10">
+    <header className="bg-[#14213D] w-full top-0 sticky z-50 border-b border-white/10">
       <div className="flex justify-between items-center w-full px-4 md:px-16 py-4 max-w-[1280px] mx-auto">
         <div className="flex items-center gap-8">
           <Link
@@ -42,7 +42,7 @@ export default async function Navbar() {
               {isSuperAdmin(currentUser) && (
                 <Link
                   href="/admin"
-                  className="text-[#D8B45A] hover:text-[#e8c96a] text-sm font-semibold tracking-wide transition-colors"
+                  className="text-[#D9A94D] hover:text-[#E8C892] text-sm font-semibold tracking-wide transition-colors"
                 >
                   Admin
                 </Link>
@@ -50,7 +50,7 @@ export default async function Navbar() {
               {isHostOrAdmin(currentUser) && !isSuperAdmin(currentUser) && (
                 <Link
                   href="/host/dashboard"
-                  className="text-[#D8B45A] hover:text-[#e8c96a] text-sm font-semibold tracking-wide transition-colors"
+                  className="text-[#D9A94D] hover:text-[#E8C892] text-sm font-semibold tracking-wide transition-colors"
                 >
                   Host Portal
                 </Link>
@@ -59,7 +59,7 @@ export default async function Navbar() {
                 href="/account"
                 className="flex items-center gap-2 hover:bg-white/10 px-3 py-1.5 rounded-full transition-colors"
               >
-                <span className="material-symbols-outlined text-[#D8B45A] text-sm">
+                <span className="material-symbols-outlined text-[#D9A94D] text-sm">
                   person
                 </span>
                 <span className="hidden md:inline text-white/75 text-sm font-medium max-w-[140px] truncate">
@@ -84,7 +84,7 @@ export default async function Navbar() {
               </Link>
               <Link
                 href="/signup"
-                className="bg-[#D8B45A] text-[#0f1f3d] text-sm font-bold px-5 py-2 rounded-full hover:bg-[#c9a84c] transition-colors tracking-wide"
+                className="bg-[#D9A94D] text-[#14213D] text-sm font-bold px-5 py-2 rounded-full hover:bg-[#c99a3f] transition-colors tracking-wide"
               >
                 Get Started
               </Link>

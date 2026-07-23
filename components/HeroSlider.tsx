@@ -119,7 +119,7 @@ export default function HeroSlider() {
 
   return (
     <div
-      className="relative w-full h-[480px] md:h-[620px] rounded-3xl overflow-hidden shadow-[0_12px_60px_rgba(15,31,61,0.22)] select-none"
+      className="relative w-full h-[80vh] min-h-[520px] max-h-[880px] rounded-3xl overflow-hidden shadow-[0_18px_70px_rgba(20,33,61,0.28)] select-none"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       role="region"
@@ -158,8 +158,8 @@ export default function HeroSlider() {
       </AnimatePresence>
 
       {/* ── Gradient overlays (static) ────────────────────────────────────── */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#060f22]/80 via-[#071B63]/30 to-[#0a1a2e]/55" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#060f22]/72 via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#101A30]/80 via-[#14213D]/30 to-[#101A30]/55" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101A30]/72 via-transparent to-transparent" />
 
       {/* ── Pearl 3D centerpiece (desktop only) ───────────────────────────── */}
       <PearlHero />
@@ -175,7 +175,7 @@ export default function HeroSlider() {
             transition={{ duration: 0.45, ease: "easeOut" }}
             className="inline-flex items-center gap-1.5 rounded-full border border-white/18 bg-black/28 backdrop-blur-sm px-3.5 py-1.5"
           >
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D8B45A]" />
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D9A94D]" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/90">
               {SLIDES[index].label}
             </span>
@@ -192,15 +192,15 @@ export default function HeroSlider() {
 
         {/* Eyebrow */}
         <div className="pointer-events-none mb-7 flex items-center justify-center gap-4">
-          <span className="hidden h-px w-14 bg-gradient-to-r from-transparent to-[#D8B45A]/70 sm:block" />
+          <span className="hidden h-px w-14 bg-gradient-to-r from-transparent to-[#D9A94D]/70 sm:block" />
           <div className="flex items-center gap-2.5">
-            <span className="text-sm leading-none text-[#D8B45A]">✦</span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#D8B45A]">
+            <span className="text-sm leading-none text-[#D9A94D]">✦</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#D9A94D]">
               Sri Lanka&apos;s Premier Booking Platform
             </span>
-            <span className="text-sm leading-none text-[#D8B45A]">✦</span>
+            <span className="text-sm leading-none text-[#D9A94D]">✦</span>
           </div>
-          <span className="hidden h-px w-14 bg-gradient-to-l from-transparent to-[#D8B45A]/70 sm:block" />
+          <span className="hidden h-px w-14 bg-gradient-to-l from-transparent to-[#D9A94D]/70 sm:block" />
         </div>
 
         {/* Headline */}
@@ -222,7 +222,7 @@ export default function HeroSlider() {
         <div className="mt-8 flex items-center gap-5">
           <Link
             href="/results?destination="
-            className="rounded-full bg-[#D8B45A] px-8 py-3 text-sm font-bold text-[#0f1f3d] shadow-[0_4px_20px_rgba(216,180,90,0.35)] transition-colors hover:bg-[#e8c96a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D8B45A]"
+            className="rounded-full bg-[#D9A94D] px-8 py-3 text-sm font-bold text-[#14213D] shadow-[0_4px_20px_rgba(216,180,90,0.35)] transition-colors hover:bg-[#E8C892] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9A94D]"
           >
             Explore Stays
           </Link>
@@ -267,7 +267,7 @@ export default function HeroSlider() {
             onClick={() => goTo(i)}
             className={`rounded-full transition-all duration-300 ${
               i === index
-                ? "h-1.5 w-6 bg-[#D8B45A]"
+                ? "h-1.5 w-6 bg-[#D9A94D]"
                 : "h-1.5 w-1.5 bg-white/40 hover:bg-white/70"
             }`}
           />
@@ -278,7 +278,7 @@ export default function HeroSlider() {
       {!prefersReducedMotion && (
         <motion.div
           key={`progress-${index}`}
-          className="pointer-events-none absolute bottom-0 left-0 z-30 h-0.5 bg-[#D8B45A]/55"
+          className="pointer-events-none absolute bottom-0 left-0 z-30 h-0.5 bg-[#D9A94D]/55"
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
           transition={{ duration: INTERVAL_MS / 1000, ease: "linear" }}

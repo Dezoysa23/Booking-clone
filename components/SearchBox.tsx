@@ -42,11 +42,11 @@ export default function SearchBox() {
         {/* Destination */}
         <div className="flex flex-1 items-center px-5 py-4 md:py-3 border-b md:border-b-0 md:border-r border-gray-100">
           <div className="flex flex-col w-full">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#071B63]/50 mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#14213D]/50 mb-1">
               Destination
             </span>
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-[#071B63]/40 text-base shrink-0">
+              <span className="material-symbols-outlined text-[#14213D]/40 text-base shrink-0">
                 location_on
               </span>
               <input
@@ -64,11 +64,11 @@ export default function SearchBox() {
         {/* Check In */}
         <div className="flex items-center px-5 py-4 md:py-3 border-b md:border-b-0 md:border-r border-gray-100">
           <div className="flex flex-col w-full min-w-[130px]">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#071B63]/50 mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#14213D]/50 mb-1">
               Check In
             </span>
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-[#071B63]/40 text-base shrink-0">
+              <span className="material-symbols-outlined text-[#14213D]/40 text-base shrink-0">
                 event
               </span>
               <input
@@ -85,11 +85,11 @@ export default function SearchBox() {
         {/* Check Out */}
         <div className="flex items-center px-5 py-4 md:py-3">
           <div className="flex flex-col w-full min-w-[130px]">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#071B63]/50 mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#14213D]/50 mb-1">
               Check Out
             </span>
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-[#071B63]/40 text-base shrink-0">
+              <span className="material-symbols-outlined text-[#14213D]/40 text-base shrink-0">
                 event
               </span>
               <input
@@ -108,7 +108,7 @@ export default function SearchBox() {
           <button
             onClick={handleSearch}
             disabled={isPending}
-            className="w-full md:w-auto bg-[#071B63] text-white text-sm font-semibold px-8 py-3.5 rounded-xl hover:bg-[#123EAF] active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full md:w-auto bg-[#14213D] text-white text-sm font-semibold px-8 py-3.5 rounded-xl hover:bg-[#16233F] active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined text-base">search</span>
             {isPending ? "Searching…" : "Search"}
