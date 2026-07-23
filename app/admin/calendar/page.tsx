@@ -29,7 +29,7 @@ export default async function AdminCalendarPage() {
           <div>
             <div className="flex items-center gap-2.5 mb-3">
               <Image
-                src="/brand/pearlora-logo.svg"
+                src="/brand/pearlora-logo.jpg"
                 alt="Pearlora"
                 width={24}
                 height={24}
