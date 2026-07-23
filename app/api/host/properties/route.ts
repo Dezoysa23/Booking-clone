@@ -4,17 +4,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { isHostOrAdmin } from "@/lib/roles";
 import { canCreateProperty } from "@/lib/subscription";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
-
-function isValidImagePath(p: string): boolean {
-  if (!p || p.length > 2048) return false;
-  if (p.startsWith("http://") || p.startsWith("https://")) return true;
-  if (p.startsWith("/uploads/properties/") && !p.includes("..") && !p.includes("\0")) return true;
-  return false;
-}
-
-function safeString(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
-}
+import { isValidImagePath, safeString } from "@/lib/validation/common";
 
 export async function GET() {
   try {
@@ -74,6 +64,19 @@ export async function POST(request: Request) {
       );
     }
 
+    if (name.length > 200 || location.length > 200) {
+      return NextResponse.json(
+        { error: "Name and location must be 200 characters or fewer." },
+        { status: 400 }
+      );
+    }
+    if (description.length > 5000) {
+      return NextResponse.json(
+        { error: "Description must be 5000 characters or fewer." },
+        { status: 400 }
+      );
+    }
+
     if (!isValidImagePath(image)) {
       return NextResponse.json({ error: "Invalid main image." }, { status: 400 });
     }
@@ -94,6 +97,16 @@ export async function POST(request: Request) {
     }
     if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 10) {
       return NextResponse.json({ error: "Rating must be between 1 and 10." }, { status: 400 });
+    }
+
+    if (maxGuests !== null && (isNaN(maxGuests) || maxGuests < 1 || maxGuests > 100)) {
+      return NextResponse.json({ error: "Max guests must be between 1 and 100." }, { status: 400 });
+    }
+    if (houseRules && JSON.stringify(houseRules).length > 10000) {
+      return NextResponse.json({ error: "House rules data is too large." }, { status: 400 });
+    }
+    if (areaInfo && JSON.stringify(areaInfo).length > 10000) {
+      return NextResponse.json({ error: "Area info data is too large." }, { status: 400 });
     }
 
     const property = await prisma.property.create({

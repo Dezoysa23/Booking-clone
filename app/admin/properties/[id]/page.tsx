@@ -52,25 +52,24 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
   }
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
+    <main className="min-h-screen bg-slate-50 px-4 md:px-6 py-10">
       <div className="mx-auto max-w-4xl">
-        <div className="flex items-center gap-1.5 mb-4 text-xs text-gray-400">
-          <Link href="/admin" className="hover:text-[#071B63] transition-colors">Admin</Link>
-          <span className="text-gray-300">›</span>
-          <Link href="/admin/properties" className="hover:text-[#071B63] transition-colors">Properties</Link>
-          <span className="text-gray-300">›</span>
-          <span className="text-[#071B63] font-medium">Edit #{property.id}</span>
+        <div className="flex items-center gap-1.5 mb-4 text-xs text-slate-400">
+          <Link href="/admin" className="hover:text-[#14213d] transition-colors">Admin</Link>
+          <span className="text-slate-300">›</span>
+          <Link href="/admin/properties" className="hover:text-[#14213d] transition-colors">Properties</Link>
+          <span className="text-slate-300">›</span>
+          <span className="text-[#14213d] font-medium">Edit #{property.id}</span>
         </div>
         <div className="flex items-center gap-2.5 mb-6">
           <Image
-            src="/brand/pearlora-logo.svg"
+            src="/brand/Pearlora-logo-only.png"
             alt="Pearlora"
             width={24}
             height={24}
             className="rounded object-contain shrink-0"
-            unoptimized
           />
-          <span className="text-[#071B63] text-xs font-semibold tracking-widest uppercase">
+          <span className="text-[#14213d] text-xs font-semibold tracking-widest uppercase">
             Pearlora Admin
           </span>
         </div>

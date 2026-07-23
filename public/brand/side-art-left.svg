@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 1000" fill="none" aria-hidden="true">
+  <!-- Flowing editorial accent curve -->
+  <path d="M40 40 C 120 220, 20 420, 90 620 C 140 760, 60 900, 96 980"
+        stroke="#c9a86a" stroke-width="1.3" stroke-opacity="0.26" stroke-linecap="round"/>
+  <!-- Faint vertical framing hairline near the inner edge -->
+  <line x1="152" y1="150" x2="152" y2="850" stroke="#c9a86a" stroke-width="1" stroke-opacity="0.16"/>
+
+  <!-- Leaf A — upper, champagne gold -->
+  <g transform="translate(58 250) rotate(-20)" fill="none" stroke="#c9a86a" stroke-width="1.5" stroke-opacity="0.32" stroke-linecap="round">
+    <path vector-effect="non-scaling-stroke" d="M0 78 C 26 40, 26 -40, 0 -78 C -26 -40, -26 40, 0 78 Z"/>
+    <path vector-effect="non-scaling-stroke" d="M0 72 L0 -70"/>
+    <path vector-effect="non-scaling-stroke" d="M0 34 L 16 12"/>
+    <path vector-effect="non-scaling-stroke" d="M0 34 L -16 12"/>
+    <path vector-effect="non-scaling-stroke" d="M0 -8 L 17 -30"/>
+    <path vector-effect="non-scaling-stroke" d="M0 -8 L -17 -30"/>
+  </g>
+  <!-- Leaf B — mid, soft navy, opposite tilt -->
+  <g transform="translate(100 580) rotate(26)" fill="none" stroke="#0b1f3a" stroke-width="1.4" stroke-opacity="0.18" stroke-linecap="round">
+    <path vector-effect="non-scaling-stroke" d="M0 64 C 22 33, 22 -33, 0 -64 C -22 -33, -22 33, 0 64 Z"/>
+    <path vector-effect="non-scaling-stroke" d="M0 58 L0 -58"/>
+    <path vector-effect="non-scaling-stroke" d="M0 26 L 13 8"/>
+    <path vector-effect="non-scaling-stroke" d="M0 26 L -13 8"/>
+    <path vector-effect="non-scaling-stroke" d="M0 -8 L 14 -26"/>
+    <path vector-effect="non-scaling-stroke" d="M0 -8 L -14 -26"/>
+  </g>
+  <!-- Leaf C — lower, warm gold, small -->
+  <g transform="translate(48 832) rotate(-12)" fill="none" stroke="#d9a94d" stroke-width="1.4" stroke-opacity="0.26" stroke-linecap="round">
+    <path vector-effect="non-scaling-stroke" d="M0 50 C 18 26, 18 -26, 0 -50 C -18 -26, -18 26, 0 50 Z"/>
+    <path vector-effect="non-scaling-stroke" d="M0 46 L0 -46"/>
+    <path vector-effect="non-scaling-stroke" d="M0 18 L 11 4"/>
+    <path vector-effect="non-scaling-stroke" d="M0 18 L -11 4"/>
+  </g>
+
+  <!-- Pearl accent -->
+  <circle cx="124" cy="428" r="8.5" fill="#f3ecdc" fill-opacity="0.5"/>
+  <circle cx="124" cy="428" r="8.5" stroke="#c9a86a" stroke-width="1" stroke-opacity="0.4"/>
+  <circle cx="121" cy="425" r="2.2" fill="#ffffff" fill-opacity="0.85"/>
+</svg>

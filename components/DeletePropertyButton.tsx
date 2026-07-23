@@ -58,7 +58,7 @@ export default function DeletePropertyButton({ propertyId, propertyName, apiBase
   if (phase === "confirm" || phase === "deleting") {
     return (
       <div className="flex flex-col gap-1.5 min-w-0">
-        <p className="text-xs text-red-600 font-medium truncate max-w-[180px]">
+        <p className="text-xs text-rose-600 font-medium truncate max-w-45">
           Delete &quot;{propertyName}&quot;?
         </p>
         <div className="flex items-center gap-1.5">
@@ -66,7 +66,7 @@ export default function DeletePropertyButton({ propertyId, propertyName, apiBase
             type="button"
             onClick={handleConfirm}
             disabled={phase === "deleting"}
-            className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {phase === "deleting" ? "Deleting..." : "Yes, Delete"}
           </button>
@@ -74,14 +74,14 @@ export default function DeletePropertyButton({ propertyId, propertyName, apiBase
             <button
               type="button"
               onClick={handleCancel}
-              className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+              className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50 transition-colors"
             >
               Cancel
             </button>
           )}
         </div>
         {errorMessage && (
-          <p className="text-xs text-red-600">{errorMessage}</p>
+          <p className="text-xs text-rose-600">{errorMessage}</p>
         )}
       </div>
     );
@@ -92,12 +92,12 @@ export default function DeletePropertyButton({ propertyId, propertyName, apiBase
       <button
         type="button"
         onClick={handleDeleteClick}
-        className="rounded-lg border border-red-200 bg-white px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50 hover:border-red-300 transition-colors"
+        className="rounded-lg border border-rose-200 bg-white px-3 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 hover:border-red-300 transition-colors"
       >
         Delete
       </button>
       {errorMessage && (
-        <p className="text-xs text-red-600">{errorMessage}</p>
+        <p className="text-xs text-rose-600">{errorMessage}</p>
       )}
     </div>
   );

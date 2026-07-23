@@ -1,39 +1,34 @@
 import Link from "next/link";
+import { buttonVariants } from "@/components/ui";
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#faf8f5] flex items-center justify-center px-4 py-16">
-      <div className="text-center max-w-md">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#0f1f3d]/8 mb-6">
-          <span className="material-symbols-outlined text-[#0f1f3d]/40 text-2xl">
+    <main className="page-gradient flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
+      <div className="w-full max-w-md rounded-2xl border border-slate-200/70 bg-white/90 p-10 shadow-[0_14px_34px_rgba(11,31,58,0.12)] backdrop-blur">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#f4ecd8] text-[#d9a94d]">
+          <span className="material-symbols-outlined text-2xl" aria-hidden="true">
             search_off
           </span>
         </div>
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <span className="text-[#D8B45A] text-sm">✦</span>
-          <span className="text-xs font-semibold tracking-widest uppercase text-gray-400">
-            404 — Page Not Found
-          </span>
-        </div>
-        <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d] mb-3">
+        <p className="mt-5 font-(family-name:--font-playfair-display) text-5xl font-semibold text-[#14213d]">
+          404
+        </p>
+        <h1 className="mt-2 font-(family-name:--font-playfair-display) text-xl font-semibold text-[#14213d]">
           We couldn&apos;t find that page
         </h1>
-        <p className="text-sm text-gray-500 leading-relaxed mb-8">
-          The page you&apos;re looking for may have been moved, deleted, or
-          never existed. Let&apos;s get you back on track.
+        <p className="mt-2 text-sm leading-relaxed text-slate-500">
+          The page you&apos;re looking for may have been moved, deleted, or never
+          existed. Let&apos;s get you back on track.
         </p>
-        <div className="flex flex-wrap gap-3 justify-center">
-          <Link
-            href="/"
-            className="rounded-lg bg-[#071B63] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
-          >
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <Link href="/" className={buttonVariants({ variant: "primary" })}>
             Back to Home
           </Link>
           <Link
             href="/results?destination="
-            className="rounded-lg border border-gray-200 bg-white px-6 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            className={buttonVariants({ variant: "outline" })}
           >
-            Browse Properties
+            Browse Stays
           </Link>
         </div>
       </div>

@@ -4,6 +4,27 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import PricingCards from "@/components/PricingCards";
+import { Reveal } from "@/components/Reveal";
+import { EmptyState, buttonVariants } from "@/components/ui";
+
+const FAQS = [
+  {
+    q: "Can I cancel anytime?",
+    a: "Yes. Cancel your subscription at any time from your billing dashboard. Your access continues until the end of the billing period.",
+  },
+  {
+    q: "What happens when I hit my property limit?",
+    a: "You can still manage existing listings, but you won't be able to add new ones until you upgrade to a higher plan.",
+  },
+  {
+    q: "How does yearly billing work?",
+    a: "Yearly plans are billed once annually at a discounted rate. You save compared to paying monthly.",
+  },
+  {
+    q: "Is there a free trial?",
+    a: "We do not currently offer free trials, but you can cancel your first month within the billing period for a full refund.",
+  },
+];
 
 export default async function PricingPage() {
   const currentUser = await getCurrentUser();
@@ -19,18 +40,26 @@ export default async function PricingPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#faf8f5]">
+    <main className="page-gradient min-h-screen">
       {/* Hero */}
-      <section className="bg-[#071B63] px-4 py-20 text-center">
+      <section className="section-navy px-4 py-20 text-center">
         <div className="mx-auto max-w-3xl">
-          <div className="flex justify-center mb-6">
-            <Image src="/brand/pearlora-logo.svg" alt="Pearlora" width={48} height={48} unoptimized className="rounded-xl" />
+          <div className="mb-6 flex justify-center">
+            <Image
+              src="/brand/Pearlora-logo-only.png"
+              alt="Pearlora"
+              width={48}
+              height={48}
+              className="rounded-xl"
+            />
           </div>
-          <p className="text-[#D8B45A] text-xs font-semibold tracking-widest uppercase mb-3">Host Pricing</p>
-          <h1 className="font-[family-name:var(--font-playfair-display)] text-4xl md:text-5xl font-semibold text-white leading-tight">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#e8c892]">
+            Host Pricing
+          </p>
+          <h1 className="font-(family-name:--font-playfair-display) text-4xl font-semibold leading-tight text-white md:text-5xl">
             List your property on Pearlora
           </h1>
-          <p className="mt-4 text-white/60 text-lg max-w-xl mx-auto">
+          <p className="mx-auto mt-4 max-w-xl text-lg text-white/60">
             Choose the plan that fits your portfolio. Upgrade or cancel anytime.
           </p>
         </div>
@@ -38,33 +67,33 @@ export default async function PricingPage() {
 
       {/* Plans */}
       <section className="px-4 py-16">
-        <div className="mx-auto max-w-5xl">
+        <Reveal className="mx-auto max-w-5xl">
           {plans.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-gray-500">Pricing plans are not available yet. Please check back soon.</p>
-            </div>
+            <EmptyState
+              icon="workspace_premium"
+              title="Plans coming soon"
+              description="Pricing plans are not available yet. Please check back soon."
+            />
           ) : (
             <PricingCards plans={plans} isLoggedIn={!!currentUser} />
           )}
-        </div>
+        </Reveal>
       </section>
 
       {/* FAQ strip */}
-      <section className="border-t border-gray-100 bg-white px-4 py-16">
+      <section className="border-t border-slate-100 bg-white px-4 py-16">
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#0f1f3d] text-center mb-10">
+          <h2 className="mb-10 text-center font-(family-name:--font-playfair-display) text-2xl font-semibold text-[#14213d]">
             Frequently Asked Questions
           </h2>
           <div className="space-y-6">
-            {[
-              { q: "Can I cancel anytime?", a: "Yes. Cancel your subscription at any time from your billing dashboard. Your access continues until the end of the billing period." },
-              { q: "What happens when I hit my property limit?", a: "You can still manage existing listings, but you won't be able to add new ones until you upgrade to a higher plan." },
-              { q: "How does yearly billing work?", a: "Yearly plans are billed once annually at a discounted rate. You save compared to paying monthly." },
-              { q: "Is there a free trial?", a: "We do not currently offer free trials, but you can cancel your first month within the billing period for a full refund." },
-            ].map(({ q, a }) => (
-              <div key={q} className="rounded-xl border border-gray-100 bg-[#faf8f5] p-5">
-                <p className="font-semibold text-[#0f1f3d] text-sm">{q}</p>
-                <p className="mt-2 text-sm text-gray-500">{a}</p>
+            {FAQS.map(({ q, a }) => (
+              <div
+                key={q}
+                className="rounded-xl border border-slate-200/70 bg-[#f8f2e9] p-5"
+              >
+                <p className="text-sm font-semibold text-[#14213d]">{q}</p>
+                <p className="mt-2 text-sm text-slate-500">{a}</p>
               </div>
             ))}
           </div>
@@ -73,13 +102,16 @@ export default async function PricingPage() {
 
       {/* CTA */}
       <section className="px-4 py-16 text-center">
-        <h2 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#0f1f3d] mb-3">
+        <h2 className="mb-3 font-(family-name:--font-playfair-display) text-2xl font-semibold text-[#14213d]">
           Ready to become a Pearlora host?
         </h2>
-        <p className="text-gray-500 text-sm mb-6">Join hundreds of hosts earning through Sri Lanka&apos;s premium booking platform.</p>
+        <p className="mb-6 text-sm text-slate-500">
+          Join a growing community of hosts earning through Sri Lanka&apos;s
+          premium booking platform.
+        </p>
         <Link
           href={currentUser ? "#plans" : "/signup"}
-          className="inline-block rounded-xl bg-[#071B63] px-8 py-3.5 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+          className={buttonVariants({ variant: "primary", size: "lg" })}
         >
           {currentUser ? "Choose a Plan" : "Get Started Free"}
         </Link>

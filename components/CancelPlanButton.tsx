@@ -31,13 +31,13 @@ export default function CancelPlanButton() {
   if (phase === "confirm" || phase === "cancelling") {
     return (
       <div className="flex flex-col items-start gap-1.5">
-        <p className="text-xs text-red-600 font-medium">Cancel your plan?</p>
+        <p className="text-xs text-rose-600 font-medium">Cancel your plan?</p>
         <div className="flex gap-2">
           <button
             type="button"
             onClick={handleCancel}
             disabled={phase === "cancelling"}
-            className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {phase === "cancelling" ? "Cancelling…" : "Yes, Cancel"}
           </button>
@@ -45,13 +45,13 @@ export default function CancelPlanButton() {
             <button
               type="button"
               onClick={() => { setPhase("idle"); setError(""); }}
-              className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+              className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50 transition-colors"
             >
               Keep Plan
             </button>
           )}
         </div>
-        {error && <p className="text-xs text-red-600">{error}</p>}
+        {error && <p className="text-xs text-rose-600">{error}</p>}
       </div>
     );
   }
@@ -61,11 +61,11 @@ export default function CancelPlanButton() {
       <button
         type="button"
         onClick={() => setPhase("confirm")}
-        className="rounded-lg border border-red-200 bg-white px-4 py-2 text-xs font-medium text-red-600 hover:bg-red-50 transition-colors"
+        className="rounded-lg border border-rose-200 bg-white px-4 py-2 text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors"
       >
         Cancel Plan
       </button>
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error && <p className="text-xs text-rose-600">{error}</p>}
     </div>
   );
 }

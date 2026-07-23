@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { isHostOrAdmin } from "@/lib/roles";
 import { savePropertyImage } from "@/lib/uploads/image-upload";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 export async function POST(request: Request) {
   if (!verifyCsrfOrigin(request)) {
@@ -16,6 +17,14 @@ export async function POST(request: Request) {
     if (!isHostOrAdmin(currentUser)) {
       return NextResponse.json({ error: "Forbidden." }, { status: 403 });
     }
+
+    const limited = await enforceRateLimit(
+      `upload:property-image:${currentUser.id}`,
+      20,
+      10 * 60 * 1000,
+      "Too many uploads. Please try again later."
+    );
+    if (limited) return limited;
 
     const formData = await request.formData();
     const file = formData.get("file");

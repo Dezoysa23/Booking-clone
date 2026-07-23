@@ -48,7 +48,7 @@ function emptyForm(): FormState {
 }
 
 const inputClass =
-  "w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm outline-none transition focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10";
+  "w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none transition focus:border-[#14213d] focus:bg-white focus:ring-2 focus:ring-[#14213d]/10";
 
 function HighlightForm({
   form,
@@ -86,12 +86,12 @@ function HighlightForm({
   const cat = NEARBY_CATEGORIES.find((c) => c.value === form.category);
 
   return (
-    <div className="rounded-xl border border-[#071B63]/20 bg-[#071B63]/3 p-4 space-y-3">
-      {error && <p className="text-xs text-red-600">{error}</p>}
+    <div className="rounded-xl border border-[#14213d]/20 bg-[#14213d]/3 p-4 space-y-3">
+      {error && <p className="text-xs text-rose-600">{error}</p>}
 
       <div className="flex items-center gap-3">
         {form.imageUrl ? (
-          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-gray-100">
+          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-slate-100">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={form.imageUrl} alt="" className="h-full w-full object-cover" />
             <button
@@ -107,7 +107,7 @@ function HighlightForm({
             type="button"
             onClick={() => fileRef.current?.click()}
             disabled={uploading}
-            className="h-16 w-16 shrink-0 rounded-lg border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-gray-300 hover:border-[#071B63]/30 transition-colors disabled:opacity-50"
+            className="h-16 w-16 shrink-0 rounded-lg border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-300 hover:border-[#14213d]/30 transition-colors disabled:opacity-50"
           >
             <span className="material-symbols-outlined text-xl">{uploading ? "sync" : "add_photo_alternate"}</span>
             <span className="text-xs mt-0.5">Photo</span>
@@ -175,23 +175,23 @@ function HighlightForm({
           type="button"
           onClick={onSave}
           disabled={saving || !form.title.trim()}
-          className="rounded-lg bg-[#071B63] px-4 py-2 text-xs font-semibold text-white hover:bg-[#123EAF] transition-colors disabled:opacity-60"
+          className="rounded-lg bg-[#14213d] px-4 py-2 text-xs font-semibold text-white hover:bg-[#14213d] transition-colors disabled:opacity-60"
         >
           {saving ? "Saving…" : "Save"}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+          className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 transition-colors"
         >
           Cancel
         </button>
-        <label className="flex items-center gap-2 text-xs text-gray-500 ml-auto cursor-pointer">
+        <label className="flex items-center gap-2 text-xs text-slate-500 ml-auto cursor-pointer">
           <input
             type="checkbox"
             checked={form.isActive}
             onChange={(e) => onChange({ ...form, isActive: e.target.checked })}
-            className="rounded border-gray-300"
+            className="rounded border-slate-300"
           />
           Active
         </label>
@@ -317,11 +317,11 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
   };
 
   if (loading) {
-    return <div className="h-20 rounded-xl bg-gray-50 animate-pulse" />;
+    return <div className="h-20 rounded-xl bg-slate-50 animate-pulse" />;
   }
 
   if (fetchError) {
-    return <p className="text-sm text-red-600">{fetchError}</p>;
+    return <p className="text-sm text-rose-600">{fetchError}</p>;
   }
 
   return (
@@ -344,27 +344,27 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
         return (
           <div
             key={h.id}
-            className={`flex items-center gap-3 rounded-xl border bg-white px-4 py-3 ${h.isActive ? "border-gray-100" : "border-gray-100 opacity-50"}`}
+            className={`flex items-center gap-3 rounded-xl border bg-white px-4 py-3 ${h.isActive ? "border-slate-100" : "border-slate-100 opacity-50"}`}
           >
             {h.imageUrl && (
-              <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-gray-100">
+              <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-slate-100">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={h.imageUrl} alt="" className="h-full w-full object-cover" />
               </div>
             )}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <p className="text-sm font-medium text-[#0f1f3d] truncate">{h.title}</p>
+                <p className="text-sm font-medium text-[#14213d] truncate">{h.title}</p>
                 {cat && (
                   <span className="text-xs font-medium rounded-full px-2 py-0.5" style={{ backgroundColor: `${cat.color}15`, color: cat.color }}>
                     {cat.label}
                   </span>
                 )}
                 {!h.isActive && (
-                  <span className="text-xs text-gray-400 border border-gray-200 rounded-full px-2 py-0.5">Hidden</span>
+                  <span className="text-xs text-slate-400 border border-slate-200 rounded-full px-2 py-0.5">Hidden</span>
                 )}
               </div>
-              <div className="flex items-center gap-3 mt-0.5 text-xs text-gray-400">
+              <div className="flex items-center gap-3 mt-0.5 text-xs text-slate-400">
                 {h.locationName && <span>{h.locationName}</span>}
                 {h.distance != null && <span>{h.distance} {h.distanceUnit ?? "km"}</span>}
               </div>
@@ -373,7 +373,7 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
               <button
                 type="button"
                 onClick={() => startEdit(h)}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:text-[#071B63] hover:bg-[#071B63]/5 transition-colors"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:text-[#14213d] hover:bg-[#14213d]/5 transition-colors"
                 title="Edit"
               >
                 <span className="material-symbols-outlined text-base">edit</span>
@@ -382,7 +382,7 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
                 type="button"
                 onClick={() => deleteHighlight(h.id)}
                 disabled={deletingId === h.id}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors disabled:opacity-50"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition-colors disabled:opacity-50"
                 title="Delete"
               >
                 <span className="material-symbols-outlined text-base">delete</span>
@@ -393,7 +393,7 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
       })}
 
       {highlights.length === 0 && !addingNew && (
-        <p className="text-xs text-gray-400 italic">No highlights yet.</p>
+        <p className="text-xs text-slate-400 italic">No highlights yet.</p>
       )}
 
       {addingNew ? (
@@ -409,7 +409,7 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
         <button
           type="button"
           onClick={() => setAddingNew(true)}
-          className="flex items-center gap-2 rounded-lg border border-dashed border-[#071B63]/30 px-4 py-3 text-sm font-medium text-[#071B63] hover:bg-[#071B63]/5 transition-colors w-full justify-center"
+          className="flex items-center gap-2 rounded-lg border border-dashed border-[#14213d]/30 px-4 py-3 text-sm font-medium text-[#14213d] hover:bg-[#14213d]/5 transition-colors w-full justify-center"
         >
           <span className="material-symbols-outlined text-base">add</span>
           Add Nearby Highlight

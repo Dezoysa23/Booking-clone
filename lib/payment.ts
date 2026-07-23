@@ -11,6 +11,8 @@
  * - Never activate a subscription from the frontend alone
  */
 
+import { timingSafeEqualStr } from "@/lib/security/secure-compare";
+
 export interface CheckoutSessionParams {
   userId: string;
   subscriptionId: string;
@@ -35,6 +37,8 @@ export interface WebhookPayload {
 }
 
 export interface PaymentService {
+  /** True when this is the mock/dev provider (no real money moves). */
+  readonly isMock: boolean;
   createCheckoutSession(
     params: CheckoutSessionParams
   ): Promise<CheckoutSessionResult>;
@@ -48,6 +52,8 @@ export interface PaymentService {
  * Replace with a real implementation in production.
  */
 class MockPaymentService implements PaymentService {
+  readonly isMock = true;
+
   async createCheckoutSession(
     params: CheckoutSessionParams
   ): Promise<CheckoutSessionResult> {
@@ -59,11 +65,21 @@ class MockPaymentService implements PaymentService {
     return { sessionId, checkoutUrl };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  verifyWebhookSignature(_payload: string, _signature: string): boolean {
-    // In production: verify HMAC signature from provider
-    // e.g. stripe.webhooks.constructEvent(payload, sig, endpointSecret)
-    return true;
+  verifyWebhookSignature(_payload: string, signature: string): boolean {
+    // Mock provider: authenticate the caller with a shared secret supplied in
+    // the signature header. FAIL CLOSED if the secret is not configured.
+    //
+    // A real provider (Stripe/PayHere) would instead verify an HMAC of the raw
+    // payload against the endpoint secret — swap that in here when you wire a
+    // real provider (and set isMock to false).
+    const secret = process.env.PAYMENT_WEBHOOK_SECRET;
+    if (!secret) {
+      console.error(
+        "[payment] PAYMENT_WEBHOOK_SECRET is not set — rejecting webhook (fail closed)."
+      );
+      return false;
+    }
+    return timingSafeEqualStr(signature, secret);
   }
 
   parseWebhookPayload(payload: string): WebhookPayload {

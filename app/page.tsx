@@ -4,6 +4,11 @@ import type { Property } from "@prisma/client";
 import SearchBox from "@/components/SearchBox";
 import PropertyCard from "@/components/PropertyCard";
 import DestinationCard from "@/components/DestinationCard";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import { Reveal } from "@/components/Reveal";
+import { TiltCard } from "@/components/TiltCard";
+import { ParallaxBlobs } from "@/components/ParallaxBlobs";
+import { OrbBadge, buttonVariants } from "@/components/ui";
 import { prisma } from "@/lib/prisma";
 
 const DESTINATIONS = [
@@ -22,6 +27,12 @@ const DESTINATIONS = [
     href: "/results?destination=Ella",
   },
   {
+    title: "Sigiriya",
+    subtitle: "Ancient rock & jungle canopy",
+    image: "",
+    href: "/results?destination=Sigiriya",
+  },
+  {
     title: "Mirissa",
     subtitle: "Palm beaches & blue horizons",
     image:
@@ -29,11 +40,85 @@ const DESTINATIONS = [
     href: "/results?destination=Mirissa",
   },
   {
+    title: "Colombo",
+    subtitle: "Harbour city & modern luxury",
+    image: "",
+    href: "/results?destination=Colombo",
+  },
+  {
     title: "Kandy",
     subtitle: "Culture, temples & cool air",
     image:
       "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?q=80&w=800&auto=format&fit=crop",
     href: "/results?destination=Kandy",
+  },
+];
+
+const OFFERS = [
+  {
+    eyebrow: "Stay Longer",
+    title: "Coastal Escapes",
+    body: "Sink into the southern shoreline with our longer-stay coastal collection.",
+    href: "/results?destination=Mirissa",
+    icon: "beach_access",
+  },
+  {
+    eyebrow: "Highland Air",
+    title: "Tea-Country Retreats",
+    body: "Wake to mist over the hills in Ella's handpicked mountain hideaways.",
+    href: "/results?destination=Ella",
+    icon: "landscape",
+  },
+  {
+    eyebrow: "City & Culture",
+    title: "Heritage Stays",
+    body: "Colonial forts and cultural capitals — history with a concierge.",
+    href: "/results?destination=Galle",
+    icon: "temple_buddhist",
+  },
+];
+
+const AMENITIES = [
+  {
+    glyph: "C",
+    title: "Private Concierge",
+    body: "A dedicated host on call to shape every detail of your stay.",
+  },
+  {
+    glyph: "D",
+    title: "Fine Dining",
+    body: "Chef-led menus drawing on the island's spices and coastline.",
+  },
+  {
+    glyph: "S",
+    title: "Spa & Wellness",
+    body: "Ayurvedic treatments and quiet pools for a slower rhythm.",
+  },
+  {
+    glyph: "T",
+    title: "Seamless Transfers",
+    body: "Door-to-door airport and inter-property travel, arranged for you.",
+  },
+];
+
+const REVIEWS = [
+  {
+    quote:
+      "Every touch felt considered — from the welcome tea to the sunset the staff timed our dinner around.",
+    name: "Amara De Silva",
+    trip: "Tidewater Villa, Mirissa",
+  },
+  {
+    quote:
+      "We booked in minutes and arrived to exactly what was promised. The highland view alone was worth it.",
+    name: "James Fernando",
+    trip: "Cinnamon Hill Suite, Ella",
+  },
+  {
+    quote:
+      "Pearlora's concierge found us a table no guidebook could. This is how travel should feel.",
+    name: "Priya Nair",
+    trip: "The Fort Residence, Galle",
   },
 ];
 
@@ -49,188 +134,115 @@ export default async function Home() {
   }
 
   return (
-    <div className="bg-[#faf8f5]">
-      {/* ─── Hero ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto pt-6 md:pt-8">
-        {/* Image container — overflow-hidden here ONLY clips the hero image to rounded corners */}
-        <div className="relative w-full h-[460px] md:h-[600px] rounded-3xl overflow-hidden shadow-[0_8px_40px_rgba(15,31,61,0.18)]">
+    <div className="page-gradient">
+      {/* ─── Hero — full-bleed, near-full-viewport ─── */}
+      <section className="relative">
+        <div className="relative h-[100svh] min-h-150 w-full overflow-hidden">
           <Image
-            src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2069&auto=format&fit=crop"
-            alt="Pearlora — Luxury stays across Sri Lanka"
+            src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2400&auto=format&fit=crop"
+            alt="Pearlora — luxury stays across Sri Lanka"
             fill
-            style={{ objectFit: "cover" }}
             priority
+            sizes="100vw"
+            style={{ objectFit: "cover" }}
           />
-          {/* Gradient overlay + heading — sits entirely within the image container */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0f1f3d]/65 via-[#0f1f3d]/20 to-[#0f1f3d]/78 flex flex-col justify-center items-center text-center px-6 pb-12">
-            {/* Eyebrow */}
-            <div className="flex items-center gap-4 mb-6">
-              <span className="hidden sm:block h-px w-12 bg-[#D8B45A]/60" />
-              <div className="flex items-center gap-2">
-                <span className="text-[#D8B45A] text-sm">✦</span>
-                <span className="text-[#D8B45A] text-xs font-semibold tracking-[0.2em] uppercase">
-                  Sri Lanka&apos;s Premier Booking Platform
-                </span>
-                <span className="text-[#D8B45A] text-sm">✦</span>
-              </div>
-              <span className="hidden sm:block h-px w-12 bg-[#D8B45A]/60" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-linear-to-b from-[#14213d]/70 via-[#14213d]/25 to-[#101a30]/85 px-6 pb-28 text-center md:pb-32">
+            <div className="mb-6 flex items-center gap-4">
+              <span className="hidden h-px w-14 bg-[#e8c892]/60 sm:block" />
+              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#e8c892]">
+                Sri Lanka&apos;s Premier Stays
+              </span>
+              <span className="hidden h-px w-14 bg-[#e8c892]/60 sm:block" />
             </div>
 
             <h1
-              className="font-[family-name:var(--font-playfair-display)] text-white max-w-3xl mb-4 leading-tight font-semibold"
-              style={{ fontSize: "clamp(1.9rem, 5vw, 3.75rem)" }}
+              className="mb-5 max-w-4xl font-(family-name:--font-playfair-display) font-semibold leading-[1.04] text-white [text-shadow:0_2px_30px_rgba(9,15,30,0.35)]"
+              style={{ fontSize: "clamp(2.5rem, 6.2vw, 5.25rem)" }}
             >
-              Discover Your Perfect Stay in Sri Lanka
+              From Coastlines to Hilltops,
+              <br className="hidden sm:block" /> Your Sri Lanka Awaits
             </h1>
-            <p className="text-white/75 text-base md:text-lg max-w-xl leading-relaxed">
-              From Coastlines to Hilltops — Pearlora curates extraordinary stays
-              for the discerning traveller.
+            <p className="max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
+              Pearlora curates extraordinary stays for the discerning traveller —
+              handpicked, vetted, and ready to book.
             </p>
           </div>
+
+          {/* soft fade into the page at the very bottom */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-[#f8f2e9] to-transparent" />
         </div>
 
-        {/* Search box — outside the overflow-hidden container so it is never clipped.
-            Negative margin creates the floating-over-hero visual overlap. */}
-        <div className="mx-auto max-w-4xl -mt-8 md:-mt-10 relative z-10">
+        {/* Floating search card straddling the hero's bottom edge */}
+        <div className="relative z-10 mx-auto -mt-16 max-w-5xl px-4 md:-mt-20">
           <SearchBox />
         </div>
       </section>
 
-      {/* ─── Trust Pillars ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mt-14 md:mt-16 mb-24">
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4 hover:border-[#D8B45A]/40 hover:shadow-md transition-all duration-200">
-            <div className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#071B63]/10 to-[#071B63]/5">
-              <span className="material-symbols-outlined text-[#071B63] text-xl">
-                verified
-              </span>
-            </div>
-            <div>
-              <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
-                Curated by Experts
-              </h3>
-              <p className="mt-1 text-sm text-gray-500 leading-relaxed">
-                Every property is handpicked and vetted for quality, comfort,
-                and character.
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4 hover:border-[#D8B45A]/40 hover:shadow-md transition-all duration-200">
-            <div className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#D8B45A]/15 to-[#D8B45A]/5">
-              <span className="material-symbols-outlined text-[#B8860B] text-xl">
-                lock
-              </span>
-            </div>
-            <div>
-              <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
-                Secure &amp; Simple
-              </h3>
-              <p className="mt-1 text-sm text-gray-500 leading-relaxed">
-                Book with confidence. Your data and reservations are always
-                protected.
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-7 py-6 flex items-start gap-4 hover:border-[#D8B45A]/40 hover:shadow-md transition-all duration-200">
-            <div className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-100 to-emerald-50">
-              <span className="material-symbols-outlined text-emerald-600 text-xl">
-                map
-              </span>
-            </div>
-            <div>
-              <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
-                Sri Lanka Specialists
-              </h3>
-              <p className="mt-1 text-sm text-gray-500 leading-relaxed">
-                Deep local knowledge — from Galle to Sigiriya, we know every
-                hidden gem.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─── Popular Destinations ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
-        <div className="flex justify-between items-end mb-8">
-          <div>
-            <div className="flex items-center gap-3 mb-3">
-              <span className="h-px w-8 bg-[#D8B45A]" />
-              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
-                Explore Sri Lanka
-              </span>
-            </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#0f1f3d]">
-              Popular Destinations
-            </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-md leading-relaxed">
-              Discover handpicked locations — each one a story waiting to be
-              written.
-            </p>
-          </div>
-          <Link
-            href="/results?destination="
-            className="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors tracking-wide"
-          >
-            Browse all
-            <span className="material-symbols-outlined text-base">
-              arrow_forward
-            </span>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <section className="mx-auto mb-24 mt-20 max-w-7xl px-4 md:px-16">
+        <SectionHead
+          eyebrow="Explore the Island"
+          title="Popular Destinations"
+          copy="Six corners of Sri Lanka, each a different mood — pick where your story begins."
+          link={{ href: "/results?destination=", label: "Browse all" }}
+        />
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
           {DESTINATIONS.map((dest) => (
             <DestinationCard key={dest.title} {...dest} />
           ))}
         </div>
+      </section>
 
-        <div className="mt-6 flex justify-center md:hidden">
-          <Link
-            href="/results?destination="
-            className="inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors"
-          >
-            Browse all destinations
-            <span className="material-symbols-outlined text-base">
-              arrow_forward
-            </span>
-          </Link>
+      {/* ─── Special Offers ─── */}
+      <section className="mx-auto mb-24 max-w-7xl px-4 md:px-16">
+        <SectionHead
+          eyebrow="Limited Collections"
+          title="Special Offers"
+          copy="Curated themes to match the trip you're dreaming of."
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {OFFERS.map((offer) => (
+            <Link
+              key={offer.title}
+              href={offer.href}
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#e7ddc9] bg-white p-7 shadow-card transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+            >
+              <span className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-[#f4ecd8] transition-transform duration-500 group-hover:scale-125" />
+              <span className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-[#14213d] text-[#e8c892]">
+                <span className="material-symbols-outlined" aria-hidden="true">
+                  {offer.icon}
+                </span>
+              </span>
+              <p className="relative mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#a9791f]">
+                {offer.eyebrow}
+              </p>
+              <h3 className="relative mt-1 font-(family-name:--font-playfair-display) text-2xl font-semibold text-[#14213d]">
+                {offer.title}
+              </h3>
+              <p className="relative mt-2 text-sm leading-relaxed text-on-surface-variant">
+                {offer.body}
+              </p>
+              <span className="relative mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[#14213d]">
+                View stays
+                <span className="material-symbols-outlined text-base transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
+                  arrow_forward
+                </span>
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* ─── Featured Stays ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
-        <div className="flex justify-between items-end mb-8">
-          <div>
-            <div className="flex items-center gap-3 mb-3">
-              <span className="h-px w-8 bg-[#D8B45A]" />
-              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
-                Handpicked for You
-              </span>
-            </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#0f1f3d] max-w-lg">
-              Featured Stays
-            </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-md leading-relaxed">
-              Exceptional properties selected for comfort, location, and
-              character.
-            </p>
-          </div>
-          <Link
-            href="/results?destination="
-            className="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors tracking-wide"
-          >
-            View all
-            <span className="material-symbols-outlined text-base">
-              arrow_forward
-            </span>
-          </Link>
-        </div>
-
+      {/* ─── Featured Rooms & Rates ─── */}
+      <section className="mx-auto mb-24 max-w-7xl px-4 md:px-16">
+        <SectionHead
+          eyebrow="Handpicked for You"
+          title="Featured Rooms & Rates"
+          copy="Exceptional properties selected for comfort, location, and character."
+          link={{ href: "/results?destination=", label: "View all" }}
+        />
         {featuredProperties.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {featuredProperties.map((property) => (
               <PropertyCard
                 key={property.id}
@@ -244,182 +256,155 @@ export default async function Home() {
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-16 text-center">
-            <p className="text-gray-400 text-sm">
+          <div className="rounded-2xl border border-[#e7ddc9] bg-white p-16 text-center shadow-card">
+            <p className="text-sm text-[#7c879b]">
               Properties coming soon. Check back shortly.
             </p>
           </div>
         )}
+      </section>
 
-        <div className="mt-8 flex justify-center md:hidden">
-          <Link
-            href="/results?destination="
-            className="inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors"
-          >
-            View all properties
-            <span className="material-symbols-outlined text-base">
-              arrow_forward
+      {/* ─── Amenities & Services (signature dark glass section) ─── */}
+      <section className="relative mb-24 overflow-hidden">
+        <div className="section-navy relative mx-auto max-w-350 overflow-hidden rounded-none px-4 py-20 md:px-16 md:py-28">
+          <ParallaxBlobs />
+          <div className="relative mx-auto max-w-7xl">
+            <div className="mb-12 max-w-xl">
+              <div className="mb-3 flex items-center gap-3">
+                <span className="h-px w-8 bg-[#d9a94d]" />
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#e8c892]">
+                  The Pearlora Difference
+                </span>
+              </div>
+              <h2 className="font-(family-name:--font-playfair-display) text-3xl font-semibold text-white md:text-5xl">
+                Amenities &amp; Services
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/70 md:text-base">
+                The quiet luxuries that turn a room into a stay — arranged before
+                you arrive.
+              </p>
+            </div>
+
+            <Reveal className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {AMENITIES.map((a) => (
+                <TiltCard key={a.title}>
+                  <div className="glass-panel-dark flex h-full flex-col rounded-2xl p-7">
+                    <OrbBadge glyph={a.glyph} size={56} />
+                    <h3 className="mt-5 font-(family-name:--font-playfair-display) text-xl font-semibold text-white">
+                      {a.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/65">
+                      {a.body}
+                    </p>
+                  </div>
+                </TiltCard>
+              ))}
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Guest Reviews ─── */}
+      <section className="mx-auto mb-24 max-w-7xl px-4 md:px-16">
+        <SectionHead
+          eyebrow="In Their Words"
+          title="Guest Reviews"
+          copy="What discerning travellers say after they check out."
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {REVIEWS.map((r) => (
+            <figure
+              key={r.name}
+              className="flex flex-col rounded-2xl border border-[#e7ddc9] bg-white p-7 shadow-card"
+            >
+              <div className="flex gap-0.5 text-[#d9a94d]" aria-hidden="true">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <span key={i} className="material-symbols-outlined filled text-lg">
+                    star
+                  </span>
+                ))}
+              </div>
+              <blockquote className="mt-4 flex-1 font-(family-name:--font-playfair-display) text-lg italic leading-relaxed text-[#16233f]">
+                “{r.quote}”
+              </blockquote>
+              <figcaption className="mt-5 flex items-center gap-3 border-t border-[#f1e7d6] pt-4">
+                <OrbBadge glyph={r.name.charAt(0)} size={40} />
+                <div>
+                  <p className="text-sm font-semibold text-[#14213d]">{r.name}</p>
+                  <p className="text-xs text-[#7c879b]">{r.trip}</p>
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── Newsletter ─── */}
+      <section className="mx-auto mb-24 max-w-7xl px-4 md:px-16">
+        <div className="section-navy relative overflow-hidden rounded-3xl px-6 py-14 text-center md:px-16">
+          <div className="relative mx-auto max-w-2xl">
+            <span className="text-[#e8c892]">
+              <span className="material-symbols-outlined text-3xl" aria-hidden="true">
+                mail
+              </span>
             </span>
-          </Link>
-        </div>
-      </section>
-
-      {/* ─── How It Works ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <div className="flex items-center gap-3 mb-3">
-              <span className="h-px w-8 bg-[#D8B45A]" />
-              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
-                Simple &amp; Transparent
-              </span>
-            </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#0f1f3d]">
-              How Pearlora Works
+            <h2 className="mt-3 font-(family-name:--font-playfair-display) text-3xl font-semibold text-white md:text-4xl">
+              Stays worth the journey, in your inbox
             </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-md leading-relaxed">
-              Whether you&apos;re booking a stay or listing a property, getting started takes just a few steps.
+            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-white/70">
+              Occasional letters on new properties and quiet-season offers. No
+              noise.
             </p>
-          </div>
-          <Link
-            href="/how-it-works"
-            className="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors tracking-wide"
-          >
-            Full guide
-            <span className="material-symbols-outlined text-base">arrow_forward</span>
-          </Link>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* For Travellers */}
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-8 flex flex-col gap-5">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#071B63]/8">
-                <span className="material-symbols-outlined text-[#071B63] text-xl">travel_explore</span>
-              </div>
-              <div>
-                <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[#D8B45A]">For Travellers</p>
-                <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
-                  Find &amp; book your perfect stay
-                </h3>
-              </div>
+            <div className="mt-7">
+              <NewsletterSignup />
             </div>
-            <div className="flex flex-col gap-3">
-              {[
-                { icon: "search", label: "Search your destination" },
-                { icon: "tune", label: "Filter by price, guests &amp; rating" },
-                { icon: "calendar_month", label: "Choose available dates" },
-                { icon: "check_circle", label: "Book instantly &amp; get a confirmation" },
-              ].map((item) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[#071B63] text-lg">{item.icon}</span>
-                  <span className="text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: item.label }} />
-                </div>
-              ))}
-            </div>
-            <Link
-              href="/results?destination="
-              className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[#071B63] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
-            >
-              Start Searching
-              <span className="material-symbols-outlined text-base">arrow_forward</span>
-            </Link>
-          </div>
-
-          {/* For Hosts */}
-          <div className="rounded-2xl bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6b] border border-[#D8B45A]/20 shadow-sm p-8 flex flex-col gap-5">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D8B45A]/15">
-                <span className="material-symbols-outlined text-[#D8B45A] text-xl">home_work</span>
-              </div>
-              <div>
-                <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[#D8B45A]">For Hosts</p>
-                <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-white">
-                  List &amp; manage your properties
-                </h3>
-              </div>
-            </div>
-            <div className="flex flex-col gap-3">
-              {[
-                { icon: "person_add", label: "Create your account" },
-                { icon: "workspace_premium", label: "Choose a subscription plan" },
-                { icon: "add_home", label: "Upload photos &amp; set your price" },
-                { icon: "bar_chart", label: "Track bookings &amp; performance" },
-              ].map((item) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[#D8B45A] text-lg">{item.icon}</span>
-                  <span className="text-sm text-white/75" dangerouslySetInnerHTML={{ __html: item.label }} />
-                </div>
-              ))}
-            </div>
-            <Link
-              href="/become-a-host"
-              className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-[#D8B45A] px-6 py-2.5 text-sm font-semibold text-[#0f1f3d] hover:bg-[#c9a84c] transition-colors"
-            >
-              Become a Host
-              <span className="material-symbols-outlined text-base">arrow_forward</span>
-            </Link>
-          </div>
-        </div>
-
-        <div className="mt-6 flex justify-center md:hidden">
-          <Link
-            href="/how-it-works"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors"
-          >
-            Read the full guide
-            <span className="material-symbols-outlined text-base">arrow_forward</span>
-          </Link>
-        </div>
-      </section>
-
-      {/* ─── Brand CTA ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
-        <div className="relative rounded-3xl bg-[#0f1f3d] overflow-hidden px-10 py-16 flex flex-col md:flex-row items-center justify-between gap-10">
-          {/* Decorative concentric rings */}
-          <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full border border-[#D8B45A]/10" />
-          <div className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full border border-[#D8B45A]/10" />
-          <div className="pointer-events-none absolute -right-2 -top-2 h-36 w-36 rounded-full border border-[#D8B45A]/10" />
-
-          <div className="relative z-10 text-center md:text-left">
-            <div className="flex items-center gap-2.5 mb-3 justify-center md:justify-start">
-              <Image
-                src="/brand/pearlora-logo.svg"
-                alt="Pearlora"
-                width={26}
-                height={26}
-                className="rounded object-contain shrink-0"
-                unoptimized
-              />
-              <span className="font-[family-name:var(--font-playfair-display)] text-white text-3xl font-semibold">
-                Pearlora
-              </span>
-            </div>
-            <p className="text-[#D8B45A] text-xs font-semibold tracking-[0.18em] uppercase mb-3">
-              From Coastlines to Hilltops
-            </p>
-            <p className="text-white/60 text-sm max-w-sm leading-relaxed">
-              Curating extraordinary stays for the discerning traveller across
-              Sri Lanka — from colonial coastal forts to misty highland retreats.
-            </p>
-          </div>
-
-          <div className="relative z-10 flex flex-col sm:flex-row gap-3 shrink-0">
-            <Link
-              href="/signup"
-              className="bg-[#D8B45A] text-[#0f1f3d] font-bold px-8 py-3 rounded-full hover:bg-[#c9a84c] transition-colors text-sm tracking-wide text-center"
-            >
-              Start Your Journey
-            </Link>
-            <Link
-              href="/results?destination="
-              className="border border-white/20 text-white font-semibold px-8 py-3 rounded-full hover:bg-white/10 transition-colors text-sm tracking-wide text-center"
-            >
-              Browse Properties
-            </Link>
           </div>
         </div>
       </section>
     </div>
+  );
+}
+
+function SectionHead({
+  eyebrow,
+  title,
+  copy,
+  link,
+}: {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  link?: { href: string; label: string };
+}) {
+  return (
+    <Reveal className="mb-8 flex items-end justify-between gap-6">
+      <div>
+        <div className="mb-3 flex items-center gap-3">
+          <span className="h-px w-8 bg-[#d9a94d]" />
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a9791f]">
+            {eyebrow}
+          </span>
+        </div>
+        <h2 className="font-(family-name:--font-playfair-display) text-3xl font-semibold text-[#14213d] md:text-4xl">
+          {title}
+        </h2>
+        <p className="mt-2 max-w-md text-sm leading-relaxed text-on-surface-variant">{copy}</p>
+      </div>
+      {link ? (
+        <Link
+          href={link.href}
+          className={buttonVariants({
+            variant: "ghost",
+            size: "sm",
+            className: "hidden gap-1 md:inline-flex",
+          })}
+        >
+          {link.label}
+          <span className="material-symbols-outlined text-base" aria-hidden="true">
+            arrow_forward
+          </span>
+        </Link>
+      ) : null}
+    </Reveal>
   );
 }

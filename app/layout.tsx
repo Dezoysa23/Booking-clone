@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+import { Manrope, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { FooterTopDecoration } from "@/components/ui/FooterTopDecoration";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+/* Body / UI face — Manrope (variable). Keeps the legacy CSS-var name so every
+   existing `var(--font-plus-jakarta-sans)` reference re-renders in Manrope. */
+const manrope = Manrope({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const playfairDisplay = Playfair_Display({
+/* Display face — Cormorant Garamond (serif, with italic for accent glyphs).
+   Reuses the legacy `--font-playfair-display` var so all heading usages switch
+   faces without touching a single component. */
+const cormorant = Cormorant_Garamond({
   variable: "--font-playfair-display",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -35,10 +45,19 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${plusJakartaSans.variable} ${playfairDisplay.variable} min-h-screen antialiased bg-background text-on-background font-body-md selection:bg-secondary-container selection:text-on-secondary-container flex flex-col`}
+        className={`${manrope.variable} ${cormorant.variable} min-h-screen antialiased bg-background text-on-background font-body-md selection:bg-secondary-container selection:text-on-secondary-container flex flex-col`}
       >
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[#14213D] focus:shadow-lg"
+        >
+          Skip to content
+        </a>
         <Navbar />
-        <div className="flex-1 flex flex-col">{children}</div>
+        <main id="main" className="flex flex-1 flex-col">
+          {children}
+        </main>
+        <FooterTopDecoration />
         <Footer />
       </body>
     </html>

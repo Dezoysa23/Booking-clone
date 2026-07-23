@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 import { savePropertyImage } from "@/lib/uploads/image-upload";
 
 type RouteParams = { params: Promise<{ id: string }> };
@@ -35,6 +36,14 @@ export async function POST(request: Request, { params }: RouteParams) {
     if (!currentUser) {
       return NextResponse.json({ error: "You must be logged in to submit a photo." }, { status: 401 });
     }
+
+    const limited = await enforceRateLimit(
+      `upload:user-photo:${currentUser.id}`,
+      20,
+      10 * 60 * 1000,
+      "Too many photo submissions. Please try again later."
+    );
+    if (limited) return limited;
 
     const { id } = await params;
     const propertyId = Number(id);

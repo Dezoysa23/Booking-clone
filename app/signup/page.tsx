@@ -1,13 +1,18 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { Button, Field, Input } from "@/components/ui";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [showPw, setShowPw] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle",
+  );
   const [message, setMessage] = useState("");
 
   const handleSignup = async () => {
@@ -31,7 +36,11 @@ export default function SignupPage() {
       const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim(), password }),
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          password,
+        }),
       });
 
       let data: { error?: string } = {};
@@ -45,19 +54,21 @@ export default function SignupPage() {
 
       if (!response.ok) {
         setStatus("error");
-        setMessage(data.error || `Signup failed (${response.status}). Please try again.`);
+        setMessage(
+          data.error || `Signup failed (${response.status}). Please try again.`,
+        );
         return;
       }
 
       setStatus("success");
-      setMessage("Account created! Signing you in...");
+      setMessage("Account created! Signing you in…");
       window.location.href = "/";
     } catch (err) {
       setStatus("error");
       setMessage(
         err instanceof Error
           ? `Error: ${err.message}`
-          : "Cannot reach the server. Check your connection."
+          : "Cannot reach the server. Check your connection.",
       );
     }
   };
@@ -65,98 +76,126 @@ export default function SignupPage() {
   const isLoading = status === "loading";
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-[#0f1f3d]">
-            <span className="text-[#D8B45A] text-lg">✦</span>
-            <span className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold">
-              Pearlora
-            </span>
+    <main className="page-gradient relative flex min-h-[calc(100vh-64px)] items-center justify-center overflow-hidden px-4 py-16">
+      <div
+        className="animate-float-slow pointer-events-none absolute -left-16 top-16 h-48 w-48 rounded-full bg-[#e8c892]/10 blur-2xl"
+        aria-hidden="true"
+      />
+      <div
+        className="animate-float-med pointer-events-none absolute -right-10 bottom-16 h-56 w-56 rounded-full bg-[#e8c892]/10 blur-2xl"
+        aria-hidden="true"
+      />
+
+      <div className="relative w-full max-w-md">
+        <div className="mb-8 text-center">
+          <Link href="/" className="inline-flex flex-col items-center" aria-label="Pearlora — home">
+            <Image
+              src="/brand/pearlora-logo.jpg"
+              alt="Pearlora"
+              width={220}
+              height={209}
+              priority
+              className="h-auto w-40 rounded-2xl shadow-[0_12px_30px_rgba(43,32,22,0.2)]"
+            />
           </Link>
-          <p className="mt-2 text-sm text-gray-500">Create your account to start booking</p>
+          <p className="mt-4 text-sm text-on-surface-variant">
+            Create your account to start booking
+          </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-          <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#0f1f3d]">
+        <div className="glass-panel rounded-2xl p-8 shadow-[0_14px_34px_rgba(11,31,58,0.12)]">
+          <h1 className="font-(family-name:--font-playfair-display) text-2xl font-semibold text-[#14213d]">
             Create Account
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-slate-500">
             Join Pearlora and unlock extraordinary stays.
           </p>
 
-          {/* Status banner — always visible when set */}
-          {message && (
+          {message ? (
             <div
-              className={`mt-5 rounded-lg px-4 py-3 text-sm font-medium border ${
+              className={`mt-5 rounded-lg border px-4 py-3 text-sm font-medium ${
                 status === "error"
-                  ? "bg-red-50 border-red-300 text-red-700"
-                  : "bg-green-50 border-green-300 text-green-700"
+                  ? "border-rose-200 bg-rose-50 text-rose-700"
+                  : "border-emerald-200 bg-emerald-50 text-emerald-700"
               }`}
             >
               {message}
             </div>
-          )}
+          ) : null}
 
           <form
             className="mt-6 space-y-5"
-            onSubmit={(e) => { e.preventDefault(); handleSignup(); }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSignup();
+            }}
           >
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-gray-700">
-                Full Name
-              </label>
-              <input
+            <Field label="Full Name" htmlFor="name">
+              <Input
+                id="name"
+                name="name"
                 type="text"
+                autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#0f1f3d] focus:bg-white focus:ring-2 focus:ring-[#0f1f3d]/10"
                 placeholder="Your full name"
                 disabled={isLoading}
               />
-            </div>
+            </Field>
 
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-gray-700">
-                Email Address
-              </label>
-              <input
+            <Field label="Email Address" htmlFor="email">
+              <Input
+                id="email"
+                name="email"
                 type="email"
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#0f1f3d] focus:bg-white focus:ring-2 focus:ring-[#0f1f3d]/10"
                 placeholder="you@example.com"
                 disabled={isLoading}
               />
-            </div>
+            </Field>
 
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#0f1f3d] focus:bg-white focus:ring-2 focus:ring-[#0f1f3d]/10"
-                placeholder="Minimum 8 characters"
-                disabled={isLoading}
-              />
-              <p className="mt-1 text-xs text-gray-400">Minimum 8 characters.</p>
-            </div>
+            <Field label="Password" htmlFor="password" hint="Minimum 8 characters.">
+              <div className="relative">
+                <Input
+                  id="password"
+                  name="password"
+                  type={showPw ? "text" : "password"}
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Minimum 8 characters"
+                  disabled={isLoading}
+                  className="pr-11"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPw((v) => !v)}
+                  aria-label={showPw ? "Hide password" : "Show password"}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-600"
+                >
+                  <span
+                    className="material-symbols-outlined text-xl leading-none"
+                    aria-hidden="true"
+                  >
+                    {showPw ? "visibility_off" : "visibility"}
+                  </span>
+                </button>
+              </div>
+            </Field>
 
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full rounded-lg bg-[#0f1f3d] px-4 py-3 text-sm font-semibold text-white hover:bg-[#1a3060] transition-colors disabled:opacity-60"
-            >
-              {isLoading ? "Creating account..." : "Create Account"}
-            </button>
+            <Button type="submit" fullWidth loading={isLoading}>
+              {isLoading ? "Creating account…" : "Create Account"}
+            </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-gray-500">
+          <p className="mt-6 text-center text-sm text-slate-500">
             Already have an account?{" "}
-            <Link href="/login" className="font-semibold text-[#0f1f3d] hover:text-[#D8B45A] transition-colors">
+            <Link
+              href="/login"
+              className="font-semibold text-[#14213d] transition-colors hover:text-[#101a30]"
+            >
               Sign in
             </Link>
           </p>

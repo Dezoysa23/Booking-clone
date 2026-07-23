@@ -4,11 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { SubscriptionPlan } from "@prisma/client";
+import { Button } from "@/components/ui";
+import { cn } from "@/lib/cn";
 
 type Props = {
   plans: SubscriptionPlan[];
   isLoggedIn: boolean;
 };
+
+function yearlySavingPct(plan: SubscriptionPlan): number {
+  if (plan.monthlyPrice <= 0) return 0;
+  return Math.round((1 - plan.yearlyPrice / (plan.monthlyPrice * 12)) * 100);
+}
 
 export default function PricingCards({ plans, isLoggedIn }: Props) {
   const router = useRouter();
@@ -47,118 +54,179 @@ export default function PricingCards({ plans, isLoggedIn }: Props) {
     }
   };
 
-  const yearlyDiscount = 17;
+  // Derive the best yearly discount from real plan prices (no hardcoded value).
+  const bestDiscount = plans.reduce(
+    (max, p) => Math.max(max, yearlySavingPct(p)),
+    0,
+  );
 
   return (
     <div id="plans">
       {/* Billing toggle */}
-      <div className="flex justify-center mb-10">
-        <div className="inline-flex items-center rounded-xl border border-gray-200 bg-white p-1 shadow-sm">
+      <div className="mb-10 flex justify-center">
+        <div className="inline-flex items-center rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
           {(["MONTHLY", "YEARLY"] as const).map((c) => (
             <button
               key={c}
+              type="button"
               onClick={() => setCycle(c)}
-              className={`rounded-lg px-5 py-2 text-sm font-semibold transition-all ${
+              className={cn(
+                "rounded-lg px-5 py-2 text-sm font-semibold transition-all",
                 cycle === c
-                  ? "bg-[#071B63] text-white shadow-sm"
-                  : "text-gray-500 hover:text-[#071B63]"
-              }`}
-            >
-              {c === "MONTHLY" ? "Monthly" : `Yearly`}
-              {c === "YEARLY" && (
-                <span className="ml-1.5 rounded-full bg-[#D8B45A] px-2 py-0.5 text-[10px] font-bold text-[#071B63]">
-                  -{yearlyDiscount}%
-                </span>
+                  ? "bg-[#14213d] text-white shadow-sm"
+                  : "text-slate-500 hover:text-[#14213d]",
               )}
+            >
+              {c === "MONTHLY" ? "Monthly" : "Yearly"}
+              {c === "YEARLY" && bestDiscount > 0 ? (
+                <span className="ml-1.5 rounded-full bg-[#d9a94d] px-2 py-0.5 text-[10px] font-bold text-[#14213d]">
+                  save {bestDiscount}%
+                </span>
+              ) : null}
             </button>
           ))}
         </div>
       </div>
 
-      {error && (
-        <div className="mb-6 rounded-xl bg-red-50 border border-red-100 px-5 py-3 text-sm text-red-700 text-center">
+      {error ? (
+        <div className="mb-6 rounded-xl border border-rose-100 bg-rose-50 px-5 py-3 text-center text-sm text-rose-700">
           {error}
         </div>
-      )}
+      ) : null}
 
       {/* Plan grid */}
       <div className="grid gap-6 md:grid-cols-3">
         {plans.map((plan, index) => {
-          const isPopular = index === 1;
+          const isPopular = plans.length > 1 && index === 1;
           const price = cycle === "YEARLY" ? plan.yearlyPrice : plan.monthlyPrice;
-          const monthlyEquiv = cycle === "YEARLY" ? Math.round(plan.yearlyPrice / 12) : plan.monthlyPrice;
+          const monthlyEquiv =
+            cycle === "YEARLY"
+              ? Math.round(plan.yearlyPrice / 12)
+              : plan.monthlyPrice;
+          const saving = yearlySavingPct(plan);
 
           return (
             <div
               key={plan.id}
-              className={`relative flex flex-col rounded-2xl p-7 ${
+              className={cn(
+                "relative flex flex-col rounded-2xl p-7",
                 isPopular
-                  ? "bg-[#071B63] text-white ring-2 ring-[#D8B45A] shadow-xl"
-                  : "bg-white border border-gray-100 shadow-sm"
-              }`}
+                  ? "section-navy text-white shadow-xl ring-2 ring-[#d9a94d]"
+                  : "border border-slate-200/70 bg-white shadow-sm",
+              )}
             >
-              {isPopular && (
+              {isPopular ? (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="rounded-full bg-[#D8B45A] px-4 py-1 text-xs font-bold text-[#071B63] shadow">
+                  <span className="rounded-full bg-[#d9a94d] px-4 py-1 text-xs font-bold text-[#14213d] shadow">
                     Most Popular
                   </span>
                 </div>
-              )}
+              ) : null}
 
               <div className="mb-6">
-                <h3 className={`font-[family-name:var(--font-playfair-display)] text-xl font-semibold mb-1 ${isPopular ? "text-white" : "text-[#0f1f3d]"}`}>
+                <h3
+                  className={cn(
+                    "mb-1 font-(family-name:--font-playfair-display) text-xl font-semibold",
+                    isPopular ? "text-white" : "text-[#14213d]",
+                  )}
+                >
                   {plan.name}
                 </h3>
-                <p className={`text-sm ${isPopular ? "text-white/60" : "text-gray-500"}`}>{plan.description}</p>
+                <p
+                  className={cn(
+                    "text-sm",
+                    isPopular ? "text-white/60" : "text-slate-500",
+                  )}
+                >
+                  {plan.description}
+                </p>
               </div>
 
               <div className="mb-6">
                 <div className="flex items-end gap-1">
-                  <span className={`text-4xl font-bold ${isPopular ? "text-white" : "text-[#0f1f3d]"}`}>
+                  <span
+                    className={cn(
+                      "text-4xl font-bold",
+                      isPopular ? "text-white" : "text-[#14213d]",
+                    )}
+                  >
                     LKR {monthlyEquiv.toLocaleString()}
                   </span>
-                  <span className={`text-sm mb-1 ${isPopular ? "text-white/60" : "text-gray-400"}`}>/mo</span>
+                  <span
+                    className={cn(
+                      "mb-1 text-sm",
+                      isPopular ? "text-white/60" : "text-slate-400",
+                    )}
+                  >
+                    /mo
+                  </span>
                 </div>
-                {cycle === "YEARLY" && (
-                  <p className={`text-xs mt-1 ${isPopular ? "text-[#D8B45A]" : "text-gray-400"}`}>
+                {cycle === "YEARLY" ? (
+                  <p
+                    className={cn(
+                      "mt-1 text-xs",
+                      isPopular ? "text-[#e8c892]" : "text-slate-400",
+                    )}
+                  >
                     LKR {price.toLocaleString()} billed yearly
+                    {saving > 0 ? ` · save ${saving}%` : ""}
                   </p>
-                )}
-                <p className={`text-xs mt-2 ${isPopular ? "text-white/60" : "text-gray-500"}`}>
-                  {plan.propertyLimit === -1 ? "Unlimited properties" : `Up to ${plan.propertyLimit} ${plan.propertyLimit === 1 ? "property" : "properties"}`}
+                ) : null}
+                <p
+                  className={cn(
+                    "mt-2 text-xs",
+                    isPopular ? "text-white/60" : "text-slate-500",
+                  )}
+                >
+                  {plan.propertyLimit === -1
+                    ? "Unlimited properties"
+                    : `Up to ${plan.propertyLimit} ${
+                        plan.propertyLimit === 1 ? "property" : "properties"
+                      }`}
                 </p>
               </div>
 
-              <ul className="flex-1 space-y-2.5 mb-8">
+              <ul className="mb-8 flex-1 space-y-2.5">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2 text-sm">
-                    <span className={`material-symbols-outlined text-base mt-0.5 shrink-0 ${isPopular ? "text-[#D8B45A]" : "text-[#071B63]"}`}>
+                    <span
+                      className={cn(
+                        "material-symbols-outlined mt-0.5 shrink-0 text-base",
+                        isPopular ? "text-[#e8c892]" : "text-[#14213d]",
+                      )}
+                      aria-hidden="true"
+                    >
                       check_circle
                     </span>
-                    <span className={isPopular ? "text-white/80" : "text-gray-600"}>{feature}</span>
+                    <span className={isPopular ? "text-white/80" : "text-slate-600"}>
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
 
-              <button
+              <Button
                 onClick={() => handleSubscribe(plan.id)}
-                disabled={loading === plan.id}
-                className={`w-full rounded-xl py-3 text-sm font-semibold transition-all disabled:opacity-60 disabled:cursor-not-allowed ${
-                  isPopular
-                    ? "bg-[#D8B45A] text-[#071B63] hover:bg-[#c9a84c]"
-                    : "bg-[#071B63] text-white hover:bg-[#123EAF]"
-                }`}
+                loading={loading === plan.id}
+                fullWidth
+                variant={isPopular ? "accent" : "primary"}
               >
-                {loading === plan.id ? "Processing…" : isLoggedIn ? "Get Started" : "Sign up & Subscribe"}
-              </button>
+                {loading === plan.id
+                  ? "Processing…"
+                  : isLoggedIn
+                    ? "Get Started"
+                    : "Sign up & Subscribe"}
+              </Button>
             </div>
           );
         })}
       </div>
 
-      <p className="text-center text-xs text-gray-400 mt-8">
+      <p className="mt-8 text-center text-xs text-slate-400">
         All prices in Sri Lankan Rupees (LKR). No hidden fees.{" "}
-        <Link href="/become-a-host" className="text-[#071B63] hover:underline">Learn more</Link>
+        <Link href="/become-a-host" className="text-[#14213d] hover:underline">
+          Learn more
+        </Link>
       </p>
     </div>
   );

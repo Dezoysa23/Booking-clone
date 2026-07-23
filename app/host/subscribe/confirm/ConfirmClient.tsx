@@ -46,26 +46,25 @@ export default function ConfirmClient() {
   }, [subscriptionId, sessionId]);
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center px-4">
-      <div className="w-full max-w-md rounded-2xl bg-white border border-gray-100 shadow-sm p-10 text-center">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl bg-white border border-slate-200/70 shadow-sm p-10 text-center">
         <div className="flex justify-center mb-6">
           <Image
-            src="/brand/pearlora-logo.svg"
+            src="/brand/Pearlora-logo-only.png"
             alt="Pearlora"
             width={40}
             height={40}
-            unoptimized
             className="rounded-lg"
           />
         </div>
 
         {status === "loading" && (
           <>
-            <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-[#071B63]/20 border-t-[#071B63]" />
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+            <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-[#14213d]/20 border-t-[#14213d]" />
+            <h1 className="font-(family-name:--font-playfair-display) text-xl font-semibold text-[#14213d]">
               Confirming payment…
             </h1>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-slate-500">
               Please wait while we activate your subscription.
             </p>
           </>
@@ -73,25 +72,25 @@ export default function ConfirmClient() {
 
         {status === "success" && (
           <>
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-50 border border-green-100">
-              <span className="material-symbols-outlined text-green-600 text-2xl">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 border border-emerald-100">
+              <span className="material-symbols-outlined text-emerald-600 text-2xl">
                 check_circle
               </span>
             </div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-(family-name:--font-playfair-display) text-xl font-semibold text-[#14213d]">
               Subscription Activated!
             </h1>
-            <p className="mt-2 text-sm text-gray-500">{message}</p>
+            <p className="mt-2 text-sm text-slate-500">{message}</p>
             <div className="mt-6 flex flex-col gap-3">
               <Link
                 href="/host/dashboard"
-                className="block w-full rounded-lg bg-[#071B63] py-3 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+                className="block w-full rounded-lg bg-[#14213d] py-3 text-sm font-semibold text-white hover:bg-[#14213d] transition-colors"
               >
                 Go to Host Dashboard
               </Link>
               <button
                 onClick={() => router.refresh()}
-                className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-xs text-slate-400 hover:text-slate-600 transition-colors"
               >
                 Refresh page
               </button>
@@ -101,18 +100,18 @@ export default function ConfirmClient() {
 
         {status === "error" && (
           <>
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-50 border border-red-100">
-              <span className="material-symbols-outlined text-red-600 text-2xl">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 border border-rose-100">
+              <span className="material-symbols-outlined text-rose-600 text-2xl">
                 error
               </span>
             </div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-(family-name:--font-playfair-display) text-xl font-semibold text-[#14213d]">
               Something went wrong
             </h1>
-            <p className="mt-2 text-sm text-gray-500">{message}</p>
+            <p className="mt-2 text-sm text-slate-500">{message}</p>
             <Link
               href="/pricing"
-              className="mt-6 block w-full rounded-lg bg-[#071B63] py-3 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+              className="mt-6 block w-full rounded-lg bg-[#14213d] py-3 text-sm font-semibold text-white hover:bg-[#14213d] transition-colors"
             >
               Back to Pricing
             </Link>

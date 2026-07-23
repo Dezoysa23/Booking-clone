@@ -13,7 +13,7 @@ export const EVENT_CONFIG: Record<
   BOOKING_CREATED:        { label: "New Booking",         color: "#1e40af", bg: "#dbeafe", icon: "calendar_add_on" },
   BOOKING_CANCELLED:      { label: "Cancelled",           color: "#dc2626", bg: "#fee2e2", icon: "event_busy" },
   CHECK_IN:               { label: "Check-in",            color: "#059669", bg: "#d1fae5", icon: "login" },
-  CHECK_OUT:              { label: "Check-out",           color: "#d97706", bg: "#fef3c7", icon: "logout" },
+  CHECK_OUT:              { label: "Check-out",           color: "#c4922f", bg: "#fef3c7", icon: "logout" },
   PAYMENT_PAID:           { label: "Payment Received",    color: "#16a34a", bg: "#dcfce7", icon: "payments" },
   PAYMENT_FAILED:         { label: "Payment Failed",      color: "#dc2626", bg: "#fee2e2", icon: "money_off" },
   SUBSCRIPTION_RENEWAL:   { label: "Sub Renewal",         color: "#7c3aed", bg: "#ede9fe", icon: "autorenew" },
@@ -188,13 +188,13 @@ export default function SuperAdminCalendarWidget() {
           open ? "bg-white/20 shadow-inner" : "bg-white/8 hover:bg-white/15"
         }`}
       >
-        <span className="material-symbols-outlined text-[#D8B45A] text-[18px]">calendar_month</span>
+        <span className="material-symbols-outlined text-[#d9a94d] text-lg leading-none">calendar_month</span>
         <span className="hidden md:flex items-center gap-1.5 text-white/75 text-xs font-medium">
           <span>{MONTHS[localNow.getMonth()].slice(0, 3)}</span>
           <span className="font-bold text-white">{localNow.getDate()}</span>
         </span>
         {todayCount > 0 && (
-          <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D8B45A] text-[#0f1f3d] text-[10px] font-bold px-1 leading-none">
+          <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#d9a94d] text-[#14213d] text-[10px] font-bold px-1 leading-none">
             {todayCount > 9 ? "9+" : todayCount}
           </span>
         )}
@@ -203,11 +203,11 @@ export default function SuperAdminCalendarWidget() {
       {/* ── Dropdown panel ── */}
       {open && (
         <div
-          className="absolute top-[calc(100%+10px)] left-0 z-[200] w-[340px] rounded-2xl bg-white shadow-[0_8px_40px_rgba(7,27,99,0.18)] border border-gray-100 overflow-hidden"
+          className="absolute top-[calc(100%+10px)] left-0 z-[200] w-[340px] max-w-[calc(100vw-2rem)] rounded-2xl bg-white shadow-[0_8px_40px_rgba(7,27,99,0.18)] border border-slate-100 overflow-hidden"
           style={{ animation: "fadeSlideDown 0.15s ease-out" }}
         >
           {/* Panel header */}
-          <div className="bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6b] px-5 py-4">
+          <div className="bg-linear-to-br from-[#14213d] to-[#1a3a6b] px-5 py-4">
             <div className="flex items-center justify-between mb-1">
               <button
                 onClick={prevMonth}
@@ -218,10 +218,10 @@ export default function SuperAdminCalendarWidget() {
               </button>
 
               <div className="text-center">
-                <p className="font-[family-name:var(--font-playfair-display)] text-white font-semibold text-sm tracking-wide">
+                <p className="font-(family-name:--font-playfair-display) text-white font-semibold text-sm tracking-wide">
                   {MONTHS[month - 1]} {year}
                 </p>
-                <p className="text-[#D8B45A] text-[11px] mt-0.5">
+                <p className="text-[#d9a94d] text-[11px] mt-0.5">
                   {loading ? "Loading…" : `${totalEvents} event${totalEvents !== 1 ? "s" : ""} this month`}
                 </p>
               </div>
@@ -241,7 +241,7 @@ export default function SuperAdminCalendarWidget() {
             {/* Day-of-week headers */}
             <div className="grid grid-cols-7 mb-1">
               {DAYS.map((d) => (
-                <div key={d} className="text-center text-[10px] font-bold text-gray-400 py-1 uppercase tracking-widest">
+                <div key={d} className="text-center text-[10px] font-bold text-slate-400 py-1 uppercase tracking-widest">
                   {d}
                 </div>
               ))}
@@ -256,7 +256,7 @@ export default function SuperAdminCalendarWidget() {
                       key={i}
                       className="h-9 flex items-center justify-center"
                     >
-                      <span className="text-[11px] text-gray-200">{cell.day}</span>
+                      <span className="text-[11px] text-slate-200">{cell.day}</span>
                     </div>
                   );
                 }
@@ -275,15 +275,15 @@ export default function SuperAdminCalendarWidget() {
                     onClick={() => setSelectedKey(cell.key)}
                     className={`relative h-9 w-full flex flex-col items-center justify-center rounded-lg transition-all duration-100 ${
                       isSelected
-                        ? "bg-[#071B63] shadow-md"
+                        ? "bg-[#14213d] shadow-md"
                         : isToday
-                        ? "ring-2 ring-[#D8B45A] ring-offset-1 font-bold"
-                        : "hover:bg-[#071B63]/6"
+                        ? "ring-2 ring-[#d9a94d] ring-offset-1 font-bold"
+                        : "hover:bg-[#14213d]/6"
                     }`}
                   >
                     <span
                       className={`text-xs font-medium leading-none ${
-                        isSelected ? "text-white" : isToday ? "text-[#071B63]" : "text-gray-700"
+                        isSelected ? "text-white" : isToday ? "text-[#14213d]" : "text-slate-700"
                       }`}
                     >
                       {cell.day}
@@ -306,24 +306,24 @@ export default function SuperAdminCalendarWidget() {
           </div>
 
           {/* Selected day events */}
-          <div className="mt-1 border-t border-gray-100">
+          <div className="mt-1 border-t border-slate-100">
             <div className="flex items-center justify-between px-4 py-2.5">
-              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
                 {selectedKey === todayKey ? "Today" : selectedLabel}
               </p>
               {selectedEvents.length > 0 && (
-                <span className="text-[11px] font-bold text-[#071B63] bg-[#071B63]/8 px-2 py-0.5 rounded-full">
+                <span className="text-[11px] font-bold text-[#14213d] bg-[#14213d]/8 px-2 py-0.5 rounded-full">
                   {selectedEvents.length}
                 </span>
               )}
             </div>
 
             {error ? (
-              <p className="px-4 pb-4 text-xs text-red-500">Failed to load events.</p>
+              <p className="px-4 pb-4 text-xs text-rose-500">Failed to load events.</p>
             ) : (
               <div className="max-h-[160px] overflow-y-auto px-3 pb-3 space-y-1.5">
                 {selectedEvents.length === 0 ? (
-                  <p className="text-xs text-gray-400 italic py-1">No events on this date.</p>
+                  <p className="text-xs text-slate-400 italic py-1">No events on this date.</p>
                 ) : (
                   selectedEvents.map((event) => {
                     const cfg = EVENT_CONFIG[event.type];
@@ -345,11 +345,11 @@ export default function SuperAdminCalendarWidget() {
                           {cfg.icon}
                         </span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-semibold text-gray-800 leading-snug truncate">
+                          <p className="text-xs font-semibold text-slate-800 leading-snug truncate">
                             {event.title}
                           </p>
                           {event.description && (
-                            <p className="text-xs text-gray-500 truncate">{event.description}</p>
+                            <p className="text-xs text-slate-500 truncate">{event.description}</p>
                           )}
                           <p className="text-[10px] font-medium mt-0.5" style={{ color: cfg.color }}>
                             {cfg.label} · {timeStr}
@@ -364,18 +364,18 @@ export default function SuperAdminCalendarWidget() {
           </div>
 
           {/* Footer */}
-          <div className="border-t border-gray-100 px-4 py-3 flex items-center justify-between bg-gray-50/80">
+          <div className="border-t border-slate-100 px-4 py-3 flex items-center justify-between bg-slate-50/80">
             <button
               type="button"
               onClick={jumpToToday}
-              className="text-xs font-semibold text-[#071B63] hover:underline"
+              className="text-xs font-semibold text-[#14213d] hover:underline"
             >
               Today
             </button>
             <Link
               href="/admin/calendar"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-1 text-xs font-semibold text-[#071B63] hover:text-[#123EAF] transition-colors"
+              className="flex items-center gap-1 text-xs font-semibold text-[#14213d] hover:text-[#14213d] transition-colors"
             >
               Full calendar
               <span className="material-symbols-outlined text-xs">open_in_new</span>

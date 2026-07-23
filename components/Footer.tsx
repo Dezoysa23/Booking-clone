@@ -1,65 +1,78 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
+  {
+    title: "Explore",
+    links: [
+      { href: "/", label: "Home" },
+      { href: "/results", label: "Browse Stays" },
+      { href: "/how-it-works", label: "How It Works" },
+    ],
+  },
+  {
+    title: "Hosting",
+    links: [
+      { href: "/become-a-host", label: "Become a Host" },
+      { href: "/pricing", label: "Host Pricing" },
+    ],
+  },
+  {
+    title: "Account",
+    links: [
+      { href: "/bookings", label: "My Bookings" },
+      { href: "/account", label: "My Account" },
+    ],
+  },
+];
+
 export default function Footer() {
   return (
-    <footer className="w-full mt-[120px] bg-[#0f1f3d] text-white py-14 px-4 md:px-16 border-t border-[#D8B45A]/20">
-      <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-start gap-10">
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center gap-2.5">
-            <Image
-              src="/brand/pearlora-logo.svg"
-              alt="Pearlora"
-              width={28}
-              height={28}
-              className="rounded object-contain shrink-0"
-              unoptimized
-            />
-            <span className="font-[family-name:var(--font-playfair-display)] text-white text-2xl font-semibold">
-              Pearlora
-            </span>
+    <footer className="section-navy w-full text-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 md:px-16">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2.5">
+              <Image
+                src="/brand/Pearlora-logo-only.png"
+                alt="Pearlora"
+                width={28}
+                height={28}
+                className="shrink-0 rounded object-contain"
+              />
+              <span className="font-(family-name:--font-playfair-display) text-2xl font-semibold text-white">
+                Pearlora
+              </span>
+            </div>
+            <p className="max-w-xs text-sm leading-relaxed text-white/55">
+              From coastlines to hilltops — curated stays across Sri Lanka&apos;s
+              most breathtaking destinations.
+            </p>
           </div>
-          <p className="text-white/55 text-sm max-w-xs leading-relaxed">
-            From Coastlines to Hilltops, Stay Pearlora.
-          </p>
-          <p className="text-white/30 text-xs mt-1">
-            © {new Date().getFullYear()} Pearlora. All rights reserved.
-          </p>
+
+          {COLUMNS.map((col) => (
+            <div key={col.title} className="flex flex-col gap-4">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#e8c892]">
+                {col.title}
+              </p>
+              <div className="flex flex-col gap-3 text-sm">
+                {col.links.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="w-fit text-white/55 transition-colors hover:text-white"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="flex flex-col gap-5">
-          <p className="text-[#D8B45A] text-xs font-semibold tracking-widest uppercase">
-            Navigate
-          </p>
-          <div className="flex flex-col gap-3 text-sm">
-            <Link href="/" className="text-white/55 hover:text-white transition-colors">Home</Link>
-            <Link href="/results" className="text-white/55 hover:text-white transition-colors">Browse Properties</Link>
-            <Link href="/pricing" className="text-white/55 hover:text-white transition-colors">Host Pricing</Link>
-            <Link href="/become-a-host" className="text-white/55 hover:text-white transition-colors">Become a Host</Link>
-            <Link href="/how-it-works" className="text-white/55 hover:text-white transition-colors">How It Works</Link>
-            <Link href="/bookings" className="text-white/55 hover:text-white transition-colors">My Bookings</Link>
-            <Link href="/account" className="text-white/55 hover:text-white transition-colors">My Account</Link>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-5">
-          <p className="text-[#D8B45A] text-xs font-semibold tracking-widest uppercase">
-            Support
-          </p>
-          <div className="flex flex-col gap-3 text-sm">
-            <Link href="/how-it-works" className="text-white/55 hover:text-[#D8B45A] transition-colors">
-              How It Works
-            </Link>
-            <Link href="/become-a-host" className="text-white/55 hover:text-[#D8B45A] transition-colors">
-              Host Guide
-            </Link>
-            <Link href="/pricing" className="text-white/55 hover:text-[#D8B45A] transition-colors">
-              Subscription Plans
-            </Link>
-            <Link href="/account" className="text-white/55 hover:text-[#D8B45A] transition-colors">
-              Account Settings
-            </Link>
-          </div>
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row">
+          <p>© {new Date().getFullYear()} Pearlora. All rights reserved.</p>
+          <p>Sri Lanka&apos;s premier stay-booking platform.</p>
         </div>
       </div>
     </footer>

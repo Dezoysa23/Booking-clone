@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { isHostOrAdmin, isSuperAdmin } from "@/lib/roles";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { isSafeImageUrl } from "@/lib/uploads/image-upload";
+import { safeString } from "@/lib/validation/common";
 import type { NearbyHighlightCategory } from "@prisma/client";
 
 type RouteParams = { params: Promise<{ id: string }> };
@@ -11,10 +13,6 @@ const VALID_CATEGORIES: NearbyHighlightCategory[] = [
   "VIEWPOINT", "BEACH", "NATURE", "RESTAURANT", "CAFE",
   "CULTURE", "HISTORY", "SHOPPING", "ACTIVITY", "TRANSPORT", "OTHER",
 ];
-
-function safeString(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
-}
 
 async function authorizeForProperty(propertyId: number) {
   const currentUser = await getCurrentUser();
@@ -72,12 +70,34 @@ export async function POST(request: Request, { params }: RouteParams) {
       ? body.category
       : "OTHER";
 
-    const description = safeString(body.description) || undefined;
-    const locationName = safeString(body.locationName) || undefined;
-    const imageUrl = safeString(body.imageUrl) || undefined;
-    const distance = body.distance != null ? Number(body.distance) : undefined;
-    const distanceUnit = safeString(body.distanceUnit) || "km";
-    const sortOrder = Number(body.sortOrder) || 0;
+    const descriptionRaw = safeString(body.description);
+    if (descriptionRaw.length > 1000) {
+      return NextResponse.json({ error: "Description must be 1000 characters or fewer." }, { status: 400 });
+    }
+    const description = descriptionRaw || undefined;
+
+    const locationNameRaw = safeString(body.locationName);
+    if (locationNameRaw.length > 200) {
+      return NextResponse.json({ error: "Location name must be 200 characters or fewer." }, { status: 400 });
+    }
+    const locationName = locationNameRaw || undefined;
+
+    const imageUrlRaw = safeString(body.imageUrl);
+    if (imageUrlRaw && !isSafeImageUrl(imageUrlRaw)) {
+      return NextResponse.json({ error: "Image URL must be a local path or an https:// URL." }, { status: 400 });
+    }
+    const imageUrl = imageUrlRaw || undefined;
+
+    let distance: number | undefined;
+    if (body.distance != null && body.distance !== "") {
+      const d = Number(body.distance);
+      if (isNaN(d) || d < 0 || d > 100000) {
+        return NextResponse.json({ error: "Distance must be between 0 and 100000." }, { status: 400 });
+      }
+      distance = d;
+    }
+    const distanceUnit = safeString(body.distanceUnit).slice(0, 10) || "km";
+    const sortOrder = Math.min(Math.max(0, Math.floor(Number(body.sortOrder) || 0)), 10000);
 
     const highlight = await prisma.nearbyHighlight.create({
       data: {
@@ -85,7 +105,7 @@ export async function POST(request: Request, { params }: RouteParams) {
         title,
         description,
         category,
-        distance: distance !== undefined && !isNaN(distance) ? distance : undefined,
+        distance,
         distanceUnit,
         locationName,
         imageUrl,

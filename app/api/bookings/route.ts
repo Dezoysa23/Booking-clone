@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 import { assertPropertyAvailable } from "@/lib/bookings/availability";
 import { sendBookingConfirmationEmail } from "@/lib/email/templates/booking-confirmation";
 
@@ -50,6 +51,14 @@ export async function POST(request: Request) {
       );
     }
 
+    const limited = await enforceRateLimit(
+      `booking:${userId}`,
+      10,
+      10 * 60 * 1000,
+      "Too many booking attempts. Please try again later."
+    );
+    if (limited) return limited;
+
     const body = await request.json();
     const { propertyId, checkIn, checkOut, guests } = body;
 
@@ -87,6 +96,16 @@ export async function POST(request: Request) {
       );
     }
 
+    // Cap how far out a booking can be made (guards against absurd/abuse dates)
+    const maxFuture = new Date(today);
+    maxFuture.setFullYear(maxFuture.getFullYear() + 2);
+    if (checkInDate > maxFuture) {
+      return NextResponse.json(
+        { error: "Check-in date is too far in the future." },
+        { status: 400 }
+      );
+    }
+
     // Validate guests
     const guestsNum = Number(guests);
     if (!Number.isInteger(guestsNum) || guestsNum < 1 || guestsNum > 20) {
@@ -108,13 +127,21 @@ export async function POST(request: Request) {
     // Fetch property to get authoritative price (never trust client-sent price)
     const property = await prisma.property.findUnique({
       where: { id: propertyIdNum },
-      select: { id: true, price: true, name: true },
+      select: { id: true, price: true, name: true, maxGuests: true },
     });
 
     if (!property) {
       return NextResponse.json(
         { error: "Property not found." },
         { status: 404 }
+      );
+    }
+
+    // Enforce the property's guest capacity server-side
+    if (property.maxGuests != null && guestsNum > property.maxGuests) {
+      return NextResponse.json(
+        { error: `This property allows a maximum of ${property.maxGuests} guests.` },
+        { status: 400 }
       );
     }
 
@@ -125,6 +152,13 @@ export async function POST(request: Request) {
     if (nightsNum < 1) {
       return NextResponse.json(
         { error: "Booking must be for at least 1 night." },
+        { status: 400 }
+      );
+    }
+
+    if (nightsNum > 365) {
+      return NextResponse.json(
+        { error: "Booking cannot exceed 365 nights." },
         { status: 400 }
       );
     }

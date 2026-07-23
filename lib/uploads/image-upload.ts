@@ -33,3 +33,20 @@ export async function savePropertyImage(file: File): Promise<string> {
 
   return `/uploads/properties/${filename}`;
 }
+
+/**
+ * Validates a user-supplied image URL/path before it is persisted and later
+ * rendered. Accepts app-local paths ("/uploads/...") and absolute https:// URLs;
+ * rejects javascript:, data:, http:, and protocol-relative URLs to prevent
+ * stored-XSS and mixed-content / arbitrary-origin embeds.
+ */
+export function isSafeImageUrl(url: string): boolean {
+  if (!url) return false;
+  if (url.startsWith("//")) return false; // protocol-relative
+  if (url.startsWith("/")) return true; // app-local path
+  try {
+    return new URL(url).protocol === "https:";
+  } catch {
+    return false;
+  }
+}

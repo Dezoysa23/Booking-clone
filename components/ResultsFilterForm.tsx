@@ -3,46 +3,66 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition, useState } from "react";
 import { FACILITY_OPTIONS, FACILITY_GROUPS } from "@/lib/property-constants";
+import { cn } from "@/lib/cn";
+
+const PRICE_MAX = 100000;
+const PRICE_STEP = 5000;
+
+const RATING_PILLS = [
+  { label: "Any", value: "" },
+  { label: "8+", value: "8" },
+  { label: "9+", value: "9" },
+  { label: "9.5+", value: "9.5" },
+];
 
 export default function ResultsFilterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const [facilitiesOpen, setFacilitiesOpen] = useState(false);
+  // Filters collapse on mobile (below lg) so results are reachable immediately.
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const [destination, setDestination] = useState(searchParams.get("destination") || "");
+  const [destination, setDestination] = useState(
+    searchParams.get("destination") || "",
+  );
   const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || "");
   const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice") || "");
   const [minRating, setMinRating] = useState(searchParams.get("minRating") || "");
-  const [guests, setGuests] = useState(searchParams.get("guests") || "");
-  const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || "");
+  const [guests, setGuests] = useState(
+    Number(searchParams.get("guests")) || 0,
+  );
   const [facilities, setFacilities] = useState<string[]>(() => {
     const raw = searchParams.get("facilities");
     return raw ? raw.split(",").filter(Boolean) : [];
   });
 
+  // Preserved across filter changes (set elsewhere in the flow).
+  const carrySortBy = searchParams.get("sortBy") || "";
+  const carryCheckIn = searchParams.get("checkIn") || "";
+  const carryCheckOut = searchParams.get("checkOut") || "";
+  const carryRooms = searchParams.get("rooms") || "";
+
   const toggleFacility = (key: string) => {
     setFacilities((prev) =>
-      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
     );
   };
 
-  const handleApplyFilters = (e: React.SyntheticEvent) => {
+  const handleApply = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (destination.trim()) params.set("destination", destination.trim());
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
     if (minRating) params.set("minRating", minRating);
-    if (guests) params.set("guests", guests);
-    if (sortBy) params.set("sortBy", sortBy);
+    if (guests > 0) params.set("guests", String(guests));
     if (facilities.length > 0) params.set("facilities", facilities.join(","));
+    if (carrySortBy) params.set("sortBy", carrySortBy);
+    if (carryCheckIn) params.set("checkIn", carryCheckIn);
+    if (carryCheckOut) params.set("checkOut", carryCheckOut);
+    if (carryRooms) params.set("rooms", carryRooms);
 
-    const newUrl = `/results?${params.toString()}`;
-    const currentUrl = `/results?${searchParams.toString()}`;
-    if (newUrl === currentUrl) return;
-
-    startTransition(() => { router.push(newUrl); });
+    startTransition(() => router.push(`/results?${params.toString()}`));
   };
 
   const clearAll = () => {
@@ -50,147 +70,232 @@ export default function ResultsFilterForm() {
     setMinPrice("");
     setMaxPrice("");
     setMinRating("");
-    setGuests("");
-    setSortBy("");
+    setGuests(0);
     setFacilities([]);
-    startTransition(() => { router.push("/results"); });
+    startTransition(() => router.push("/results"));
   };
 
-  const inputClass =
-    "w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#0f1f3d] focus:bg-white focus:ring-2 focus:ring-[#0f1f3d]/10";
-  const labelClass =
-    "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400";
-
-  const hasFilters = destination || minPrice || maxPrice || minRating || guests || sortBy || facilities.length > 0;
+  const hasFilters =
+    destination || minPrice || maxPrice || minRating || guests > 0 || facilities.length > 0;
 
   return (
-    <form onSubmit={handleApplyFilters} className="mt-6 rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
-      <div className="px-6 py-5">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
-            Filter & Sort
-          </h2>
-          {hasFilters && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-[#071B63]/8 px-2.5 py-0.5 text-xs font-semibold text-[#071B63]">
-              <span className="material-symbols-outlined text-xs">filter_list</span>
-              Filters active
-            </span>
-          )}
-        </div>
-
-        {/* Main filters row */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
-          <div className="lg:col-span-2">
-            <label className={labelClass}>Destination</label>
-            <input type="text" value={destination} onChange={(e) => setDestination(e.target.value)} placeholder="e.g. Colombo" className={inputClass} />
-          </div>
-          <div>
-            <label className={labelClass}>Min Price</label>
-            <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} placeholder="e.g. 10000" min="0" className={inputClass} />
-          </div>
-          <div>
-            <label className={labelClass}>Max Price</label>
-            <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} placeholder="e.g. 50000" min="0" className={inputClass} />
-          </div>
-          <div>
-            <label className={labelClass}>Guests</label>
-            <input type="number" value={guests} onChange={(e) => setGuests(e.target.value)} placeholder="e.g. 4" min="1" max="50" className={inputClass} />
-          </div>
-          <div>
-            <label className={labelClass}>Min Rating</label>
-            <input type="number" step="0.1" value={minRating} onChange={(e) => setMinRating(e.target.value)} placeholder="e.g. 8.0" min="1" max="10" className={inputClass} />
-          </div>
-        </div>
-
-        <div className="mt-4">
-          <label className={labelClass}>Sort By</label>
-          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className={`${inputClass} max-w-xs`}>
-            <option value="">Default (Best Rated)</option>
-            <option value="price_asc">Price: Low to High</option>
-            <option value="price_desc">Price: High to Low</option>
-            <option value="rating_desc">Rating: Best First</option>
-            <option value="rating_asc">Rating: Lowest First</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Facility filters — collapsible */}
-      <div className="border-t border-gray-100">
+    <form
+      id="filters"
+      onSubmit={handleApply}
+      className="scroll-mt-28 overflow-hidden rounded-2xl border border-[#e7ddc9] bg-white shadow-card"
+    >
+      <div className="flex items-center justify-between border-b border-[#f1e7d6] px-5 py-4">
         <button
           type="button"
-          onClick={() => setFacilitiesOpen((o) => !o)}
-          className="w-full flex items-center justify-between px-6 py-3.5 hover:bg-gray-50 transition-colors text-left"
+          onClick={() => setMobileOpen((o) => !o)}
+          aria-expanded={mobileOpen}
+          className="flex items-center gap-2 lg:pointer-events-none"
         >
-          <div className="flex items-center gap-2.5">
-            <span className="material-symbols-outlined text-[#071B63] text-base">checklist</span>
-            <span className="text-sm font-semibold text-[#0f1f3d]">Facilities</span>
-            {facilities.length > 0 && (
-              <span className="inline-flex items-center justify-center h-5 min-w-5 px-1.5 rounded-full bg-[#071B63] text-white text-xs font-bold">
-                {facilities.length}
-              </span>
-            )}
-          </div>
           <span
-            className="material-symbols-outlined text-gray-400 text-base transition-transform"
-            style={{ transform: facilitiesOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+            className="material-symbols-outlined text-xl leading-none text-[#d9a94d] lg:hidden"
+            aria-hidden="true"
+          >
+            tune
+          </span>
+          <h2 className="font-(family-name:--font-playfair-display) text-lg font-semibold text-[#14213d]">
+            Filters
+          </h2>
+          <span
+            className={cn(
+              "material-symbols-outlined text-xl leading-none text-[#7c879b] transition-transform lg:hidden",
+              mobileOpen && "rotate-180",
+            )}
+            aria-hidden="true"
           >
             expand_more
           </span>
         </button>
-
-        {facilitiesOpen && (
-          <div className="px-6 pb-5 bg-white">
-            <p className="text-xs text-gray-400 mb-4">Select facilities to find properties that offer them.</p>
-            <div className="space-y-4">
-              {FACILITY_GROUPS.map((group) => {
-                const groupItems = FACILITY_OPTIONS.filter((f) => f.group === group);
-                return (
-                  <div key={group}>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">{group}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {groupItems.map((f) => {
-                        const active = facilities.includes(f.key);
-                        return (
-                          <button
-                            key={f.key}
-                            type="button"
-                            onClick={() => toggleFacility(f.key)}
-                            className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
-                              active
-                                ? "border-[#071B63] bg-[#071B63] text-white"
-                                : "border-gray-200 bg-white text-gray-600 hover:border-[#071B63]/40 hover:text-[#071B63]"
-                            }`}
-                          >
-                            <span className="material-symbols-outlined text-xs">{f.icon}</span>
-                            {f.label}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
+        {hasFilters ? (
+          <button
+            type="button"
+            onClick={clearAll}
+            className="text-xs font-semibold text-[#a9791f] transition-colors hover:text-on-primary-fixed-variant"
+          >
+            Reset all
+          </button>
+        ) : null}
       </div>
 
-      {/* Action buttons */}
-      <div className="px-6 py-4 border-t border-gray-100 flex gap-3">
+      <div className={cn(mobileOpen ? "block" : "hidden", "lg:block")}>
+      <div className="space-y-6 px-5 py-5">
+        {/* Destination */}
+        <div>
+          <label htmlFor="f-destination" className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-[#14213d]/60">
+            Destination
+          </label>
+          <input
+            id="f-destination"
+            type="text"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            placeholder="e.g. Galle"
+            className="w-full rounded-xl border border-[#e7ddc9] bg-white px-3.5 py-2.5 text-sm text-[#16233f] outline-none transition-colors placeholder:text-[#7c879b] focus:border-[#d9a94d] focus:ring-2 focus:ring-[#d9a94d]/30"
+          />
+        </div>
+
+        {/* Price range */}
+        <div>
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#14213d]/60">
+              Max price / night
+            </span>
+            <span className="text-xs font-semibold text-[#14213d]">
+              {maxPrice ? `LKR ${Number(maxPrice).toLocaleString()}` : "Any"}
+            </span>
+          </div>
+          <input
+            type="range"
+            min={0}
+            max={PRICE_MAX}
+            step={PRICE_STEP}
+            value={maxPrice ? Number(maxPrice) : PRICE_MAX}
+            onChange={(e) =>
+              setMaxPrice(
+                Number(e.target.value) >= PRICE_MAX ? "" : e.target.value,
+              )
+            }
+            className="price-range w-full accent-[#d9a94d]"
+            aria-label="Maximum price per night"
+          />
+          <div className="mt-3">
+            <label htmlFor="f-minprice" className="mb-1.5 block text-[11px] font-medium text-[#7c879b]">
+              Minimum price
+            </label>
+            <input
+              id="f-minprice"
+              type="number"
+              min={0}
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+              placeholder="0"
+              className="w-full rounded-xl border border-[#e7ddc9] bg-white px-3.5 py-2 text-sm text-[#16233f] outline-none transition-colors placeholder:text-[#7c879b] focus:border-[#d9a94d] focus:ring-2 focus:ring-[#d9a94d]/30"
+            />
+          </div>
+        </div>
+
+        {/* Guests stepper */}
+        <div>
+          <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-[#14213d]/60">
+            Guests
+          </span>
+          <div className="flex items-center justify-between rounded-xl border border-[#e7ddc9] px-3 py-2">
+            <span className="text-sm text-[#16233f]">
+              {guests > 0 ? `${guests}+ guests` : "Any"}
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                aria-label="Decrease guests"
+                onClick={() => setGuests((g) => Math.max(0, g - 1))}
+                disabled={guests <= 0}
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-[#e7ddc9] text-[#14213d] transition-colors hover:border-[#d9a94d] hover:bg-[#f4ecd8] disabled:opacity-40"
+              >
+                <span className="material-symbols-outlined text-sm" aria-hidden="true">remove</span>
+              </button>
+              <span className="w-5 text-center text-sm font-semibold text-[#14213d]">{guests}</span>
+              <button
+                type="button"
+                aria-label="Increase guests"
+                onClick={() => setGuests((g) => Math.min(20, g + 1))}
+                disabled={guests >= 20}
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-[#e7ddc9] text-[#14213d] transition-colors hover:border-[#d9a94d] hover:bg-[#f4ecd8] disabled:opacity-40"
+              >
+                <span className="material-symbols-outlined text-sm" aria-hidden="true">add</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Rating pills */}
+        <div>
+          <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-[#14213d]/60">
+            Guest rating
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {RATING_PILLS.map((pill) => {
+              const active = minRating === pill.value;
+              return (
+                <button
+                  key={pill.label}
+                  type="button"
+                  onClick={() => setMinRating(pill.value)}
+                  className={cn(
+                    "rounded-full border px-4 py-1.5 text-xs font-semibold transition-all",
+                    active
+                      ? "border-[#14213d] bg-[#14213d] text-white"
+                      : "border-[#e7ddc9] bg-white text-on-surface-variant hover:border-[#d9a94d] hover:text-[#14213d]",
+                  )}
+                >
+                  {pill.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Facilities */}
+        <div>
+          <span className="mb-2 block text-xs font-bold uppercase tracking-[0.12em] text-[#14213d]/60">
+            Facilities
+          </span>
+          <div className="space-y-4">
+            {FACILITY_GROUPS.map((group) => {
+              const groupItems = FACILITY_OPTIONS.filter((f) => f.group === group);
+              return (
+                <div key={group}>
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-[#7c879b]">
+                    {group}
+                  </p>
+                  <div className="space-y-1.5">
+                    {groupItems.map((f) => {
+                      const active = facilities.includes(f.key);
+                      return (
+                        <label
+                          key={f.key}
+                          className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-1 text-sm text-[#16233f] transition-colors hover:text-[#14213d]"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={active}
+                            onChange={() => toggleFacility(f.key)}
+                            className="h-4 w-4 rounded border-[#c7bba3] text-[#d9a94d] accent-[#d9a94d] focus:ring-[#d9a94d]/40"
+                          />
+                          <span className="material-symbols-outlined text-base text-[#d9a94d]" aria-hidden="true">
+                            {f.icon}
+                          </span>
+                          {f.label}
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex gap-3 border-t border-[#f1e7d6] px-5 py-4">
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-lg bg-[#071B63] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors disabled:opacity-60"
+          className="flex-1 rounded-full bg-[#d9a94d] px-5 py-2.5 text-sm font-semibold text-[#14213d] transition-colors hover:bg-[#c4922f] disabled:opacity-60"
         >
           {isPending ? "Applying…" : "Apply Filters"}
         </button>
         <button
           type="button"
           onClick={clearAll}
-          className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+          className="rounded-full border border-[#14213d]/25 bg-white px-5 py-2.5 text-sm font-semibold text-[#14213d] transition-colors hover:border-[#14213d]/45 hover:bg-[#14213d]/3"
         >
-          Clear All
+          Reset
         </button>
+      </div>
       </div>
     </form>
   );

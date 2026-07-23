@@ -1,18 +1,21 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center px-4">
-      <div className="flex flex-col items-center gap-4">
-        <div className="flex items-center gap-2">
-          <span className="text-[#D8B45A] text-xl animate-pulse">✦</span>
-          <span className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
-            Pearlora
-          </span>
-        </div>
-        <div className="flex gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#0f1f3d]/30 animate-bounce [animation-delay:0ms]" />
-          <span className="h-1.5 w-1.5 rounded-full bg-[#0f1f3d]/30 animate-bounce [animation-delay:150ms]" />
-          <span className="h-1.5 w-1.5 rounded-full bg-[#0f1f3d]/30 animate-bounce [animation-delay:300ms]" />
-        </div>
+    <div className="flex min-h-[70vh] flex-col items-center justify-center gap-4 px-4">
+      <div className="flex items-center gap-2.5">
+        <span
+          className="material-symbols-outlined animate-pulse text-2xl text-[#d9a94d]"
+          aria-hidden="true"
+        >
+          hotel
+        </span>
+        <span className="font-(family-name:--font-playfair-display) text-2xl font-semibold text-[#14213d]">
+          Pearlora
+        </span>
+      </div>
+      <div className="flex gap-1.5" aria-label="Loading">
+        <span className="h-2 w-2 animate-bounce rounded-full bg-[#14213d] [animation-delay:-0.3s]" />
+        <span className="h-2 w-2 animate-bounce rounded-full bg-[#14213d] [animation-delay:-0.15s]" />
+        <span className="h-2 w-2 animate-bounce rounded-full bg-[#d9a94d]" />
       </div>
     </div>
   );

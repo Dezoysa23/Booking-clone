@@ -2,8 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { cn } from "@/lib/cn";
+import { Spinner } from "@/components/ui";
 
-export default function LogoutButton() {
+export default function LogoutButton({ className }: { className?: string }) {
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -28,9 +30,13 @@ export default function LogoutButton() {
       type="button"
       onClick={handleLogout}
       disabled={isLoggingOut}
-      className="text-white/50 hover:text-red-300 text-sm font-medium px-3 py-1.5 rounded-full hover:bg-white/5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      className={cn(
+        "inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-50",
+        className,
+      )}
     >
-      {isLoggingOut ? "Signing out..." : "Sign out"}
+      {isLoggingOut ? <Spinner className="h-3.5 w-3.5" /> : null}
+      {isLoggingOut ? "Signing out…" : "Sign out"}
     </button>
   );
 }

@@ -25,12 +25,12 @@ export default async function HostEditPropertyPage({ params }: Props) {
 
   return (
     <div>
-      <div className="flex items-center gap-1.5 mb-6 text-xs text-gray-400">
-        <Link href="/host/dashboard" className="hover:text-[#071B63] transition-colors">Dashboard</Link>
-        <span className="text-gray-300">›</span>
-        <Link href="/host/properties" className="hover:text-[#071B63] transition-colors">Properties</Link>
-        <span className="text-gray-300">›</span>
-        <span className="text-[#071B63] font-medium">Edit #{property.id}</span>
+      <div className="flex items-center gap-1.5 mb-6 text-xs text-slate-400">
+        <Link href="/host/dashboard" className="hover:text-[#14213d] transition-colors">Dashboard</Link>
+        <span className="text-slate-300">›</span>
+        <Link href="/host/properties" className="hover:text-[#14213d] transition-colors">Properties</Link>
+        <span className="text-slate-300">›</span>
+        <span className="text-[#14213d] font-medium">Edit #{property.id}</span>
       </div>
       <div className="max-w-4xl">
         <PropertyForm

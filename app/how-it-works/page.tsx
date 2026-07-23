@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { buttonVariants } from "@/components/ui";
 
 const TRAVELER_STEPS = [
   {
@@ -122,164 +123,187 @@ type StepCardProps = {
   accentColor: string;
 };
 
-function StepCard({ step, icon, title, description, accentColor }: StepCardProps) {
+function StepCard({
+  step,
+  icon,
+  title,
+  description,
+  accentColor,
+}: StepCardProps) {
   return (
-    <div className="relative rounded-2xl bg-white border border-gray-100 shadow-sm p-7 flex flex-col gap-4 hover:shadow-md transition-shadow">
+    <div className="relative flex flex-col gap-4 rounded-2xl border border-slate-200/70 bg-white p-7 shadow-sm transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-start justify-between gap-4">
         <div
           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
-          style={{ backgroundColor: `${accentColor}12` }}
+          style={{ backgroundColor: `${accentColor}14` }}
         >
           <span
             className="material-symbols-outlined text-2xl"
             style={{ color: accentColor }}
+            aria-hidden="true"
           >
             {icon}
           </span>
         </div>
         <span
-          className="font-[family-name:var(--font-playfair-display)] text-4xl font-bold opacity-10 leading-none"
+          className="font-(family-name:--font-playfair-display) text-4xl font-bold leading-none opacity-10"
           style={{ color: accentColor }}
         >
           {step}
         </span>
       </div>
-      <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d] leading-snug">
+      <h3 className="font-(family-name:--font-playfair-display) text-base font-semibold leading-snug text-[#14213d]">
         {title}
       </h3>
-      <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
+      <p className="text-sm leading-relaxed text-slate-500">{description}</p>
     </div>
   );
 }
 
 export default function HowItWorksPage() {
   return (
-    <main className="min-h-screen bg-[#faf8f5]">
+    <main className="page-gradient min-h-screen">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6b] px-4 md:px-16 py-20 text-center">
+      <section className="section-navy px-4 py-20 text-center md:px-16">
         <div className="mx-auto max-w-3xl">
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <span className="h-px w-10 bg-[#D8B45A]/60" />
-            <span className="text-[#D8B45A] text-xs font-semibold tracking-[0.2em] uppercase">
+          <div className="mb-5 flex items-center justify-center gap-3">
+            <span className="h-px w-10 bg-[#e8c892]/60" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e8c892]">
               Your Complete Guide
             </span>
-            <span className="h-px w-10 bg-[#D8B45A]/60" />
+            <span className="h-px w-10 bg-[#e8c892]/60" />
           </div>
-          <h1 className="font-[family-name:var(--font-playfair-display)] text-4xl md:text-5xl font-semibold text-white mb-5">
+          <h1 className="mb-5 font-(family-name:--font-playfair-display) text-4xl font-semibold text-white md:text-5xl">
             How Pearlora Works
           </h1>
-          <p className="text-white/65 text-base md:text-lg leading-relaxed max-w-xl mx-auto">
-            Whether you&apos;re looking for your next getaway or listing a property,
-            Pearlora makes it simple and secure.
+          <p className="mx-auto max-w-xl text-base leading-relaxed text-white/65 md:text-lg">
+            Whether you&apos;re looking for your next getaway or listing a
+            property, Pearlora makes it simple and secure.
           </p>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 md:px-6 py-16 space-y-20">
+      <div className="mx-auto max-w-6xl space-y-20 px-4 py-16 md:px-6">
         {/* For Travellers */}
         <section>
           <div className="mb-10">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#071B63]/8">
-                <span className="material-symbols-outlined text-[#071B63] text-lg">travel_explore</span>
+            <div className="mb-3 flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f4ecd8]">
+                <span
+                  className="material-symbols-outlined text-lg text-[#14213d]"
+                  aria-hidden="true"
+                >
+                  travel_explore
+                </span>
               </div>
-              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d9a94d]">
                 For Travellers
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h2 className="font-(family-name:--font-playfair-display) text-3xl font-semibold text-[#14213d]">
               Find &amp; book your perfect stay
             </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-lg leading-relaxed">
-              From search to check-in — here&apos;s how to book with Pearlora in six easy steps.
+            <p className="mt-2 max-w-lg text-sm leading-relaxed text-slate-500">
+              From search to check-in — here&apos;s how to book with Pearlora in
+              six easy steps.
             </p>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {TRAVELER_STEPS.map((s) => (
-              <StepCard key={s.step} {...s} accentColor="#071B63" />
+              <StepCard key={s.step} {...s} accentColor="#14213d" />
             ))}
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/results?destination="
-              className="rounded-full bg-[#071B63] px-7 py-3 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+              className={buttonVariants({ variant: "primary" })}
             >
               Start Searching
             </Link>
             <Link
               href="/bookings"
-              className="rounded-full border border-gray-200 bg-white px-7 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className={buttonVariants({ variant: "outline" })}
             >
               View My Bookings
             </Link>
           </div>
         </section>
 
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+        <div className="divider-gold" />
 
         {/* For Hosts */}
         <section>
           <div className="mb-10">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D8B45A]/10">
-                <span className="material-symbols-outlined text-[#D8B45A] text-lg">home_work</span>
+            <div className="mb-3 flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f4ecd8]">
+                <span
+                  className="material-symbols-outlined text-lg text-[#c4922f]"
+                  aria-hidden="true"
+                >
+                  home_work
+                </span>
               </div>
-              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#d9a94d]">
                 For Hosts
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h2 className="font-(family-name:--font-playfair-display) text-3xl font-semibold text-[#14213d]">
               List &amp; manage your properties
             </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-lg leading-relaxed">
-              Turn your property into income. Here&apos;s how to get started as a Pearlora host.
+            <p className="mt-2 max-w-lg text-sm leading-relaxed text-slate-500">
+              Turn your property into income. Here&apos;s how to get started as a
+              Pearlora host.
             </p>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {HOST_STEPS.map((s) => (
-              <StepCard key={s.step} {...s} accentColor="#B8860B" />
+              <StepCard key={s.step} {...s} accentColor="#c4922f" />
             ))}
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/become-a-host"
-              className="rounded-full bg-[#D8B45A] px-7 py-3 text-sm font-semibold text-[#0f1f3d] hover:bg-[#c9a84c] transition-colors"
+              className={buttonVariants({ variant: "accent" })}
             >
               Become a Host
             </Link>
             <Link
               href="/pricing"
-              className="rounded-full border border-gray-200 bg-white px-7 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className={buttonVariants({ variant: "outline" })}
             >
               View Plans
             </Link>
           </div>
         </section>
 
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+        <div className="divider-gold" />
 
         {/* For Admins */}
         <section>
           <div className="mb-10">
-            <div className="flex items-center gap-3 mb-3">
+            <div className="mb-3 flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50">
-                <span className="material-symbols-outlined text-emerald-600 text-lg">admin_panel_settings</span>
+                <span
+                  className="material-symbols-outlined text-lg text-emerald-600"
+                  aria-hidden="true"
+                >
+                  admin_panel_settings
+                </span>
               </div>
-              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-emerald-600">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600">
                 For Admins
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h2 className="font-(family-name:--font-playfair-display) text-3xl font-semibold text-[#14213d]">
               Manage the platform
             </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-lg leading-relaxed">
-              The admin panel gives super admins full visibility and control across the entire platform.
+            <p className="mt-2 max-w-lg text-sm leading-relaxed text-slate-500">
+              The admin panel gives super admins full visibility and control
+              across the entire platform.
             </p>
           </div>
 

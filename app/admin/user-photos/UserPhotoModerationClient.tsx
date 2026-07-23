@@ -59,14 +59,14 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
 
   if (photos.length === 0) {
     return (
-      <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-16 text-center">
+      <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-16 text-center">
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 border border-emerald-100">
           <span className="material-symbols-outlined text-emerald-500 text-xl">check_circle</span>
         </div>
-        <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
+        <h3 className="font-(family-name:--font-playfair-display) text-lg font-semibold text-[#14213d]">
           All caught up!
         </h3>
-        <p className="mt-2 text-sm text-gray-500">No pending photos to review.</p>
+        <p className="mt-2 text-sm text-slate-500">No pending photos to review.</p>
       </div>
     );
   }
@@ -74,7 +74,7 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
   return (
     <div>
       {error && (
-        <div className="mb-4 rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">{error}</div>
+        <div className="mb-4 rounded-lg bg-rose-50 border border-rose-100 px-4 py-3 text-sm text-rose-700">{error}</div>
       )}
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -82,8 +82,8 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
           const cat = USER_PHOTO_CATEGORIES.find((c) => c.value === photo.category);
           const busy = processing === photo.id;
           return (
-            <div key={photo.id} className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden flex flex-col">
-              <div className="relative h-52 bg-gray-50 shrink-0">
+            <div key={photo.id} className="rounded-2xl bg-white border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+              <div className="relative h-52 bg-slate-50 shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={photo.imageUrl} alt={photo.caption ?? "Pending photo"} className="h-full w-full object-cover" />
                 {cat && (
@@ -95,21 +95,21 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
 
               <div className="p-4 flex-1 flex flex-col gap-3">
                 {photo.caption && (
-                  <p className="text-sm text-gray-700 leading-relaxed line-clamp-2">{photo.caption}</p>
+                  <p className="text-sm text-slate-700 leading-relaxed line-clamp-2">{photo.caption}</p>
                 )}
-                <div className="text-xs text-gray-400 space-y-0.5">
+                <div className="text-xs text-slate-400 space-y-0.5">
                   <p>
-                    <span className="font-medium text-gray-600">Property: </span>
-                    <Link href={`/properties/${photo.property.id}`} className="text-[#071B63] hover:underline" target="_blank">
+                    <span className="font-medium text-slate-600">Property: </span>
+                    <Link href={`/properties/${photo.property.id}`} className="text-[#14213d] hover:underline" target="_blank">
                       {photo.property.name}
                     </Link>
                   </p>
                   <p>
-                    <span className="font-medium text-gray-600">Submitted by: </span>
+                    <span className="font-medium text-slate-600">Submitted by: </span>
                     {photo.user.name ?? photo.user.email}
                   </p>
                   <p>
-                    <span className="font-medium text-gray-600">Date: </span>
+                    <span className="font-medium text-slate-600">Date: </span>
                     {new Date(photo.createdAt).toLocaleDateString()}
                   </p>
                 </div>
@@ -128,7 +128,7 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
                     type="button"
                     onClick={() => moderate(photo.id, "REJECTED")}
                     disabled={busy}
-                    className="flex-1 flex items-center justify-center gap-1.5 rounded-lg bg-red-50 border border-red-100 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-100 transition-colors disabled:opacity-60"
+                    className="flex-1 flex items-center justify-center gap-1.5 rounded-lg bg-rose-50 border border-rose-100 px-3 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-100 transition-colors disabled:opacity-60"
                   >
                     <span className="material-symbols-outlined text-sm">close</span>
                     Reject
@@ -138,7 +138,7 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
                     onClick={() => deletePhoto(photo.id)}
                     disabled={busy}
                     title="Delete permanently"
-                    className="flex items-center justify-center rounded-lg border border-gray-200 px-3 py-2 text-gray-400 hover:text-red-500 hover:border-red-200 transition-colors disabled:opacity-60"
+                    className="flex items-center justify-center rounded-lg border border-slate-200 px-3 py-2 text-slate-400 hover:text-rose-500 hover:border-rose-200 transition-colors disabled:opacity-60"
                   >
                     <span className="material-symbols-outlined text-sm">delete</span>
                   </button>

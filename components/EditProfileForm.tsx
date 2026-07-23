@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Button, Field, Input } from "@/components/ui";
 
 type Props = {
   initialName: string;
@@ -51,45 +52,43 @@ export default function EditProfileForm({ initialName }: Props) {
   };
 
   return (
-    <form onSubmit={handleSave} className="rounded-2xl bg-white border border-gray-100 shadow-sm p-8">
-      <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+    <form
+      onSubmit={handleSave}
+      className="rounded-2xl border border-slate-200/70 bg-white p-8 shadow-[0_4px_20px_rgba(11,31,58,0.06)]"
+    >
+      <h2 className="font-(family-name:--font-playfair-display) text-xl font-semibold text-[#14213d]">
         Edit Profile
       </h2>
-      <p className="mt-1 text-sm text-gray-500">Update your display name.</p>
+      <p className="mt-1 text-sm text-slate-500">Update your display name.</p>
 
-      {errorMessage && (
-        <div className="mt-5 rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+      {errorMessage ? (
+        <div className="mt-5 rounded-lg border border-rose-100 bg-rose-50 px-4 py-3 text-sm text-rose-700">
           {errorMessage}
         </div>
-      )}
+      ) : null}
 
-      {successMessage && (
-        <div className="mt-5 rounded-lg bg-green-50 border border-green-100 px-4 py-3 text-sm text-green-700">
+      {successMessage ? (
+        <div className="mt-5 rounded-lg border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
           {successMessage}
         </div>
-      )}
+      ) : null}
 
       <div className="mt-6">
-        <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
-          Display Name
-        </label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#0f1f3d] focus:bg-white focus:ring-2 focus:ring-[#0f1f3d]/10"
-          placeholder="Enter your name"
-          required
-        />
+        <Field label="Display Name" htmlFor="displayName">
+          <Input
+            id="displayName"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
+            required
+          />
+        </Field>
       </div>
 
-      <button
-        type="submit"
-        disabled={isSaving}
-        className="mt-6 rounded-lg bg-[#0f1f3d] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#1a3060] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {isSaving ? "Saving..." : "Save Changes"}
-      </button>
+      <Button type="submit" loading={isSaving} className="mt-6">
+        {isSaving ? "Saving…" : "Save Changes"}
+      </Button>
     </form>
   );
 }

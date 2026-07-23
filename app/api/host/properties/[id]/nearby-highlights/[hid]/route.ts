@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { isHostOrAdmin, isSuperAdmin } from "@/lib/roles";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { isSafeImageUrl } from "@/lib/uploads/image-upload";
+import { safeString } from "@/lib/validation/common";
 import type { NearbyHighlightCategory } from "@prisma/client";
 
 type RouteParams = { params: Promise<{ id: string; hid: string }> };
@@ -11,10 +13,6 @@ const VALID_CATEGORIES: NearbyHighlightCategory[] = [
   "VIEWPOINT", "BEACH", "NATURE", "RESTAURANT", "CAFE",
   "CULTURE", "HISTORY", "SHOPPING", "ACTIVITY", "TRANSPORT", "OTHER",
 ];
-
-function safeString(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
-}
 
 async function authorizeHighlight(propertyId: number, highlightId: string) {
   const currentUser = await getCurrentUser();
@@ -50,23 +48,48 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     const body = await request.json();
     const title = safeString(body.title);
     if (!title) return NextResponse.json({ error: "Title is required." }, { status: 400 });
+    if (title.length > 200) return NextResponse.json({ error: "Title must be 200 characters or fewer." }, { status: 400 });
 
     const category: NearbyHighlightCategory = VALID_CATEGORIES.includes(body.category)
       ? body.category
       : auth.highlight.category;
 
+    const description = safeString(body.description);
+    if (description.length > 1000) {
+      return NextResponse.json({ error: "Description must be 1000 characters or fewer." }, { status: 400 });
+    }
+
+    const locationName = safeString(body.locationName);
+    if (locationName.length > 200) {
+      return NextResponse.json({ error: "Location name must be 200 characters or fewer." }, { status: 400 });
+    }
+
+    const imageUrl = safeString(body.imageUrl);
+    if (imageUrl && !isSafeImageUrl(imageUrl)) {
+      return NextResponse.json({ error: "Image URL must be a local path or an https:// URL." }, { status: 400 });
+    }
+
+    let distance: number | null = null;
+    if (body.distance != null && body.distance !== "") {
+      const d = Number(body.distance);
+      if (isNaN(d) || d < 0 || d > 100000) {
+        return NextResponse.json({ error: "Distance must be between 0 and 100000." }, { status: 400 });
+      }
+      distance = d;
+    }
+
     const updated = await prisma.nearbyHighlight.update({
       where: { id: hid },
       data: {
         title,
-        description: safeString(body.description) || null,
+        description: description || null,
         category,
-        distance: body.distance != null ? Number(body.distance) : null,
-        distanceUnit: safeString(body.distanceUnit) || "km",
-        locationName: safeString(body.locationName) || null,
-        imageUrl: safeString(body.imageUrl) || null,
+        distance,
+        distanceUnit: safeString(body.distanceUnit).slice(0, 10) || "km",
+        locationName: locationName || null,
+        imageUrl: imageUrl || null,
         isActive: body.isActive !== false,
-        sortOrder: Number(body.sortOrder) || 0,
+        sortOrder: Math.min(Math.max(0, Math.floor(Number(body.sortOrder) || 0)), 10000),
       },
     });
 

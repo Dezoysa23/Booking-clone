@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendBookingReminderEmail } from "@/lib/email/templates/booking-reminder";
+import { timingSafeEqualStr } from "@/lib/security/secure-compare";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
+import { getClientIp } from "@/lib/security/get-client-ip";
 
 /**
  * GET /api/cron/booking-reminders
@@ -11,16 +14,31 @@ import { sendBookingReminderEmail } from "@/lib/email/templates/booking-reminder
  * Call this endpoint from a cron service (e.g. Vercel Cron, GitHub Actions,
  * Upstash QStash) on a schedule — e.g. every hour or once daily.
  *
- * Protect with CRON_SECRET: set the env var and send it as ?secret=...
+ * Protect with CRON_SECRET: set the env var and send it as
+ * `Authorization: Bearer <CRON_SECRET>` (Vercel Cron sends this automatically).
  */
 export async function GET(request: Request) {
+  // Fail closed: without a configured secret the endpoint must not run.
   const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret) {
-    const { searchParams } = new URL(request.url);
-    if (searchParams.get("secret") !== cronSecret) {
-      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
-    }
+  if (!cronSecret) {
+    console.error("[Cron] CRON_SECRET is not configured — refusing to run.");
+    return NextResponse.json({ error: "Cron not configured." }, { status: 503 });
   }
+
+  const authHeader = request.headers.get("authorization") ?? "";
+  const provided = authHeader.startsWith("Bearer ")
+    ? authHeader.slice("Bearer ".length)
+    : "";
+  if (!timingSafeEqualStr(provided, cronSecret)) {
+    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+
+  const limited = await enforceRateLimit(
+    `cron:booking-reminders:${getClientIp(request)}`,
+    10,
+    10 * 60 * 1000
+  );
+  if (limited) return limited;
 
   const now = new Date();
   const in24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);

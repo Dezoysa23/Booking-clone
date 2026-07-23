@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { getSessionUserId } from "@/lib/auth";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { enforceRateLimit } from "@/lib/security/rate-limit";
 
 export async function PATCH(request: Request) {
   if (!verifyCsrfOrigin(request)) {
@@ -17,6 +18,14 @@ export async function PATCH(request: Request) {
         { status: 401 }
       );
     }
+
+    const limited = await enforceRateLimit(
+      `change-password:${userId}`,
+      5,
+      10 * 60 * 1000,
+      "Too many password-change attempts. Please try again later."
+    );
+    if (limited) return limited;
 
     const body = await request.json();
     const { currentPassword, newPassword } = body;

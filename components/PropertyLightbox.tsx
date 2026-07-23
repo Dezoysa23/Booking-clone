@@ -114,7 +114,7 @@ export default function PropertyLightbox({
               aria-label={`Go to image ${i + 1}`}
               className={`h-12 w-16 shrink-0 overflow-hidden rounded-md border-2 transition-all ${
                 i === index
-                  ? "border-[#D8B45A] opacity-100"
+                  ? "border-[#d9a94d] opacity-100"
                   : "border-transparent opacity-50 hover:opacity-80"
               }`}
             >

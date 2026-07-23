@@ -23,9 +23,13 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     if (!photo) return NextResponse.json({ error: "Photo not found." }, { status: 404 });
 
     const body = await request.json();
-    const status: UserPropertyPhotoStatus = VALID_STATUSES.includes(body.status)
-      ? body.status
-      : photo.status;
+    if (!VALID_STATUSES.includes(body.status)) {
+      return NextResponse.json(
+        { error: "Status must be APPROVED or REJECTED." },
+        { status: 400 }
+      );
+    }
+    const status: UserPropertyPhotoStatus = body.status;
 
     const updated = await prisma.userPropertyPhoto.update({
       where: { id },

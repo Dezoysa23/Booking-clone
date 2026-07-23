@@ -15,7 +15,12 @@ export async function sendEmail(payload: EmailPayload): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
 
   if (!apiKey) {
-    console.warn("[Email] RESEND_API_KEY not configured — skipping email send.");
+    // Email is a live dependency in production — surface misconfiguration loudly
+    // instead of silently dropping mail. Callers wrap sendEmail in try/catch.
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("RESEND_API_KEY is not configured.");
+    }
+    console.warn("[Email] RESEND_API_KEY not configured — skipping email send (dev only).");
     return;
   }
 
@@ -39,6 +44,6 @@ export async function sendEmail(payload: EmailPayload): Promise<void> {
 
   if (!res.ok) {
     const body = await res.text().catch(() => "(unreadable)");
-    console.error(`[Email] Resend API error ${res.status}: ${body}`);
+    throw new Error(`Resend API error ${res.status}: ${body}`);
   }
 }

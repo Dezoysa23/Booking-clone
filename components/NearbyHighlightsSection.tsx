@@ -11,10 +11,10 @@ export default function NearbyHighlightsSection({ highlights }: Props) {
   return (
     <section>
       <div className="flex items-center gap-3 mb-5">
-        <span className="h-px w-6 bg-[#D8B45A]" />
-        <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">Local Highlights</span>
+        <span className="h-px w-6 bg-[#d9a94d]" />
+        <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#d9a94d]">Local Highlights</span>
       </div>
-      <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d] mb-6">
+      <h2 className="font-(family-name:--font-playfair-display) text-xl font-semibold text-[#14213d] mb-6">
         What makes this stay special
       </h2>
       <div className="grid gap-4 sm:grid-cols-2">
@@ -23,7 +23,7 @@ export default function NearbyHighlightsSection({ highlights }: Props) {
           return (
             <div
               key={h.id}
-              className="group rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+              className="group rounded-2xl bg-white border border-slate-200/70 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
             >
               {h.imageUrl && (
                 <div className="relative h-44 overflow-hidden">
@@ -33,7 +33,7 @@ export default function NearbyHighlightsSection({ highlights }: Props) {
                     alt={h.title}
                     className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
                   {cat && (
                     <span
                       className="absolute top-3 left-3 flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold text-white"
@@ -61,24 +61,24 @@ export default function NearbyHighlightsSection({ highlights }: Props) {
                         </span>
                       </div>
                     )}
-                    <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#0f1f3d] text-sm leading-snug">
+                    <h3 className="font-(family-name:--font-playfair-display) font-semibold text-[#14213d] text-sm leading-snug">
                       {h.title}
                     </h3>
                   </div>
                   {h.distance != null && (
-                    <span className="text-xs font-semibold text-[#071B63] shrink-0 bg-[#071B63]/8 px-2 py-0.5 rounded-full whitespace-nowrap">
+                    <span className="text-xs font-semibold text-[#14213d] shrink-0 bg-[#14213d]/8 px-2 py-0.5 rounded-full whitespace-nowrap">
                       {h.distance} {h.distanceUnit ?? "km"}
                     </span>
                   )}
                 </div>
                 {h.locationName && (
-                  <p className="mt-1 text-xs text-gray-400 flex items-center gap-1">
+                  <p className="mt-1 text-xs text-slate-400 flex items-center gap-1">
                     <span className="material-symbols-outlined text-xs">location_on</span>
                     {h.locationName}
                   </p>
                 )}
                 {h.description && (
-                  <p className="mt-2 text-xs text-gray-500 leading-relaxed line-clamp-3">{h.description}</p>
+                  <p className="mt-2 text-xs text-slate-500 leading-relaxed line-clamp-3">{h.description}</p>
                 )}
                 {!h.imageUrl && cat && (
                   <span

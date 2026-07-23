@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { SESSION_COOKIE_NAME, createSessionToken } from "@/lib/auth";
-import { checkRateLimit } from "@/lib/security/rate-limit";
+import { rateLimit } from "@/lib/security/rate-limit";
 import { getClientIp } from "@/lib/security/get-client-ip";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
 
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   const ip = getClientIp(request);
 
   // Rate limit: 5 signups per 10 min per IP
-  const ipLimit = checkRateLimit(`signup:ip:${ip}`, 5, 10 * 60 * 1000);
+  const ipLimit = await rateLimit(`signup:ip:${ip}`, 5, 10 * 60 * 1000);
   if (!ipLimit.success) {
     return NextResponse.json(
       { error: "Too many signup attempts. Please try again later." },

@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { Button, Field, Input } from "@/components/ui";
 
 export default function ChangePasswordForm() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [showPw, setShowPw] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -30,7 +32,9 @@ export default function ChangePasswordForm() {
     }
 
     if (newPassword === currentPassword) {
-      setErrorMessage("New password must be different from your current password.");
+      setErrorMessage(
+        "New password must be different from your current password.",
+      );
       return;
     }
 
@@ -60,72 +64,81 @@ export default function ChangePasswordForm() {
     }
   };
 
-  const inputClass =
-    "w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#0f1f3d] focus:bg-white focus:ring-2 focus:ring-[#0f1f3d]/10";
-
   return (
     <form
       onSubmit={handleChangePassword}
-      className="rounded-2xl bg-white border border-gray-100 shadow-sm p-8"
+      className="rounded-2xl border border-slate-200/70 bg-white p-8 shadow-[0_4px_20px_rgba(11,31,58,0.06)]"
     >
-      <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
-        Change Password
-      </h2>
-      <p className="mt-1 text-sm text-gray-500">
-        Update your account password securely.
-      </p>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h2 className="font-(family-name:--font-playfair-display) text-xl font-semibold text-[#14213d]">
+            Change Password
+          </h2>
+          <p className="mt-1 text-sm text-slate-500">
+            Update your account password securely.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setShowPw((v) => !v)}
+          className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-slate-500 transition-colors hover:text-[#14213d]"
+        >
+          <span
+            className="material-symbols-outlined text-base leading-none"
+            aria-hidden="true"
+          >
+            {showPw ? "visibility_off" : "visibility"}
+          </span>
+          {showPw ? "Hide" : "Show"}
+        </button>
+      </div>
 
-      {errorMessage && (
-        <div className="mt-5 rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
+      {errorMessage ? (
+        <div className="mt-5 rounded-lg border border-rose-100 bg-rose-50 px-4 py-3 text-sm text-rose-700">
           {errorMessage}
         </div>
-      )}
+      ) : null}
 
-      {successMessage && (
-        <div className="mt-5 rounded-lg bg-green-50 border border-green-100 px-4 py-3 text-sm text-green-700">
+      {successMessage ? (
+        <div className="mt-5 rounded-lg border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
           {successMessage}
         </div>
-      )}
+      ) : null}
 
       <div className="mt-6 space-y-4">
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
-            Current Password
-          </label>
-          <input
-            type="password"
+        <Field label="Current Password" htmlFor="currentPassword">
+          <Input
+            id="currentPassword"
+            type={showPw ? "text" : "password"}
+            autoComplete="current-password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
-            className={inputClass}
             placeholder="Enter current password"
             required
           />
-        </div>
+        </Field>
 
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
-            New Password
-          </label>
-          <input
-            type="password"
+        <Field
+          label="New Password"
+          htmlFor="newPassword"
+          hint="Minimum 8 characters."
+        >
+          <Input
+            id="newPassword"
+            type={showPw ? "text" : "password"}
+            autoComplete="new-password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className={inputClass}
             placeholder="Minimum 8 characters"
             required
             minLength={8}
           />
-          <p className="mt-1 text-xs text-gray-400">Minimum 8 characters.</p>
-        </div>
+        </Field>
       </div>
 
-      <button
-        type="submit"
-        disabled={isSaving}
-        className="mt-6 rounded-lg bg-[#0f1f3d] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#1a3060] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {isSaving ? "Updating..." : "Change Password"}
-      </button>
+      <Button type="submit" loading={isSaving} className="mt-6">
+        {isSaving ? "Updating…" : "Change Password"}
+      </Button>
     </form>
   );
 }
