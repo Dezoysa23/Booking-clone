@@ -2,9 +2,16 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { paymentService } from "@/lib/payment";
 import { activateSubscription } from "@/lib/subscription";
+import { checkRateLimit } from "@/lib/security/rate-limit";
+import { getClientIp } from "@/lib/security/get-client-ip";
 
 export async function POST(request: Request) {
   try {
+    const rl = checkRateLimit(`webhook:payment:${getClientIp(request)}`, 60, 60 * 1000);
+    if (!rl.success) {
+      return NextResponse.json({ error: "Too many requests." }, { status: 429 });
+    }
+
     const rawBody = await request.text();
     const signature = request.headers.get("x-webhook-signature") ?? "";
 
@@ -13,8 +20,15 @@ export async function POST(request: Request) {
     }
 
     const payload = paymentService.parseWebhookPayload(rawBody);
+    if (typeof payload.type !== "string") {
+      return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
+    }
 
-    if (payload.type === "payment.success" && payload.subscriptionId) {
+    if (
+      payload.type === "payment.success" &&
+      typeof payload.subscriptionId === "string" &&
+      payload.subscriptionId
+    ) {
       const subscription = await prisma.subscription.findUnique({
         where: { id: payload.subscriptionId },
       });
