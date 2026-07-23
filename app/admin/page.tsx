@@ -43,7 +43,7 @@ export default async function AdminPage() {
         <div className="rounded-2xl admin-header-gradient px-8 py-8 mb-8">
           <div className="flex items-center gap-2.5 mb-3">
             <Image
-              src="/brand/pearlora-logo.jpg"
+              src="/brand/pearlora-logo.svg"
               alt="Pearlora"
               width={28}
               height={28}

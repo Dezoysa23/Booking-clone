@@ -25,7 +25,7 @@ export default async function BecomeAHostPage() {
       <section className="relative overflow-hidden bg-[#071B63] px-4 pt-20 pb-28 text-center">
         <div className="mx-auto max-w-3xl relative z-10">
           <div className="flex justify-center mb-6">
-            <Image src="/brand/pearlora-logo.jpg" alt="Pearlora" width={52} height={52} unoptimized className="rounded-xl" />
+            <Image src="/brand/pearlora-logo.svg" alt="Pearlora" width={52} height={52} unoptimized className="rounded-xl" />
           </div>
           <p className="text-[#D8B45A] text-xs font-semibold tracking-widest uppercase mb-3">For Property Owners</p>
           <h1 className="font-[family-name:var(--font-playfair-display)] text-4xl md:text-5xl font-semibold text-white leading-tight">

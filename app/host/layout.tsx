@@ -17,7 +17,7 @@ export default async function HostLayout({ children }: { children: React.ReactNo
           <div className="flex items-center gap-6">
             <Link href="/host/dashboard" className="flex items-center gap-2.5">
               <Image
-                src="/brand/pearlora-logo.jpg"
+                src="/brand/pearlora-logo.svg"
                 alt="Pearlora"
                 width={28}
                 height={28}

@@ -28,7 +28,7 @@ export default async function NewPropertyPage() {
         </div>
         <div className="flex items-center gap-2.5 mb-6">
           <Image
-            src="/brand/pearlora-logo.jpg"
+            src="/brand/pearlora-logo.svg"
             alt="Pearlora"
             width={24}
             height={24}
