@@ -52,14 +52,14 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
   }
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
+    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-4xl">
         <div className="flex items-center gap-1.5 mb-4 text-xs text-gray-400">
-          <Link href="/admin" className="hover:text-[#071B63] transition-colors">Admin</Link>
+          <Link href="/admin" className="hover:text-[#14213D] transition-colors">Admin</Link>
           <span className="text-gray-300">›</span>
-          <Link href="/admin/properties" className="hover:text-[#071B63] transition-colors">Properties</Link>
+          <Link href="/admin/properties" className="hover:text-[#14213D] transition-colors">Properties</Link>
           <span className="text-gray-300">›</span>
-          <span className="text-[#071B63] font-medium">Edit #{property.id}</span>
+          <span className="text-[#14213D] font-medium">Edit #{property.id}</span>
         </div>
         <div className="flex items-center gap-2.5 mb-6">
           <Image
@@ -70,7 +70,7 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
             className="rounded object-contain shrink-0"
             unoptimized
           />
-          <span className="text-[#071B63] text-xs font-semibold tracking-widest uppercase">
+          <span className="text-[#14213D] text-xs font-semibold tracking-widest uppercase">
             Pearlora Admin
           </span>
         </div>

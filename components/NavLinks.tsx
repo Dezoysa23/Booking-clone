@@ -7,7 +7,7 @@ export default function NavLinks() {
   const pathname = usePathname();
 
   const active =
-    "text-white text-sm font-semibold border-b-2 border-[#D8B45A] pb-0.5 tracking-wide";
+    "text-white text-sm font-semibold border-b-2 border-[#D9A94D] pb-0.5 tracking-wide";
   const inactive =
     "text-white/55 hover:text-white/90 transition-colors text-sm font-medium tracking-wide";
 

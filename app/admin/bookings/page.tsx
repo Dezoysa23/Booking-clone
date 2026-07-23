@@ -7,7 +7,7 @@ import { isSuperAdmin } from "@/lib/roles";
 const STATUS_STYLES: Record<string, string> = {
   CONFIRMED: "bg-green-50 text-green-700 border border-green-100",
   CANCELLED: "bg-red-50 text-red-600 border border-red-100",
-  PENDING: "bg-[#eef2fa] text-[#071B63] border border-[#071B63]/10",
+  PENDING: "bg-[#eef2fa] text-[#14213D] border border-[#14213D]/10",
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -62,7 +62,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
     .reduce((sum, b) => sum + b.totalPrice, 0);
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
+    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
@@ -70,16 +70,16 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             <div className="flex items-center gap-1.5 mb-1">
               <Link
                 href="/admin"
-                className="text-xs text-gray-400 hover:text-[#0f1f3d] transition-colors"
+                className="text-xs text-gray-400 hover:text-[#14213D] transition-colors"
               >
                 Admin
               </Link>
               <span className="text-gray-300 text-xs">›</span>
-              <span className="text-xs text-[#0f1f3d] font-medium">
+              <span className="text-xs text-[#14213D] font-medium">
                 All Bookings
               </span>
             </div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               All Bookings
             </h1>
             <p className="mt-1 text-sm text-gray-500">
@@ -107,23 +107,23 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
         {/* Summary stats */}
         <div className="grid gap-4 sm:grid-cols-3 mb-8">
           <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/50">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">
               Shown
             </p>
-            <p className="mt-1.5 text-2xl font-bold text-[#0f1f3d]">
+            <p className="mt-1.5 text-2xl font-bold text-[#14213D]">
               {bookings.length}
             </p>
           </div>
           <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/50">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">
               Pending
             </p>
-            <p className="mt-1.5 text-2xl font-bold text-[#0f1f3d]">
+            <p className="mt-1.5 text-2xl font-bold text-[#14213D]">
               {bookings.filter((b) => b.status === "PENDING").length}
             </p>
           </div>
-          <div className="rounded-2xl bg-[#071B63] p-5">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A]">
+          <div className="rounded-2xl bg-[#14213D] p-5">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D]">
               Revenue
             </p>
             <p className="mt-1.5 text-xl font-bold text-white">
@@ -145,7 +145,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             <select
               name="status"
               defaultValue={filterStatus}
-              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10"
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10"
             >
               <option value="">All statuses</option>
               <option value="PENDING">Pending</option>
@@ -161,7 +161,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             <select
               name="propertyId"
               defaultValue={filterPropertyId?.toString() || ""}
-              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10"
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10"
             >
               <option value="">All properties</option>
               {properties.map((p) => (
@@ -175,7 +175,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
           <div className="flex gap-2">
             <button
               type="submit"
-              className="rounded-lg bg-[#071B63] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+              className="rounded-lg bg-[#14213D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"
             >
               Filter
             </button>
@@ -191,12 +191,12 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
         {/* Bookings table */}
         {bookings.length === 0 ? (
           <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-16 text-center">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#faf8f5] border border-gray-100">
-              <span className="material-symbols-outlined text-[#0f1f3d]/30 text-xl">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#F8F2E9] border border-gray-100">
+              <span className="material-symbols-outlined text-[#14213D]/30 text-xl">
                 calendar_month
               </span>
             </div>
-            <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
+            <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
               No bookings found
             </h3>
             <p className="mt-2 text-sm text-gray-500">
@@ -209,7 +209,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
           <div className="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
-                <thead className="border-b border-gray-100 bg-[#faf8f5]">
+                <thead className="border-b border-gray-100 bg-[#F8F2E9]">
                   <tr>
                     <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
                       ID
@@ -241,14 +241,14 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
                   {bookings.map((booking) => (
                     <tr
                       key={booking.id}
-                      className="hover:bg-[#faf8f5] transition-colors"
+                      className="hover:bg-[#F8F2E9] transition-colors"
                     >
                       <td className="px-5 py-4 text-xs text-gray-400 font-mono">
                         #{booking.id}
                       </td>
                       <td className="px-5 py-4">
                         <div>
-                          <p className="font-semibold text-[#0f1f3d] text-sm">
+                          <p className="font-semibold text-[#14213D] text-sm">
                             {booking.user?.name || "Guest"}
                           </p>
                           <p className="text-xs text-gray-400 mt-0.5 truncate max-w-[160px]">
@@ -283,7 +283,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
                       <td className="hidden lg:table-cell px-5 py-4 text-sm text-gray-600">
                         {booking.nights}
                       </td>
-                      <td className="hidden lg:table-cell px-5 py-4 text-sm font-semibold text-[#0f1f3d]">
+                      <td className="hidden lg:table-cell px-5 py-4 text-sm font-semibold text-[#14213D]">
                         LKR {booking.totalPrice.toLocaleString()}
                       </td>
                       <td className="px-5 py-4">

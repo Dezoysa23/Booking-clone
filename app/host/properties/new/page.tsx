@@ -16,11 +16,11 @@ export default async function HostNewPropertyPage() {
   return (
     <div>
       <div className="flex items-center gap-1.5 mb-6 text-xs text-gray-400">
-        <Link href="/host/dashboard" className="hover:text-[#071B63] transition-colors">Dashboard</Link>
+        <Link href="/host/dashboard" className="hover:text-[#14213D] transition-colors">Dashboard</Link>
         <span className="text-gray-300">›</span>
-        <Link href="/host/properties" className="hover:text-[#071B63] transition-colors">Properties</Link>
+        <Link href="/host/properties" className="hover:text-[#14213D] transition-colors">Properties</Link>
         <span className="text-gray-300">›</span>
-        <span className="text-[#071B63] font-medium">New Property</span>
+        <span className="text-[#14213D] font-medium">New Property</span>
       </div>
       <div className="max-w-4xl">
         <PropertyForm

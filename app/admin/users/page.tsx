@@ -22,23 +22,23 @@ export default async function AdminUsersPage() {
   });
 
   const ROLE_STYLES: Record<string, string> = {
-    SUPER_ADMIN: "bg-[#071B63] text-white",
-    ADMIN: "bg-[#071B63] text-white",
-    HOST: "bg-[#D8B45A]/20 text-[#8a6c2a]",
+    SUPER_ADMIN: "bg-[#14213D] text-white",
+    ADMIN: "bg-[#14213D] text-white",
+    HOST: "bg-[#D9A94D]/20 text-[#8a6c2a]",
     USER: "bg-gray-100 text-gray-600",
   };
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
+    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-1.5 mb-1">
-              <Link href="/admin" className="text-xs text-gray-400 hover:text-[#0f1f3d] transition-colors">Admin</Link>
+              <Link href="/admin" className="text-xs text-gray-400 hover:text-[#14213D] transition-colors">Admin</Link>
               <span className="text-gray-300 text-xs">›</span>
-              <span className="text-xs text-[#0f1f3d] font-medium">Users</span>
+              <span className="text-xs text-[#14213D] font-medium">Users</span>
             </div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               All Users
             </h1>
             <p className="mt-1 text-sm text-gray-500">{users.length} registered accounts</p>
@@ -50,7 +50,7 @@ export default async function AdminUsersPage() {
 
         <div className="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-gray-100 bg-[#faf8f5]">
+            <thead className="border-b border-gray-100 bg-[#F8F2E9]">
               <tr>
                 <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">User</th>
                 <th className="hidden md:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Role</th>
@@ -60,9 +60,9 @@ export default async function AdminUsersPage() {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {users.map((user) => (
-                <tr key={user.id} className="hover:bg-[#faf8f5] transition-colors">
+                <tr key={user.id} className="hover:bg-[#F8F2E9] transition-colors">
                   <td className="px-5 py-4">
-                    <p className="font-semibold text-[#0f1f3d] text-sm">{user.name || "—"}</p>
+                    <p className="font-semibold text-[#14213D] text-sm">{user.name || "—"}</p>
                     <p className="text-xs text-gray-400 mt-0.5 truncate max-w-[220px]">{user.email}</p>
                   </td>
                   <td className="hidden md:table-cell px-5 py-4">

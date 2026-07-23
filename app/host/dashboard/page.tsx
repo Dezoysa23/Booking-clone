@@ -27,7 +27,7 @@ export default async function HostDashboardPage() {
     <div>
       {/* Welcome header */}
       <div className="mb-8">
-        <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+        <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
           Welcome back{currentUser.name ? `, ${currentUser.name.split(" ")[0]}` : ""}
         </h1>
         <p className="mt-1 text-sm text-gray-500">
@@ -39,14 +39,14 @@ export default async function HostDashboardPage() {
 
       {/* Subscription status banner */}
       {!isActive && (
-        <div className="mb-6 flex items-center justify-between gap-4 rounded-2xl bg-[#071B63] px-6 py-5">
+        <div className="mb-6 flex items-center justify-between gap-4 rounded-2xl bg-[#14213D] px-6 py-5">
           <div>
             <p className="text-sm font-semibold text-white">No active subscription</p>
             <p className="mt-0.5 text-xs text-white/60">Subscribe to list properties and start earning.</p>
           </div>
           <Link
             href="/pricing"
-            className="shrink-0 rounded-lg bg-[#D8B45A] px-5 py-2.5 text-xs font-semibold text-[#071B63] hover:bg-[#c9a84c] transition-colors"
+            className="shrink-0 rounded-lg bg-[#D9A94D] px-5 py-2.5 text-xs font-semibold text-[#14213D] hover:bg-[#c99a3f] transition-colors"
           >
             View Plans
           </Link>
@@ -56,48 +56,48 @@ export default async function HostDashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
         <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/50">Properties</p>
-          <p className="mt-2 text-3xl font-bold text-[#0f1f3d]">{propertyCount}</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">Properties</p>
+          <p className="mt-2 text-3xl font-bold text-[#14213D]">{propertyCount}</p>
           {isActive && propertyLimit !== -1 && (
             <p className="mt-1 text-xs text-gray-400">of {propertyLimit} allowed</p>
           )}
         </div>
         <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/50">Bookings</p>
-          <p className="mt-2 text-3xl font-bold text-[#0f1f3d]">{bookingCount}</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">Bookings</p>
+          <p className="mt-2 text-3xl font-bold text-[#14213D]">{bookingCount}</p>
           <p className="mt-1 text-xs text-gray-400">All time</p>
         </div>
-        <div className="rounded-2xl bg-[#071B63] p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A]">Revenue</p>
+        <div className="rounded-2xl bg-[#14213D] p-5">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D]">Revenue</p>
           <p className="mt-2 text-xl font-bold text-white">LKR {totalRevenue.toLocaleString()}</p>
           <p className="mt-1 text-xs text-white/40">Confirmed bookings</p>
         </div>
       </div>
 
       {/* Quick actions */}
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/40 mb-4">Quick Actions</h2>
+      <h2 className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/40 mb-4">Quick Actions</h2>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Link href="/host/properties" className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#071B63]/20 transition-all">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#071B63] mb-4">
+        <Link href="/host/properties" className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#14213D]/20 transition-all">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D] mb-4">
             <span className="material-symbols-outlined text-white text-base">apartment</span>
           </div>
-          <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">My Properties</h3>
+          <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">My Properties</h3>
           <p className="mt-1 text-xs text-gray-500">Manage your listings.</p>
         </Link>
 
-        <Link href="/host/properties/new" className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D8B45A]/40 transition-all">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D8B45A] mb-4">
-            <span className="material-symbols-outlined text-[#071B63] text-base">add_circle</span>
+        <Link href="/host/properties/new" className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D9A94D]/40 transition-all">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D9A94D] mb-4">
+            <span className="material-symbols-outlined text-[#14213D] text-base">add_circle</span>
           </div>
-          <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">Add Property</h3>
+          <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">Add Property</h3>
           <p className="mt-1 text-xs text-gray-500">Create a new listing.</p>
         </Link>
 
-        <Link href="/host/billing" className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#071B63]/20 transition-all">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#071B63]/8 mb-4">
-            <span className="material-symbols-outlined text-[#071B63] text-base">receipt_long</span>
+        <Link href="/host/billing" className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#14213D]/20 transition-all">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D]/8 mb-4">
+            <span className="material-symbols-outlined text-[#14213D] text-base">receipt_long</span>
           </div>
-          <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">Billing</h3>
+          <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">Billing</h3>
           <p className="mt-1 text-xs text-gray-500">Subscription and payments.</p>
         </Link>
       </div>

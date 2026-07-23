@@ -58,7 +58,7 @@ export default function PropertyGallery({ gallery, propertyName }: Props) {
               onClick={() => setActiveIndex(index)}
               className={`relative h-20 w-32 shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-150 ${
                 index === activeIndex
-                  ? "border-[#D8B45A] shadow-sm opacity-100"
+                  ? "border-[#D9A94D] shadow-sm opacity-100"
                   : "border-transparent opacity-60 hover:opacity-90 hover:border-gray-300"
               }`}
             >

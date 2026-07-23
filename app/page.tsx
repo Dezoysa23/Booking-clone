@@ -61,7 +61,8 @@ export default async function Home() {
       </section>
 
       {/* ─── Trust Pillars ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mt-16 md:mt-20 mb-24">
+      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mt-16 md:mt-20 mb-24">
+        <LuxuryBotanicalSideArt side="both" />
         <ScrollReveal>
           <div className="grid gap-4 sm:grid-cols-3">
             {[
@@ -221,7 +222,8 @@ export default async function Home() {
       </section>
 
       {/* ─── How It Works ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+        <LuxuryBotanicalSideArt side="left" />
         <ScrollReveal>
           <div className="flex items-end justify-between mb-10">
             <div>

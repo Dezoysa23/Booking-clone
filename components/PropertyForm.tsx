@@ -101,10 +101,10 @@ function Section({ title, icon, badge, children }: { title: string; icon: string
         className="w-full flex items-center justify-between px-6 py-4 bg-white hover:bg-gray-50 transition-colors text-left"
       >
         <div className="flex items-center gap-3">
-          <span className="material-symbols-outlined text-[#071B63] text-xl">{icon}</span>
-          <span className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#0f1f3d] text-base">{title}</span>
+          <span className="material-symbols-outlined text-[#14213D] text-xl">{icon}</span>
+          <span className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#14213D] text-base">{title}</span>
           {badge !== undefined && badge > 0 && (
-            <span className="inline-flex items-center justify-center h-5 min-w-5 rounded-full bg-[#071B63] text-white text-xs font-bold px-1.5">{badge}</span>
+            <span className="inline-flex items-center justify-center h-5 min-w-5 rounded-full bg-[#14213D] text-white text-xs font-bold px-1.5">{badge}</span>
           )}
         </div>
         <span className="material-symbols-outlined text-gray-400 text-xl transition-transform" style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>expand_more</span>
@@ -129,7 +129,7 @@ function AreaItemRow({
   showType?: boolean;
   placeholder?: string;
 }) {
-  const inputClass = "rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10";
+  const inputClass = "rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10";
   return (
     <div className="flex items-center gap-2 flex-wrap">
       <input
@@ -188,7 +188,7 @@ function NearbyHighlightEditor({
   uploading: boolean;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
-  const inputClass = "w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10";
+  const inputClass = "w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10";
   const category = NEARBY_CATEGORIES.find((c) => c.value === highlight.category);
 
   return (
@@ -212,7 +212,7 @@ function NearbyHighlightEditor({
               type="button"
               onClick={() => fileRef.current?.click()}
               disabled={uploading}
-              className="h-14 w-14 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-300 hover:border-[#071B63]/30 transition-colors shrink-0 disabled:opacity-50"
+              className="h-14 w-14 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-300 hover:border-[#14213D]/30 transition-colors shrink-0 disabled:opacity-50"
             >
               <span className="material-symbols-outlined text-xl">{uploading ? "sync" : "add_photo_alternate"}</span>
             </button>
@@ -529,11 +529,11 @@ export default function PropertyForm(props: Props) {
   // ─── Styles ──────────────────────────────────────────────────────────────
 
   const inputClass =
-    "w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10";
+    "w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10";
   const labelClass =
     "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400";
   const uploadZoneBase =
-    "w-full flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 py-8 px-4 text-center transition-colors cursor-pointer hover:border-[#071B63]/30 hover:bg-gray-100";
+    "w-full flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 py-8 px-4 text-center transition-colors cursor-pointer hover:border-[#14213D]/30 hover:bg-gray-100";
 
   const facilitiesCount = selectedFacilities.length;
   const rulesCount = Object.values(houseRules).filter(Boolean).length;
@@ -563,8 +563,8 @@ export default function PropertyForm(props: Props) {
         {/* ── Section 1: Basic Details ── */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <span className="material-symbols-outlined text-[#071B63] text-lg">info</span>
-            <h2 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#0f1f3d]">Basic Details</h2>
+            <span className="material-symbols-outlined text-[#14213D] text-lg">info</span>
+            <h2 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#14213D]">Basic Details</h2>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2">
@@ -602,7 +602,7 @@ export default function PropertyForm(props: Props) {
                     <img src={mainImageUrl} alt="Main property preview" className="h-full w-full object-cover" />
                   </div>
                   <div className="mt-2 flex items-center gap-3">
-                    <button type="button" onClick={() => mainInputRef.current?.click()} disabled={mainImageUploading} className="text-xs font-medium text-[#071B63] hover:underline disabled:opacity-50">
+                    <button type="button" onClick={() => mainInputRef.current?.click()} disabled={mainImageUploading} className="text-xs font-medium text-[#14213D] hover:underline disabled:opacity-50">
                       {mainImageUploading ? "Uploading…" : "Replace image"}
                     </button>
                     <span className="text-gray-300 text-xs">·</span>
@@ -683,16 +683,16 @@ export default function PropertyForm(props: Props) {
                     {groupFacilities.map((f) => {
                       const checked = selectedFacilities.includes(f.key);
                       return (
-                        <label key={f.key} className={`flex items-center gap-2.5 rounded-lg border px-3 py-2.5 cursor-pointer transition-all text-sm ${checked ? "border-[#071B63] bg-[#071B63]/5 text-[#071B63] font-medium" : "border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300"}`}>
+                        <label key={f.key} className={`flex items-center gap-2.5 rounded-lg border px-3 py-2.5 cursor-pointer transition-all text-sm ${checked ? "border-[#14213D] bg-[#14213D]/5 text-[#14213D] font-medium" : "border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300"}`}>
                           <input
                             type="checkbox"
                             checked={checked}
                             onChange={() => setSelectedFacilities((prev) => checked ? prev.filter((k) => k !== f.key) : [...prev, f.key])}
                             className="sr-only"
                           />
-                          <span className="material-symbols-outlined text-base" style={{ color: checked ? "#071B63" : "#9ca3af" }}>{f.icon}</span>
+                          <span className="material-symbols-outlined text-base" style={{ color: checked ? "#14213D" : "#9ca3af" }}>{f.icon}</span>
                           {f.label}
-                          {checked && <span className="material-symbols-outlined text-sm ml-auto text-[#071B63]">check</span>}
+                          {checked && <span className="material-symbols-outlined text-sm ml-auto text-[#14213D]">check</span>}
                         </label>
                       );
                     })}
@@ -773,11 +773,11 @@ export default function PropertyForm(props: Props) {
 
             <div className="sm:col-span-2 flex flex-wrap gap-4">
               <label className="flex items-center gap-2 text-sm cursor-pointer">
-                <input type="checkbox" checked={!!houseRules.cribsAvailable} onChange={(e) => setHouseRules((p) => ({ ...p, cribsAvailable: e.target.checked }))} className="rounded border-gray-300 text-[#071B63] focus:ring-[#071B63]" />
+                <input type="checkbox" checked={!!houseRules.cribsAvailable} onChange={(e) => setHouseRules((p) => ({ ...p, cribsAvailable: e.target.checked }))} className="rounded border-gray-300 text-[#14213D] focus:ring-[#14213D]" />
                 Cribs available
               </label>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
-                <input type="checkbox" checked={!!houseRules.extraBedsAvailable} onChange={(e) => setHouseRules((p) => ({ ...p, extraBedsAvailable: e.target.checked }))} className="rounded border-gray-300 text-[#071B63] focus:ring-[#071B63]" />
+                <input type="checkbox" checked={!!houseRules.extraBedsAvailable} onChange={(e) => setHouseRules((p) => ({ ...p, extraBedsAvailable: e.target.checked }))} className="rounded border-gray-300 text-[#14213D] focus:ring-[#14213D]" />
                 Extra beds available
               </label>
             </div>
@@ -810,7 +810,7 @@ export default function PropertyForm(props: Props) {
               <div key={section} className="mb-5">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">{cfg.label}</p>
-                  <button type="button" onClick={() => addAreaItem(section)} className="text-xs font-semibold text-[#071B63] hover:underline flex items-center gap-1">
+                  <button type="button" onClick={() => addAreaItem(section)} className="text-xs font-semibold text-[#14213D] hover:underline flex items-center gap-1">
                     <span className="material-symbols-outlined text-sm">add</span> Add
                   </button>
                 </div>
@@ -860,7 +860,7 @@ export default function PropertyForm(props: Props) {
               <button
                 type="button"
                 onClick={() => setHighlights((prev) => [...prev, emptyHighlight()])}
-                className="mt-4 flex items-center gap-2 rounded-lg border border-dashed border-[#071B63]/30 px-4 py-3 text-sm font-medium text-[#071B63] hover:bg-[#071B63]/5 transition-colors w-full justify-center"
+                className="mt-4 flex items-center gap-2 rounded-lg border border-dashed border-[#14213D]/30 px-4 py-3 text-sm font-medium text-[#14213D] hover:bg-[#14213D]/5 transition-colors w-full justify-center"
               >
                 <span className="material-symbols-outlined text-base">add</span>
                 Add Nearby Highlight
@@ -871,7 +871,7 @@ export default function PropertyForm(props: Props) {
 
         {/* ── Actions ── */}
         <div className="flex flex-wrap gap-3 pt-2">
-          <button type="submit" disabled={isSaving || mainImageUploading || galleryUploading} className="rounded-lg bg-[#071B63] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+          <button type="submit" disabled={isSaving || mainImageUploading || galleryUploading} className="rounded-lg bg-[#14213D] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
             {isSaving ? (isEdit ? "Saving..." : "Creating...") : (isEdit ? "Save Changes" : "Create Property")}
           </button>
           <button type="button" disabled={isSaving} onClick={() => router.push(cancelPath)} className="rounded-lg border border-gray-200 bg-white px-6 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">

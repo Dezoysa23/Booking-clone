@@ -123,14 +123,14 @@ export default function VerifyEmailClient() {
   const codeComplete = digits.every((d) => d !== "");
 
   return (
-    <main className="flex-1 flex flex-col items-center justify-center py-10 px-4 relative overflow-hidden bg-[#faf8f5] min-h-screen">
+    <main className="flex-1 flex flex-col items-center justify-center py-10 px-4 relative overflow-hidden bg-[#F8F2E9] min-h-screen">
       <AnimatedBackgroundOrbs />
 
       <div className="relative z-10 w-full max-w-[420px] auth-fade-up">
 
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2.5 text-[#0f1f3d]">
+          <Link href="/" className="inline-flex items-center gap-2.5 text-[#14213D]">
             <Image src="/brand/pearlora-logo.jpg" alt="Pearlora" width={34} height={34} className="rounded-lg" unoptimized />
             <span className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold">Pearlora</span>
           </Link>
@@ -159,20 +159,20 @@ export default function VerifyEmailClient() {
                   }}
                 >
                   <span
-                    className="material-symbols-outlined filled text-[#D8B45A] text-4xl"
+                    className="material-symbols-outlined filled text-[#D9A94D] text-4xl"
                     style={{ animation: "pearlora-fade-up 0.4s ease 0.25s both" }}
                   >
                     key
                   </span>
                 </div>
                 {/* Sparkles */}
-                <span className="absolute -top-1 -right-0.5 text-[#D8B45A] text-sm"
+                <span className="absolute -top-1 -right-0.5 text-[#D9A94D] text-sm"
                   style={{ animation: "pearlora-sparkle 0.5s ease 0.55s both" }}>✦</span>
-                <span className="absolute -bottom-0.5 -left-1 text-[#D8B45A] text-[10px]"
+                <span className="absolute -bottom-0.5 -left-1 text-[#D9A94D] text-[10px]"
                   style={{ animation: "pearlora-sparkle 0.5s ease 0.7s both" }}>✦</span>
               </div>
 
-              <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+              <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
                 Account Unlocked
               </h2>
               <p className="mt-2 text-sm text-gray-500 leading-relaxed">
@@ -180,7 +180,7 @@ export default function VerifyEmailClient() {
               </p>
               <div className="mt-4 h-1 w-20 rounded-full bg-gray-100 overflow-hidden">
                 <div
-                  className="h-full bg-[#D8B45A] rounded-full"
+                  className="h-full bg-[#D9A94D] rounded-full"
                   style={{ animation: "pearlora-fade-up 2s linear both", width: "100%" }}
                 />
               </div>
@@ -191,25 +191,25 @@ export default function VerifyEmailClient() {
               {/* Animated envelope */}
               <div className="flex justify-center mb-6">
                 <div className="relative">
-                  <div className="auth-pulse-ring absolute inset-0 rounded-full bg-[#071B63]/8" />
+                  <div className="auth-pulse-ring absolute inset-0 rounded-full bg-[#14213D]/8" />
                   <div
                     className="auth-envelope relative h-14 w-14 rounded-full flex items-center justify-center shadow-md"
-                    style={{ background: "linear-gradient(135deg, #0f1f3d, #071B63)" }}
+                    style={{ background: "linear-gradient(135deg, #14213D, #14213D)" }}
                   >
                     <svg width="24" height="20" viewBox="0 0 24 20" fill="none" aria-hidden="true">
-                      <rect x="0.75" y="0.75" width="22.5" height="18.5" rx="2.25" stroke="#D8B45A" strokeWidth="1.5" fill="none" />
-                      <path d="M0.75 3.5L12 11.5L23.25 3.5" stroke="#D8B45A" strokeWidth="1.5" strokeLinecap="round" />
+                      <rect x="0.75" y="0.75" width="22.5" height="18.5" rx="2.25" stroke="#D9A94D" strokeWidth="1.5" fill="none" />
+                      <path d="M0.75 3.5L12 11.5L23.25 3.5" stroke="#D9A94D" strokeWidth="1.5" strokeLinecap="round" />
                     </svg>
                   </div>
                 </div>
               </div>
 
-              <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#0f1f3d] text-center">
+              <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D] text-center">
                 Check your email
               </h1>
               <p className="mt-2 text-sm text-gray-500 text-center leading-relaxed">
                 We sent a 6-digit code to{" "}
-                <span className="font-semibold text-[#0f1f3d]">{maskEmail(email)}</span>
+                <span className="font-semibold text-[#14213D]">{maskEmail(email)}</span>
               </p>
 
               {/* Error banner */}
@@ -244,8 +244,8 @@ export default function VerifyEmailClient() {
                     onPaste={i === 0 ? handlePaste : undefined}
                     disabled={isLoading}
                     aria-label={`Digit ${i + 1}`}
-                    className={`otp-input h-14 w-11 rounded-xl border-2 text-center text-xl font-bold text-[#0f1f3d] outline-none
-                      ${digit ? "border-[#071B63] bg-[#071B63]/5" : "border-gray-200 bg-gray-50/80"}
+                    className={`otp-input h-14 w-11 rounded-xl border-2 text-center text-xl font-bold text-[#14213D] outline-none
+                      ${digit ? "border-[#14213D] bg-[#14213D]/5" : "border-gray-200 bg-gray-50/80"}
                       ${status === "error" ? "border-red-300" : ""}
                       disabled:opacity-50`}
                   />
@@ -261,7 +261,7 @@ export default function VerifyEmailClient() {
                 onClick={handleVerify}
                 disabled={isLoading || !codeComplete}
                 className="mt-5 w-full rounded-xl px-4 py-3.5 text-sm font-semibold text-white transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ background: "linear-gradient(135deg, #0f1f3d 0%, #071B63 60%, #123EAF 100%)" }}
+                style={{ background: "linear-gradient(135deg, #14213D 0%, #14213D 60%, #16233F 100%)" }}
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -279,14 +279,14 @@ export default function VerifyEmailClient() {
                 <button
                   onClick={handleResend}
                   disabled={resendCountdown > 0 || resendLoading}
-                  className="font-semibold text-[#071B63] hover:text-[#D8B45A] transition-colors disabled:text-gray-400 disabled:cursor-not-allowed"
+                  className="font-semibold text-[#14213D] hover:text-[#D9A94D] transition-colors disabled:text-gray-400 disabled:cursor-not-allowed"
                 >
                   {resendLoading ? "Sending…" : resendCountdown > 0 ? `Resend in ${resendCountdown}s` : "Resend code"}
                 </button>
               </p>
 
               <div className="mt-5 pt-5 border-t border-gray-100 text-center">
-                <Link href="/signup" className="text-xs text-gray-400 hover:text-[#0f1f3d] transition-colors">
+                <Link href="/signup" className="text-xs text-gray-400 hover:text-[#14213D] transition-colors">
                   ← Back to sign up
                 </Link>
               </div>
@@ -296,7 +296,7 @@ export default function VerifyEmailClient() {
 
         <p className="mt-5 text-center text-xs text-gray-400 leading-relaxed">
           Having trouble? Check your spam folder or{" "}
-          <Link href="/login" className="text-[#0f1f3d] font-medium hover:text-[#D8B45A] transition-colors">
+          <Link href="/login" className="text-[#14213D] font-medium hover:text-[#D9A94D] transition-colors">
             sign in
           </Link>{" "}
           if you&apos;ve already verified.

@@ -46,7 +46,7 @@ function Frond({ className = "" }: { className?: string }) {
       <path
         d={`M ${bx} ${by} Q ${cx} ${cy} ${tx} ${ty}`}
         stroke="currentColor"
-        strokeWidth="1.2"
+        strokeWidth="1.5"
         strokeLinecap="round"
       />
       {leaflets.map(({ t, len, ang }, i) => {
@@ -62,13 +62,13 @@ function Frond({ className = "" }: { className?: string }) {
             <path
               d={`M ${p.x} ${p.y} Q ${(p.x + rx) / 2 + 8} ${(p.y + ry) / 2} ${rx} ${ry}`}
               stroke="currentColor"
-              strokeWidth="0.9"
+              strokeWidth="1.15"
               strokeLinecap="round"
             />
             <path
               d={`M ${p.x} ${p.y} Q ${(p.x + lx) / 2 - 8} ${(p.y + ly) / 2} ${lx} ${ly}`}
               stroke="currentColor"
-              strokeWidth="0.9"
+              strokeWidth="1.15"
               strokeLinecap="round"
             />
           </g>
@@ -89,23 +89,23 @@ function SidePiece({ side }: { side: "left" | "right" }) {
     >
       {/* Blurred pearl/gold gradient orb */}
       <div
-        className={`absolute top-1/4 h-72 w-72 rounded-full blur-3xl ${
-          isLeft ? "-left-24" : "-right-24"
+        className={`absolute top-1/5 h-96 w-96 rounded-full blur-3xl ${
+          isLeft ? "-left-28" : "-right-28"
         }`}
         style={{
           background:
-            "radial-gradient(circle at 50% 40%, rgba(232,200,146,0.22) 0%, rgba(248,242,233,0.14) 45%, transparent 75%)",
+            "radial-gradient(circle at 50% 40%, rgba(232,200,146,0.34) 0%, rgba(248,242,233,0.20) 45%, transparent 75%)",
         }}
       />
       {/* Palm frond line-art */}
       <Frond
-        className={`absolute top-1/2 h-[70%] max-h-[520px] w-auto -translate-y-1/2 text-[#D9A94D]/25 lg:text-[#D9A94D]/30 ${
-          isLeft ? "left-1 -scale-x-100 lg:left-4" : "right-1 lg:right-4"
+        className={`absolute top-1/2 h-[82%] max-h-[660px] w-auto -translate-y-1/2 text-[#D9A94D]/40 lg:text-[#D9A94D]/55 ${
+          isLeft ? "left-0 -scale-x-100 lg:left-3" : "right-0 lg:right-3"
         }`}
       />
       {/* Thin gold editorial line */}
       <div
-        className={`absolute top-[18%] bottom-[18%] w-px bg-gradient-to-b from-transparent via-[#D9A94D]/25 to-transparent ${
+        className={`absolute top-[18%] bottom-[18%] w-px bg-gradient-to-b from-transparent via-[#D9A94D]/50 to-transparent ${
           isLeft ? "left-6 lg:left-10" : "right-6 lg:right-10"
         }`}
       />

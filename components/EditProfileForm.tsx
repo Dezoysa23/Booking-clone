@@ -52,7 +52,7 @@ export default function EditProfileForm({ initialName }: Props) {
 
   return (
     <form onSubmit={handleSave} className="rounded-2xl bg-white border border-gray-100 shadow-sm p-8">
-      <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+      <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
         Edit Profile
       </h2>
       <p className="mt-1 text-sm text-gray-500">Update your display name.</p>
@@ -77,7 +77,7 @@ export default function EditProfileForm({ initialName }: Props) {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#0f1f3d] focus:bg-white focus:ring-2 focus:ring-[#0f1f3d]/10"
+          className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10"
           placeholder="Enter your name"
           required
         />
@@ -86,7 +86,7 @@ export default function EditProfileForm({ initialName }: Props) {
       <button
         type="submit"
         disabled={isSaving}
-        className="mt-6 rounded-lg bg-[#0f1f3d] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#1a3060] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="mt-6 rounded-lg bg-[#14213D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {isSaving ? "Saving..." : "Save Changes"}
       </button>

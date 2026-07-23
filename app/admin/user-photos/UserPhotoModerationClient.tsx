@@ -63,7 +63,7 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 border border-emerald-100">
           <span className="material-symbols-outlined text-emerald-500 text-xl">check_circle</span>
         </div>
-        <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
+        <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
           All caught up!
         </h3>
         <p className="mt-2 text-sm text-gray-500">No pending photos to review.</p>
@@ -100,7 +100,7 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
                 <div className="text-xs text-gray-400 space-y-0.5">
                   <p>
                     <span className="font-medium text-gray-600">Property: </span>
-                    <Link href={`/properties/${photo.property.id}`} className="text-[#071B63] hover:underline" target="_blank">
+                    <Link href={`/properties/${photo.property.id}`} className="text-[#14213D] hover:underline" target="_blank">
                       {photo.property.name}
                     </Link>
                   </p>

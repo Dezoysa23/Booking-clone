@@ -11,10 +11,10 @@ export default function NearbyHighlightsSection({ highlights }: Props) {
   return (
     <section>
       <div className="flex items-center gap-3 mb-5">
-        <span className="h-px w-6 bg-[#D8B45A]" />
-        <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">Local Highlights</span>
+        <span className="h-px w-6 bg-[#D9A94D]" />
+        <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D9A94D]">Local Highlights</span>
       </div>
-      <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d] mb-6">
+      <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D] mb-6">
         What makes this stay special
       </h2>
       <div className="grid gap-4 sm:grid-cols-2">
@@ -61,12 +61,12 @@ export default function NearbyHighlightsSection({ highlights }: Props) {
                         </span>
                       </div>
                     )}
-                    <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#0f1f3d] text-sm leading-snug">
+                    <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#14213D] text-sm leading-snug">
                       {h.title}
                     </h3>
                   </div>
                   {h.distance != null && (
-                    <span className="text-xs font-semibold text-[#071B63] shrink-0 bg-[#071B63]/8 px-2 py-0.5 rounded-full whitespace-nowrap">
+                    <span className="text-xs font-semibold text-[#14213D] shrink-0 bg-[#14213D]/8 px-2 py-0.5 rounded-full whitespace-nowrap">
                       {h.distance} {h.distanceUnit ?? "km"}
                     </span>
                   )}

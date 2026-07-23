@@ -188,13 +188,13 @@ export default function SuperAdminCalendarWidget() {
           open ? "bg-white/20 shadow-inner" : "bg-white/8 hover:bg-white/15"
         }`}
       >
-        <span className="material-symbols-outlined text-[#D8B45A] text-[18px]">calendar_month</span>
+        <span className="material-symbols-outlined text-[#D9A94D] text-[18px]">calendar_month</span>
         <span className="hidden md:flex items-center gap-1.5 text-white/75 text-xs font-medium">
           <span>{MONTHS[localNow.getMonth()].slice(0, 3)}</span>
           <span className="font-bold text-white">{localNow.getDate()}</span>
         </span>
         {todayCount > 0 && (
-          <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D8B45A] text-[#0f1f3d] text-[10px] font-bold px-1 leading-none">
+          <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D9A94D] text-[#14213D] text-[10px] font-bold px-1 leading-none">
             {todayCount > 9 ? "9+" : todayCount}
           </span>
         )}
@@ -207,7 +207,7 @@ export default function SuperAdminCalendarWidget() {
           style={{ animation: "fadeSlideDown 0.15s ease-out" }}
         >
           {/* Panel header */}
-          <div className="bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6b] px-5 py-4">
+          <div className="bg-gradient-to-br from-[#14213D] to-[#16233F] px-5 py-4">
             <div className="flex items-center justify-between mb-1">
               <button
                 onClick={prevMonth}
@@ -221,7 +221,7 @@ export default function SuperAdminCalendarWidget() {
                 <p className="font-[family-name:var(--font-playfair-display)] text-white font-semibold text-sm tracking-wide">
                   {MONTHS[month - 1]} {year}
                 </p>
-                <p className="text-[#D8B45A] text-[11px] mt-0.5">
+                <p className="text-[#D9A94D] text-[11px] mt-0.5">
                   {loading ? "Loading…" : `${totalEvents} event${totalEvents !== 1 ? "s" : ""} this month`}
                 </p>
               </div>
@@ -275,15 +275,15 @@ export default function SuperAdminCalendarWidget() {
                     onClick={() => setSelectedKey(cell.key)}
                     className={`relative h-9 w-full flex flex-col items-center justify-center rounded-lg transition-all duration-100 ${
                       isSelected
-                        ? "bg-[#071B63] shadow-md"
+                        ? "bg-[#14213D] shadow-md"
                         : isToday
-                        ? "ring-2 ring-[#D8B45A] ring-offset-1 font-bold"
-                        : "hover:bg-[#071B63]/6"
+                        ? "ring-2 ring-[#D9A94D] ring-offset-1 font-bold"
+                        : "hover:bg-[#14213D]/6"
                     }`}
                   >
                     <span
                       className={`text-xs font-medium leading-none ${
-                        isSelected ? "text-white" : isToday ? "text-[#071B63]" : "text-gray-700"
+                        isSelected ? "text-white" : isToday ? "text-[#14213D]" : "text-gray-700"
                       }`}
                     >
                       {cell.day}
@@ -312,7 +312,7 @@ export default function SuperAdminCalendarWidget() {
                 {selectedKey === todayKey ? "Today" : selectedLabel}
               </p>
               {selectedEvents.length > 0 && (
-                <span className="text-[11px] font-bold text-[#071B63] bg-[#071B63]/8 px-2 py-0.5 rounded-full">
+                <span className="text-[11px] font-bold text-[#14213D] bg-[#14213D]/8 px-2 py-0.5 rounded-full">
                   {selectedEvents.length}
                 </span>
               )}
@@ -368,14 +368,14 @@ export default function SuperAdminCalendarWidget() {
             <button
               type="button"
               onClick={jumpToToday}
-              className="text-xs font-semibold text-[#071B63] hover:underline"
+              className="text-xs font-semibold text-[#14213D] hover:underline"
             >
               Today
             </button>
             <Link
               href="/admin/calendar"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-1 text-xs font-semibold text-[#071B63] hover:text-[#123EAF] transition-colors"
+              className="flex items-center gap-1 text-xs font-semibold text-[#14213D] hover:text-[#16233F] transition-colors"
             >
               Full calendar
               <span className="material-symbols-outlined text-xs">open_in_new</span>

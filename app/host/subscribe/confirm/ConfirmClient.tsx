@@ -46,7 +46,7 @@ export default function ConfirmClient() {
   }, [subscriptionId, sessionId]);
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#F8F2E9] flex items-center justify-center px-4">
       <div className="w-full max-w-md rounded-2xl bg-white border border-gray-100 shadow-sm p-10 text-center">
         <div className="flex justify-center mb-6">
           <Image
@@ -61,8 +61,8 @@ export default function ConfirmClient() {
 
         {status === "loading" && (
           <>
-            <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-[#071B63]/20 border-t-[#071B63]" />
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+            <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-[#14213D]/20 border-t-[#14213D]" />
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
               Confirming payment…
             </h1>
             <p className="mt-2 text-sm text-gray-500">
@@ -78,14 +78,14 @@ export default function ConfirmClient() {
                 check_circle
               </span>
             </div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
               Subscription Activated!
             </h1>
             <p className="mt-2 text-sm text-gray-500">{message}</p>
             <div className="mt-6 flex flex-col gap-3">
               <Link
                 href="/host/dashboard"
-                className="block w-full rounded-lg bg-[#071B63] py-3 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+                className="block w-full rounded-lg bg-[#14213D] py-3 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"
               >
                 Go to Host Dashboard
               </Link>
@@ -106,13 +106,13 @@ export default function ConfirmClient() {
                 error
               </span>
             </div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
               Something went wrong
             </h1>
             <p className="mt-2 text-sm text-gray-500">{message}</p>
             <Link
               href="/pricing"
-              className="mt-6 block w-full rounded-lg bg-[#071B63] py-3 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+              className="mt-6 block w-full rounded-lg bg-[#14213D] py-3 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"
             >
               Back to Pricing
             </Link>

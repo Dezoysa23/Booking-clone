@@ -84,12 +84,12 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
+    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-6xl">
 
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               Search Results
             </h1>
             {destination && (
@@ -113,7 +113,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
 
         <div className="mt-10">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
               Available Properties
             </h2>
             {!dbError && (
@@ -129,7 +129,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-50 border border-red-100">
                 <span className="material-symbols-outlined text-red-400 text-xl">error_outline</span>
               </div>
-              <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
+              <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
                 Unable to load properties
               </h3>
               <p className="mt-2 text-sm text-gray-500">
@@ -152,10 +152,10 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
             </div>
           ) : (
             <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-14 text-center">
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#faf8f5] border border-gray-100">
-                <span className="material-symbols-outlined text-[#0f1f3d]/30 text-xl">search_off</span>
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#F8F2E9] border border-gray-100">
+                <span className="material-symbols-outlined text-[#14213D]/30 text-xl">search_off</span>
               </div>
-              <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
+              <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
                 No properties found
               </h3>
               <p className="mt-2 text-sm text-gray-500">

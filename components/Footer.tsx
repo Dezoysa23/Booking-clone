@@ -24,11 +24,19 @@ const SUPPORT_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="w-full mt-[120px] bg-[#0a1628] text-white border-t border-[#D9A94D]/15">
+    <footer className="relative overflow-hidden w-full mt-[120px] bg-[#101A30] text-white border-t border-[#D9A94D]/15">
       {/* Gold shimmer top border */}
       <div className="h-px bg-gradient-to-r from-transparent via-[#D9A94D]/30 to-transparent" />
 
-      <div className="max-w-[1280px] mx-auto px-4 md:px-16 pt-14 pb-10">
+      {/* Footer-top botanical glow */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-72 overflow-hidden" aria-hidden="true">
+        <div
+          className="absolute left-1/2 -top-28 h-72 w-[42rem] -translate-x-1/2 rounded-full blur-3xl"
+          style={{ background: "radial-gradient(ellipse, rgba(217,169,77,0.12) 0%, transparent 70%)" }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-[1280px] mx-auto px-4 md:px-16 pt-14 pb-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
 
           {/* Brand column */}

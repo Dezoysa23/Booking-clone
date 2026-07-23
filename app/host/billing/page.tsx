@@ -6,7 +6,7 @@ import CancelPlanButton from "@/components/CancelPlanButton";
 
 const STATUS_STYLES: Record<string, string> = {
   PAID: "bg-green-50 text-green-700 border border-green-100",
-  PENDING: "bg-[#eef2fa] text-[#071B63] border border-[#071B63]/10",
+  PENDING: "bg-[#eef2fa] text-[#14213D] border border-[#14213D]/10",
   FAILED: "bg-red-50 text-red-600 border border-red-100",
   REFUNDED: "bg-orange-50 text-orange-600",
   CANCELLED: "bg-gray-100 text-gray-500",
@@ -36,7 +36,7 @@ export default async function HostBillingPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+        <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
           Billing
         </h1>
         <p className="mt-1 text-sm text-gray-500">Manage your subscription and view payment history.</p>
@@ -49,7 +49,7 @@ export default async function HostBillingPage() {
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <p className="text-lg font-bold text-[#0f1f3d]">{subscription.plan.name}</p>
+                <p className="text-lg font-bold text-[#14213D]">{subscription.plan.name}</p>
                 <span className={`rounded-full px-3 py-1 text-xs font-semibold ${SUB_STATUS_STYLES[subscription.status] ?? SUB_STATUS_STYLES.INACTIVE}`}>
                   {subscription.status.charAt(0) + subscription.status.slice(1).toLowerCase()}
                 </span>
@@ -65,7 +65,7 @@ export default async function HostBillingPage() {
               )}
               <Link
                 href="/pricing"
-                className="rounded-lg bg-[#071B63] px-4 py-2 text-xs font-semibold text-white hover:bg-[#123EAF] transition-colors"
+                className="rounded-lg bg-[#14213D] px-4 py-2 text-xs font-semibold text-white hover:bg-[#16233F] transition-colors"
               >
                 Change Plan
               </Link>
@@ -74,7 +74,7 @@ export default async function HostBillingPage() {
         ) : (
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-500">You have no active subscription.</p>
-            <Link href="/pricing" className="rounded-lg bg-[#D8B45A] px-5 py-2.5 text-xs font-semibold text-[#071B63] hover:bg-[#c9a84c] transition-colors">
+            <Link href="/pricing" className="rounded-lg bg-[#D9A94D] px-5 py-2.5 text-xs font-semibold text-[#14213D] hover:bg-[#c99a3f] transition-colors">
               View Plans
             </Link>
           </div>
@@ -91,7 +91,7 @@ export default async function HostBillingPage() {
         ) : (
           <div className="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-gray-100 bg-[#faf8f5]">
+              <thead className="border-b border-gray-100 bg-[#F8F2E9]">
                 <tr>
                   <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Plan</th>
                   <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Amount</th>
@@ -101,9 +101,9 @@ export default async function HostBillingPage() {
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {payments.map((payment) => (
-                  <tr key={payment.id} className="hover:bg-[#faf8f5] transition-colors">
-                    <td className="px-5 py-4 text-sm font-medium text-[#0f1f3d]">{payment.subscription.plan.name}</td>
-                    <td className="hidden sm:table-cell px-5 py-4 text-sm font-semibold text-[#0f1f3d]">
+                  <tr key={payment.id} className="hover:bg-[#F8F2E9] transition-colors">
+                    <td className="px-5 py-4 text-sm font-medium text-[#14213D]">{payment.subscription.plan.name}</td>
+                    <td className="hidden sm:table-cell px-5 py-4 text-sm font-semibold text-[#14213D]">
                       {payment.currency} {payment.amount.toLocaleString()}
                     </td>
                     <td className="px-5 py-4">

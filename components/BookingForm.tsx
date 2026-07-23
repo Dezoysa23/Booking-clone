@@ -132,7 +132,7 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
   };
 
   const inputClass =
-    "w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#0f1f3d] focus:bg-white focus:ring-2 focus:ring-[#0f1f3d]/10";
+    "w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10";
 
   return (
     <form
@@ -140,8 +140,8 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
       className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden sticky top-24"
     >
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6b] px-6 py-5">
-        <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A]">
+      <div className="bg-gradient-to-br from-[#14213D] to-[#16233F] px-6 py-5">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D]">
           Price per night
         </p>
         <p className="mt-1 text-2xl font-bold text-white">
@@ -152,8 +152,8 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
       <div className="p-6 space-y-4">
         {/* Availability status */}
         {availabilityLoading && (
-          <div className="flex items-center gap-2 rounded-lg bg-[#faf8f5] border border-gray-100 px-4 py-2.5">
-            <span className="h-2 w-2 rounded-full bg-[#D8B45A] animate-pulse" />
+          <div className="flex items-center gap-2 rounded-lg bg-[#F8F2E9] border border-gray-100 px-4 py-2.5">
+            <span className="h-2 w-2 rounded-full bg-[#D9A94D] animate-pulse" />
             <span className="text-xs text-gray-500">Checking availability…</span>
           </div>
         )}
@@ -241,7 +241,7 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
         </div>
 
         {/* Price summary */}
-        <div className="rounded-xl bg-[#faf8f5] border border-gray-100 px-4 py-4 space-y-1.5">
+        <div className="rounded-xl bg-[#F8F2E9] border border-gray-100 px-4 py-4 space-y-1.5">
           {numberOfNights === 0 ? (
             <p className="text-xs text-gray-400 text-center py-1">
               Select your dates to see the price breakdown.
@@ -262,8 +262,8 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
                 <span className="font-medium text-gray-700">{guests}</span>
               </div>
               <div className="border-t border-gray-200 mt-2 pt-2 flex justify-between">
-                <span className="text-sm font-semibold text-[#0f1f3d]">Total</span>
-                <span className="font-bold text-[#0f1f3d]">
+                <span className="text-sm font-semibold text-[#14213D]">Total</span>
+                <span className="font-bold text-[#14213D]">
                   LKR {totalPrice.toLocaleString()}
                 </span>
               </div>
@@ -280,7 +280,7 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
         <button
           type="submit"
           disabled={isSubmitting || selectedDatesConflict}
-          className="w-full rounded-lg bg-gradient-to-r from-[#0f1f3d] to-[#1a3a6b] px-4 py-3.5 text-sm font-bold text-white hover:from-[#1a3060] hover:to-[#264d8c] transition-all disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-lg bg-gradient-to-r from-[#14213D] to-[#16233F] px-4 py-3.5 text-sm font-bold text-white hover:from-[#16233F] hover:to-[#264d8c] transition-all disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "Reserving…" : "Reserve Now"}
         </button>

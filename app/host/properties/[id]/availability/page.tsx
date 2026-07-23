@@ -30,22 +30,22 @@ export default async function PropertyAvailabilityPage({ params }: Props) {
     <div>
       {/* Breadcrumb */}
       <div className="flex items-center gap-1.5 mb-6 text-xs text-gray-400 flex-wrap">
-        <Link href="/host/dashboard" className="hover:text-[#071B63] transition-colors">Dashboard</Link>
+        <Link href="/host/dashboard" className="hover:text-[#14213D] transition-colors">Dashboard</Link>
         <span className="text-gray-300">›</span>
-        <Link href="/host/properties" className="hover:text-[#071B63] transition-colors">Properties</Link>
+        <Link href="/host/properties" className="hover:text-[#14213D] transition-colors">Properties</Link>
         <span className="text-gray-300">›</span>
-        <Link href={`/host/properties/${property.id}`} className="hover:text-[#071B63] transition-colors truncate max-w-[140px]">
+        <Link href={`/host/properties/${property.id}`} className="hover:text-[#14213D] transition-colors truncate max-w-[140px]">
           {property.name}
         </Link>
         <span className="text-gray-300">›</span>
-        <span className="text-[#071B63] font-medium">Availability</span>
+        <span className="text-[#14213D] font-medium">Availability</span>
       </div>
 
       {/* Page header */}
       <div className="mb-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D]">
               Room Availability
             </h1>
             <p className="mt-1 text-sm text-gray-500">{property.name}</p>
@@ -62,7 +62,7 @@ export default async function PropertyAvailabilityPage({ params }: Props) {
             </Link>
             <Link
               href={`/host/properties/${property.id}`}
-              className="flex items-center gap-1.5 rounded-lg border border-[#071B63]/20 bg-white px-4 py-2 text-xs font-medium text-[#071B63] hover:bg-[#071B63]/5 transition-colors"
+              className="flex items-center gap-1.5 rounded-lg border border-[#14213D]/20 bg-white px-4 py-2 text-xs font-medium text-[#14213D] hover:bg-[#14213D]/5 transition-colors"
             >
               <span className="material-symbols-outlined text-xs">edit</span>
               Edit property

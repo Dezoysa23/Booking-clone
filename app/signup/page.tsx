@@ -63,13 +63,13 @@ export default function SignupPage() {
   return (
     <main
       className="flex-1 flex flex-col items-center justify-center min-h-screen relative overflow-hidden py-12 px-4"
-      style={{ background: "linear-gradient(155deg, #060f22 0%, #071B63 48%, #0d1e48 100%)" }}
+      style={{ background: "linear-gradient(155deg, #101A30 0%, #14213D 48%, #16233F 100%)" }}
     >
       {/* Ambient background glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="auth-orb-1 absolute -top-40 -right-32 h-[520px] w-[520px] rounded-full bg-[#1D63D8]/18 blur-3xl" />
-        <div className="auth-orb-2 absolute -bottom-28 -left-28 h-[400px] w-[400px] rounded-full bg-[#D8B45A]/9 blur-3xl" />
-        <div className="auth-orb-3 absolute top-1/3 left-1/3 h-72 w-72 rounded-full bg-[#123EAF]/16 blur-3xl" />
+        <div className="auth-orb-1 absolute -top-40 -right-32 h-[520px] w-[520px] rounded-full bg-[#2A3A5C]/18 blur-3xl" />
+        <div className="auth-orb-2 absolute -bottom-28 -left-28 h-[400px] w-[400px] rounded-full bg-[#D9A94D]/9 blur-3xl" />
+        <div className="auth-orb-3 absolute top-1/3 left-1/3 h-72 w-72 rounded-full bg-[#16233F]/16 blur-3xl" />
         {/* Subtle grid */}
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -94,7 +94,7 @@ export default function SignupPage() {
               unoptimized
             />
           </div>
-          <span className="font-[family-name:var(--font-playfair-display)] text-[30px] font-semibold text-white tracking-wide group-hover:text-[#D8B45A] transition-colors duration-200">
+          <span className="font-[family-name:var(--font-playfair-display)] text-[30px] font-semibold text-white tracking-wide group-hover:text-[#D9A94D] transition-colors duration-200">
             Pearlora
           </span>
           <p className="text-white/35 text-[11px] mt-1.5 tracking-[0.18em] uppercase">
@@ -107,7 +107,7 @@ export default function SignupPage() {
           className="rounded-2xl px-8 py-9 border border-white/10 shadow-[0_32px_80px_rgba(0,0,0,0.55)]"
           style={{ background: "rgba(255,255,255,0.97)", backdropFilter: "blur(20px)" }}
         >
-          <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#0f1f3d]">
+          <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D]">
             Create Account
           </h1>
           <p className="mt-1.5 text-sm text-gray-500">
@@ -136,7 +136,7 @@ export default function SignupPage() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 text-sm outline-none transition-all focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10 hover:border-gray-300"
+                className="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 text-sm outline-none transition-all focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10 hover:border-gray-300"
                 placeholder="Your full name"
                 disabled={isLoading}
                 autoComplete="name"
@@ -150,7 +150,7 @@ export default function SignupPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 text-sm outline-none transition-all focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10 hover:border-gray-300"
+                className="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 text-sm outline-none transition-all focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10 hover:border-gray-300"
                 placeholder="you@example.com"
                 disabled={isLoading}
                 autoComplete="email"
@@ -165,7 +165,7 @@ export default function SignupPage() {
                   type={showPw ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pr-11 text-sm outline-none transition-all focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10 hover:border-gray-300"
+                  className="w-full rounded-xl border border-gray-200 bg-white/70 px-4 py-3 pr-11 text-sm outline-none transition-all focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10 hover:border-gray-300"
                   placeholder="Minimum 8 characters"
                   disabled={isLoading}
                   autoComplete="new-password"
@@ -208,7 +208,7 @@ export default function SignupPage() {
               type="submit"
               disabled={isLoading}
               className="mt-1 w-full rounded-xl px-4 py-3.5 text-sm font-semibold text-white transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
-              style={{ background: "linear-gradient(135deg, #0f1f3d 0%, #071B63 60%, #123EAF 100%)" }}
+              style={{ background: "linear-gradient(135deg, #14213D 0%, #14213D 60%, #16233F 100%)" }}
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -236,7 +236,7 @@ export default function SignupPage() {
 
           <p className="mt-5 text-center text-sm text-gray-500">
             Already have an account?{" "}
-            <Link href="/login" className="font-semibold text-[#071B63] hover:text-[#D8B45A] transition-colors">
+            <Link href="/login" className="font-semibold text-[#14213D] hover:text-[#D9A94D] transition-colors">
               Sign in
             </Link>
           </p>
@@ -246,7 +246,7 @@ export default function SignupPage() {
         <div className="mt-6 flex items-center justify-center gap-5 flex-wrap">
           {TRUST_BADGES.map(({ icon, label }) => (
             <span key={label} className="flex items-center gap-1.5 text-white/35 text-[11px]">
-              <span className="material-symbols-outlined text-[14px] text-[#D8B45A]/60">{icon}</span>
+              <span className="material-symbols-outlined text-[14px] text-[#D9A94D]/60">{icon}</span>
               {label}
             </span>
           ))}

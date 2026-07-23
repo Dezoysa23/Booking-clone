@@ -20,14 +20,14 @@ export default async function BecomeAHostPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#faf8f5]">
+    <main className="min-h-screen bg-[#F8F2E9]">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#071B63] px-4 pt-20 pb-28 text-center">
+      <section className="relative overflow-hidden bg-[#14213D] px-4 pt-20 pb-28 text-center">
         <div className="mx-auto max-w-3xl relative z-10">
           <div className="flex justify-center mb-6">
             <Image src="/brand/pearlora-logo.jpg" alt="Pearlora" width={52} height={52} unoptimized className="rounded-xl" />
           </div>
-          <p className="text-[#D8B45A] text-xs font-semibold tracking-widest uppercase mb-3">For Property Owners</p>
+          <p className="text-[#D9A94D] text-xs font-semibold tracking-widest uppercase mb-3">For Property Owners</p>
           <h1 className="font-[family-name:var(--font-playfair-display)] text-4xl md:text-5xl font-semibold text-white leading-tight">
             Become a Pearlora Host
           </h1>
@@ -37,7 +37,7 @@ export default async function BecomeAHostPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
               href="/pricing"
-              className="rounded-xl bg-[#D8B45A] px-8 py-4 text-sm font-semibold text-[#071B63] hover:bg-[#c9a84c] transition-colors shadow-lg"
+              className="rounded-xl bg-[#D9A94D] px-8 py-4 text-sm font-semibold text-[#14213D] hover:bg-[#c99a3f] transition-colors shadow-lg"
             >
               View Host Plans
             </Link>
@@ -53,15 +53,15 @@ export default async function BecomeAHostPage() {
         </div>
         {/* Decorative circles */}
         <div className="absolute top-0 right-0 h-80 w-80 rounded-full bg-white/3 -translate-y-1/3 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#D8B45A]/5 translate-y-1/3 -translate-x-1/4" />
+        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#D9A94D]/5 translate-y-1/3 -translate-x-1/4" />
       </section>
 
       {/* How it works */}
       <section className="px-4 py-20">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <p className="text-[#D8B45A] text-xs font-semibold tracking-widest uppercase mb-2">Simple Process</p>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <p className="text-[#D9A94D] text-xs font-semibold tracking-widest uppercase mb-2">Simple Process</p>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               How it works
             </h2>
           </div>
@@ -69,12 +69,12 @@ export default async function BecomeAHostPage() {
             {steps.map((step, i) => (
               <div key={step.title} className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6">
                 <div className="mb-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#071B63]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D]">
                     <span className="material-symbols-outlined text-white text-base">{step.icon}</span>
                   </div>
-                  <span className="text-2xl font-bold text-[#071B63]/20">0{i + 1}</span>
+                  <span className="text-2xl font-bold text-[#14213D]/20">0{i + 1}</span>
                 </div>
-                <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d] mb-2">{step.title}</h3>
+                <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D] mb-2">{step.title}</h3>
                 <p className="text-sm text-gray-500">{step.body}</p>
               </div>
             ))}
@@ -86,19 +86,19 @@ export default async function BecomeAHostPage() {
       <section className="border-t border-gray-100 bg-white px-4 py-20">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <p className="text-[#D8B45A] text-xs font-semibold tracking-widest uppercase mb-2">Why Pearlora</p>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <p className="text-[#D9A94D] text-xs font-semibold tracking-widest uppercase mb-2">Why Pearlora</p>
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               Built for Sri Lankan hosts
             </h2>
           </div>
           <div className="grid gap-6 sm:grid-cols-2">
             {benefits.map((b) => (
-              <div key={b.title} className="flex gap-4 rounded-2xl border border-gray-100 bg-[#faf8f5] p-6">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#071B63]/8">
-                  <span className="material-symbols-outlined text-[#071B63] text-base">{b.icon}</span>
+              <div key={b.title} className="flex gap-4 rounded-2xl border border-gray-100 bg-[#F8F2E9] p-6">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#14213D]/8">
+                  <span className="material-symbols-outlined text-[#14213D] text-base">{b.icon}</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#0f1f3d] text-sm mb-1">{b.title}</h3>
+                  <h3 className="font-semibold text-[#14213D] text-sm mb-1">{b.title}</h3>
                   <p className="text-sm text-gray-500">{b.body}</p>
                 </div>
               </div>
@@ -110,7 +110,7 @@ export default async function BecomeAHostPage() {
       {/* CTA */}
       <section className="px-4 py-20 text-center">
         <div className="mx-auto max-w-xl">
-          <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d] mb-3">
+          <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D] mb-3">
             Ready to list?
           </h2>
           <p className="text-gray-500 mb-8">
@@ -118,7 +118,7 @@ export default async function BecomeAHostPage() {
           </p>
           <Link
             href="/pricing"
-            className="inline-block rounded-xl bg-[#071B63] px-10 py-4 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+            className="inline-block rounded-xl bg-[#14213D] px-10 py-4 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"
           >
             See Pricing Plans
           </Link>

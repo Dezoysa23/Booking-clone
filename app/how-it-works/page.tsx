@@ -144,7 +144,7 @@ function StepCard({ step, icon, title, description, accentColor }: StepCardProps
           {step}
         </span>
       </div>
-      <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d] leading-snug">
+      <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D] leading-snug">
         {title}
       </h3>
       <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
@@ -154,16 +154,16 @@ function StepCard({ step, icon, title, description, accentColor }: StepCardProps
 
 export default function HowItWorksPage() {
   return (
-    <main className="min-h-screen bg-[#faf8f5]">
+    <main className="min-h-screen bg-[#F8F2E9]">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6b] px-4 md:px-16 py-20 text-center">
+      <section className="bg-gradient-to-br from-[#14213D] to-[#16233F] px-4 md:px-16 py-20 text-center">
         <div className="mx-auto max-w-3xl">
           <div className="flex items-center justify-center gap-3 mb-5">
-            <span className="h-px w-10 bg-[#D8B45A]/60" />
-            <span className="text-[#D8B45A] text-xs font-semibold tracking-[0.2em] uppercase">
+            <span className="h-px w-10 bg-[#D9A94D]/60" />
+            <span className="text-[#D9A94D] text-xs font-semibold tracking-[0.2em] uppercase">
               Your Complete Guide
             </span>
-            <span className="h-px w-10 bg-[#D8B45A]/60" />
+            <span className="h-px w-10 bg-[#D9A94D]/60" />
           </div>
           <h1 className="font-[family-name:var(--font-playfair-display)] text-4xl md:text-5xl font-semibold text-white mb-5">
             How Pearlora Works
@@ -180,14 +180,14 @@ export default function HowItWorksPage() {
         <section>
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#071B63]/8">
-                <span className="material-symbols-outlined text-[#071B63] text-lg">travel_explore</span>
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#14213D]/8">
+                <span className="material-symbols-outlined text-[#14213D] text-lg">travel_explore</span>
               </div>
-              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
+              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D9A94D]">
                 For Travellers
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               Find &amp; book your perfect stay
             </h2>
             <p className="mt-2 text-sm text-gray-500 max-w-lg leading-relaxed">
@@ -197,14 +197,14 @@ export default function HowItWorksPage() {
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {TRAVELER_STEPS.map((s) => (
-              <StepCard key={s.step} {...s} accentColor="#071B63" />
+              <StepCard key={s.step} {...s} accentColor="#14213D" />
             ))}
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/results?destination="
-              className="rounded-full bg-[#071B63] px-7 py-3 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+              className="rounded-full bg-[#14213D] px-7 py-3 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"
             >
               Start Searching
             </Link>
@@ -224,14 +224,14 @@ export default function HowItWorksPage() {
         <section>
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D8B45A]/10">
-                <span className="material-symbols-outlined text-[#D8B45A] text-lg">home_work</span>
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D9A94D]/10">
+                <span className="material-symbols-outlined text-[#D9A94D] text-lg">home_work</span>
               </div>
-              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">
+              <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D9A94D]">
                 For Hosts
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               List &amp; manage your properties
             </h2>
             <p className="mt-2 text-sm text-gray-500 max-w-lg leading-relaxed">
@@ -248,7 +248,7 @@ export default function HowItWorksPage() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/become-a-host"
-              className="rounded-full bg-[#D8B45A] px-7 py-3 text-sm font-semibold text-[#0f1f3d] hover:bg-[#c9a84c] transition-colors"
+              className="rounded-full bg-[#D9A94D] px-7 py-3 text-sm font-semibold text-[#14213D] hover:bg-[#c99a3f] transition-colors"
             >
               Become a Host
             </Link>
@@ -275,7 +275,7 @@ export default function HowItWorksPage() {
                 For Admins
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               Manage the platform
             </h2>
             <p className="mt-2 text-sm text-gray-500 max-w-lg leading-relaxed">

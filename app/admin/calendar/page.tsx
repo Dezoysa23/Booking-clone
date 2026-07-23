@@ -15,13 +15,13 @@ export default async function AdminCalendarPage() {
   if (!isSuperAdmin(currentUser)) redirect("/");
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
+    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-6xl">
         {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 mb-4 text-xs text-gray-400">
-          <Link href="/admin" className="hover:text-[#071B63] transition-colors">Admin</Link>
+          <Link href="/admin" className="hover:text-[#14213D] transition-colors">Admin</Link>
           <span className="text-gray-300">›</span>
-          <span className="text-[#071B63] font-medium">Calendar</span>
+          <span className="text-[#14213D] font-medium">Calendar</span>
         </div>
 
         {/* Page header */}
@@ -36,7 +36,7 @@ export default async function AdminCalendarPage() {
                 className="rounded object-contain shrink-0"
                 unoptimized
               />
-              <span className="text-[#D8B45A] text-xs font-semibold tracking-widest uppercase">
+              <span className="text-[#D9A94D] text-xs font-semibold tracking-widest uppercase">
                 Pearlora Admin
               </span>
             </div>
@@ -48,7 +48,7 @@ export default async function AdminCalendarPage() {
             </p>
           </div>
           <div className="shrink-0 hidden md:flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10">
-            <span className="material-symbols-outlined text-[#D8B45A] text-3xl">calendar_month</span>
+            <span className="material-symbols-outlined text-[#D9A94D] text-3xl">calendar_month</span>
           </div>
         </div>
 

@@ -39,23 +39,23 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
   });
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
+    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-1.5 mb-1">
               <Link
                 href="/admin"
-                className="text-xs text-gray-400 hover:text-[#0f1f3d] transition-colors"
+                className="text-xs text-gray-400 hover:text-[#14213D] transition-colors"
               >
                 Admin
               </Link>
               <span className="text-gray-300 text-xs">›</span>
-              <span className="text-xs text-[#0f1f3d] font-medium">
+              <span className="text-xs text-[#14213D] font-medium">
                 Properties
               </span>
             </div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               Manage Properties
             </h1>
             <p className="mt-1 text-sm text-gray-500">
@@ -67,7 +67,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
           <div className="flex gap-3">
             <Link
               href="/admin/properties/new"
-              className="rounded-lg bg-[#071B63] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors"
+              className="rounded-lg bg-[#14213D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"
             >
               Add Property
             </Link>
@@ -96,12 +96,12 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
 
         {properties.length === 0 ? (
           <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-16 text-center">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#faf8f5] border border-gray-100">
-              <span className="material-symbols-outlined text-[#0f1f3d]/30 text-xl">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#F8F2E9] border border-gray-100">
+              <span className="material-symbols-outlined text-[#14213D]/30 text-xl">
                 apartment
               </span>
             </div>
-            <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
+            <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
               No properties yet
             </h3>
             <p className="mt-2 text-sm text-gray-500">
@@ -109,7 +109,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
             </p>
             <Link
               href="/admin/properties/new"
-              className="mt-5 inline-block rounded-lg bg-[#0f1f3d] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#1a3060] transition-colors"
+              className="mt-5 inline-block rounded-lg bg-[#14213D] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"
             >
               Add First Property
             </Link>
@@ -117,7 +117,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
         ) : (
           <div className="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-gray-100 bg-[#faf8f5]">
+              <thead className="border-b border-gray-100 bg-[#F8F2E9]">
                 <tr>
                   <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
                     ID
@@ -146,7 +146,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
                 {properties.map((property) => (
                   <tr
                     key={property.id}
-                    className="hover:bg-[#faf8f5] transition-colors"
+                    className="hover:bg-[#F8F2E9] transition-colors"
                   >
                     <td className="px-5 py-4 text-xs text-gray-400 font-mono">
                       #{property.id}
@@ -161,7 +161,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
                             className="h-full w-full object-cover"
                           />
                         </div>
-                        <span className="font-semibold text-[#0f1f3d] text-sm">
+                        <span className="font-semibold text-[#14213D] text-sm">
                           {property.name}
                         </span>
                       </div>
@@ -173,8 +173,8 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
                       LKR {property.price.toLocaleString()}
                     </td>
                     <td className="hidden sm:table-cell px-5 py-4">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#071B63] px-2.5 py-1 text-xs font-bold text-white">
-                        <span className="material-symbols-outlined text-[#D8B45A] text-xs filled">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[#14213D] px-2.5 py-1 text-xs font-bold text-white">
+                        <span className="material-symbols-outlined text-[#D9A94D] text-xs filled">
                           star
                         </span>
                         {property.rating.toFixed(1)}
@@ -190,7 +190,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
                           href={`/properties/${property.id}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="rounded-lg border border-[#071B63]/20 bg-white px-3 py-1.5 text-xs font-medium text-[#071B63] hover:bg-[#071B63]/5 transition-colors"
+                          className="rounded-lg border border-[#14213D]/20 bg-white px-3 py-1.5 text-xs font-medium text-[#14213D] hover:bg-[#14213D]/5 transition-colors"
                         >
                           View
                         </Link>

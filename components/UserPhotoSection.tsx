@@ -72,10 +72,10 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
       <div className="flex items-center justify-between mb-5">
         <div>
           <div className="flex items-center gap-3 mb-1">
-            <span className="h-px w-6 bg-[#D8B45A]" />
-            <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D8B45A]">Community</span>
+            <span className="h-px w-6 bg-[#D9A94D]" />
+            <span className="text-xs font-semibold tracking-[0.18em] uppercase text-[#D9A94D]">Community</span>
           </div>
-          <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d]">
+          <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
             Guest Photos
           </h2>
         </div>
@@ -83,14 +83,14 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
           <button
             type="button"
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-1.5 rounded-lg border border-[#071B63]/20 bg-white px-4 py-2 text-sm font-medium text-[#071B63] hover:bg-[#071B63]/5 transition-colors"
+            className="flex items-center gap-1.5 rounded-lg border border-[#14213D]/20 bg-white px-4 py-2 text-sm font-medium text-[#14213D] hover:bg-[#14213D]/5 transition-colors"
           >
             <span className="material-symbols-outlined text-base">add_photo_alternate</span>
             Share a photo
           </button>
         )}
         {!isLoggedIn && (
-          <a href="/login" className="text-xs text-[#071B63] hover:underline font-medium">Sign in to share a photo</a>
+          <a href="/login" className="text-xs text-[#14213D] hover:underline font-medium">Sign in to share a photo</a>
         )}
       </div>
 
@@ -103,7 +103,7 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
 
       {showForm && (
         <form onSubmit={handleSubmit} className="mb-6 rounded-2xl bg-white border border-gray-100 shadow-sm p-5 space-y-4">
-          <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#0f1f3d]">Share your photo</h3>
+          <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#14213D]">Share your photo</h3>
           <p className="text-xs text-gray-500">Your photo will be reviewed before it appears publicly.</p>
 
           {error && <p className="text-sm text-red-600">{error}</p>}
@@ -120,7 +120,7 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
               </div>
             ) : (
               <button type="button" onClick={() => fileRef.current?.click()}
-                className="w-full flex flex-col items-center gap-2 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-8 text-center hover:border-[#071B63]/30 transition-colors cursor-pointer">
+                className="w-full flex flex-col items-center gap-2 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-8 text-center hover:border-[#14213D]/30 transition-colors cursor-pointer">
                 <span className="material-symbols-outlined text-gray-300 text-4xl">add_photo_alternate</span>
                 <span className="text-sm font-medium text-gray-600">Click to select an image</span>
                 <span className="text-xs text-gray-400">JPG, PNG, or WebP · Max 5 MB</span>
@@ -132,7 +132,7 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
           <div>
             <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">Category</label>
             <select value={category} onChange={(e) => setCategory(e.target.value)}
-              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#071B63] focus:bg-white">
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#14213D] focus:bg-white">
               <option value="">Select a category</option>
               {USER_PHOTO_CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
             </select>
@@ -142,12 +142,12 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
             <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">Caption (optional)</label>
             <input type="text" value={caption} onChange={(e) => setCaption(e.target.value)} maxLength={300}
               placeholder={`A view from ${propertyName}...`}
-              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#071B63] focus:bg-white" />
+              className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#14213D] focus:bg-white" />
           </div>
 
           <div className="flex gap-3">
             <button type="submit" disabled={submitting || !selectedFile}
-              className="rounded-lg bg-[#071B63] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#123EAF] transition-colors disabled:opacity-60">
+              className="rounded-lg bg-[#14213D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors disabled:opacity-60">
               {submitting ? "Submitting…" : "Submit for Review"}
             </button>
             <button type="button" onClick={() => { setShowForm(false); setError(""); }}

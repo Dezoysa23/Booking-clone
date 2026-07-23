@@ -37,7 +37,7 @@ export default async function AdminPage() {
   const avgRating = avgRatingResult?._avg?.rating ?? null;
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
+    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-5xl">
         {/* Header */}
         <div className="rounded-2xl admin-header-gradient px-8 py-8 mb-8">
@@ -50,7 +50,7 @@ export default async function AdminPage() {
               className="rounded object-contain shrink-0"
               unoptimized
             />
-            <span className="text-[#D8B45A] text-xs font-semibold tracking-widest uppercase">
+            <span className="text-[#D9A94D] text-xs font-semibold tracking-widest uppercase">
               Pearlora Admin
             </span>
           </div>
@@ -71,20 +71,20 @@ export default async function AdminPage() {
           {/* Properties */}
           <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/50">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">
                 Properties
               </p>
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#071B63]/8">
-                <span className="material-symbols-outlined text-[#071B63] text-sm">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#14213D]/8">
+                <span className="material-symbols-outlined text-[#14213D] text-sm">
                   apartment
                 </span>
               </div>
             </div>
             <div>
-              <p className="text-3xl font-bold text-[#0f1f3d]">{propertyCount}</p>
+              <p className="text-3xl font-bold text-[#14213D]">{propertyCount}</p>
               {avgRating !== null && propertyCount > 0 ? (
                 <p className="mt-1 text-xs text-gray-400 flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[#D8B45A] filled text-xs">star</span>
+                  <span className="material-symbols-outlined text-[#D9A94D] filled text-xs">star</span>
                   Avg {avgRating.toFixed(1)} rating
                 </p>
               ) : (
@@ -96,17 +96,17 @@ export default async function AdminPage() {
           {/* Registered users */}
           <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/50">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">
                 Users
               </p>
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1D63D8]/8">
-                <span className="material-symbols-outlined text-[#1D63D8] text-sm">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2A3A5C]/8">
+                <span className="material-symbols-outlined text-[#2A3A5C] text-sm">
                   group
                 </span>
               </div>
             </div>
             <div>
-              <p className="text-3xl font-bold text-[#0f1f3d]">{userCount}</p>
+              <p className="text-3xl font-bold text-[#14213D]">{userCount}</p>
               <p className="mt-1 text-xs text-gray-400">Registered accounts</p>
             </div>
           </div>
@@ -114,17 +114,17 @@ export default async function AdminPage() {
           {/* Total bookings */}
           <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/50">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">
                 Total Bookings
               </p>
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#071B63]/8">
-                <span className="material-symbols-outlined text-[#071B63] text-sm">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#14213D]/8">
+                <span className="material-symbols-outlined text-[#14213D] text-sm">
                   calendar_month
                 </span>
               </div>
             </div>
             <div>
-              <p className="text-3xl font-bold text-[#0f1f3d]">{bookingCount}</p>
+              <p className="text-3xl font-bold text-[#14213D]">{bookingCount}</p>
               <p className="mt-1 text-xs text-gray-400">All time</p>
             </div>
           </div>
@@ -148,13 +148,13 @@ export default async function AdminPage() {
           </div>
 
           {/* Pending bookings */}
-          <div className="rounded-2xl bg-[#071B63] p-5 flex flex-col justify-between">
+          <div className="rounded-2xl bg-[#14213D] p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A]">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D]">
                 Pending
               </p>
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-                <span className="material-symbols-outlined text-[#D8B45A] text-sm">
+                <span className="material-symbols-outlined text-[#D9A94D] text-sm">
                   schedule
                 </span>
               </div>
@@ -188,20 +188,20 @@ export default async function AdminPage() {
         <div className="divider-gold mb-8" />
 
         {/* Action cards */}
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-[#0f1f3d]/40 mb-4">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/40 mb-4">
           Quick Actions
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <Link
             href="/admin/properties"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#071B63]/20 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#14213D]/20 transition-all"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#071B63] mb-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D] mb-4">
               <span className="material-symbols-outlined text-white text-base">
                 apartment
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Manage Properties
             </h2>
             <p className="mt-1 text-xs text-gray-500">
@@ -211,14 +211,14 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/properties/new"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D8B45A]/40 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D9A94D]/40 transition-all"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D8B45A] mb-4">
-              <span className="material-symbols-outlined text-[#071B63] text-base">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D9A94D] mb-4">
+              <span className="material-symbols-outlined text-[#14213D] text-base">
                 add_circle
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Add Property
             </h2>
             <p className="mt-1 text-xs text-gray-500">
@@ -228,14 +228,14 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/bookings"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#071B63]/20 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#14213D]/20 transition-all"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#071B63]/8 mb-4">
-              <span className="material-symbols-outlined text-[#071B63] text-base">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D]/8 mb-4">
+              <span className="material-symbols-outlined text-[#14213D] text-base">
                 calendar_month
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               All Bookings
             </h2>
             <p className="mt-1 text-xs text-gray-500">
@@ -245,14 +245,14 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/users"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#071B63]/20 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#14213D]/20 transition-all"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#071B63]/8 mb-4">
-              <span className="material-symbols-outlined text-[#071B63] text-base">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D]/8 mb-4">
+              <span className="material-symbols-outlined text-[#14213D] text-base">
                 group
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Users
             </h2>
             <p className="mt-1 text-xs text-gray-500">
@@ -262,14 +262,14 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/subscriptions"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D8B45A]/40 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D9A94D]/40 transition-all"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D8B45A]/15 mb-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D9A94D]/15 mb-4">
               <span className="material-symbols-outlined text-[#8a6c2a] text-base">
                 workspace_premium
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Subscriptions
             </h2>
             <p className="mt-1 text-xs text-gray-500">
@@ -286,7 +286,7 @@ export default async function AdminPage() {
                 payments
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Payments
             </h2>
             <p className="mt-1 text-xs text-gray-500">
@@ -296,12 +296,12 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/calendar"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D8B45A]/40 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D9A94D]/40 transition-all"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D8B45A]/10 mb-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D9A94D]/10 mb-4">
               <span className="material-symbols-outlined text-[#B8860B] text-base">calendar_month</span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Platform Calendar
             </h2>
             <p className="mt-1 text-xs text-gray-500">Bookings, payments &amp; events.</p>
@@ -314,7 +314,7 @@ export default async function AdminPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 mb-4">
               <span className="material-symbols-outlined text-amber-600 text-base">photo_library</span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Photo Moderation
             </h2>
             <p className="mt-1 text-xs text-gray-500">Review guest-submitted photos.</p>
@@ -329,7 +329,7 @@ export default async function AdminPage() {
                 arrow_back
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#0f1f3d]">
+            <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Back to Site
             </h2>
             <p className="mt-1 text-xs text-gray-500">

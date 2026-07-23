@@ -116,7 +116,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
   };
 
   return (
-    <main className="min-h-screen bg-[#faf8f5] px-4 md:px-6 py-10">
+    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-6xl">
         <div className="mb-6">
           <BackButton label="Back to Results" />
@@ -125,17 +125,17 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#0f1f3d]">
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#14213D]">
               {property.name}
             </h1>
             <p className="mt-1.5 flex items-center gap-1 text-gray-500 text-sm">
-              <span className="material-symbols-outlined text-sm text-[#0f1f3d]/40">location_on</span>
+              <span className="material-symbols-outlined text-sm text-[#14213D]/40">location_on</span>
               {property.location}
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <span className="flex items-center gap-1.5 rounded-full bg-[#0f1f3d] px-4 py-1.5 text-sm font-bold text-white">
-              <span className="material-symbols-outlined text-[#D8B45A] text-sm filled">star</span>
+            <span className="flex items-center gap-1.5 rounded-full bg-[#14213D] px-4 py-1.5 text-sm font-bold text-white">
+              <span className="material-symbols-outlined text-[#D9A94D] text-sm filled">star</span>
               {property.rating.toFixed(1)}
             </span>
             <span className="text-sm text-gray-500">{property.reviews.toLocaleString()} reviews</span>
@@ -151,7 +151,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
               const f = getFacilityByKey(key);
               if (!f) return null;
               return (
-                <span key={key} className="flex items-center gap-1.5 rounded-full bg-[#071B63]/8 border border-[#071B63]/12 px-3 py-1.5 text-xs font-medium text-[#071B63]">
+                <span key={key} className="flex items-center gap-1.5 rounded-full bg-[#14213D]/8 border border-[#14213D]/12 px-3 py-1.5 text-xs font-medium text-[#14213D]">
                   <span className="material-symbols-outlined text-xs">{f.icon}</span>
                   {f.label}
                 </span>
@@ -170,21 +170,21 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
 
             {/* About */}
             <section>
-              <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d] mb-4">About this property</h2>
+              <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D] mb-4">About this property</h2>
               <p className="leading-7 text-gray-600 text-sm">{property.description}</p>
             </section>
 
             {/* Full Facilities */}
             {property.facilities.length > 0 && (
               <section>
-                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d] mb-5">Facilities</h2>
+                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D] mb-5">Facilities</h2>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {property.facilities.map((key) => {
                     const f = getFacilityByKey(key);
                     if (!f) return null;
                     return (
                       <div key={key} className="flex items-center gap-2.5 rounded-lg bg-white border border-gray-100 p-3.5 shadow-sm text-sm text-gray-700">
-                        <span className="material-symbols-outlined text-[#071B63] text-base">{f.icon}</span>
+                        <span className="material-symbols-outlined text-[#14213D] text-base">{f.icon}</span>
                         {f.label}
                       </div>
                     );
@@ -196,11 +196,11 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
             {/* Legacy amenities */}
             {property.amenities.length > 0 && (
               <section>
-                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d] mb-4">Amenities</h2>
+                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D] mb-4">Amenities</h2>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {property.amenities.map((amenity) => (
                     <div key={amenity} className="flex items-center gap-2.5 rounded-lg bg-white border border-gray-100 p-3.5 shadow-sm text-sm text-gray-700">
-                      <span className="material-symbols-outlined text-[#D8B45A] text-sm">check_circle</span>
+                      <span className="material-symbols-outlined text-[#D9A94D] text-sm">check_circle</span>
                       {amenity}
                     </div>
                   ))}
@@ -211,14 +211,14 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
             {/* House Rules */}
             {houseRules && Object.values(houseRules).some(Boolean) && (
               <section>
-                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d] mb-5">House Rules</h2>
+                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D] mb-5">House Rules</h2>
                 <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
                   {houseRules.checkInFrom && (
                     <div className="flex items-start gap-4 px-6 py-4 border-b border-gray-50">
-                      <span className="material-symbols-outlined text-[#0f1f3d]/40 text-lg mt-0.5">login</span>
+                      <span className="material-symbols-outlined text-[#14213D]/40 text-lg mt-0.5">login</span>
                       <div className="flex-1 flex justify-between flex-wrap gap-2">
-                        <span className="font-semibold text-[#0f1f3d] text-sm">Check-in</span>
-                        <span className="text-sm text-[#071B63]">
+                        <span className="font-semibold text-[#14213D] text-sm">Check-in</span>
+                        <span className="text-sm text-[#14213D]">
                           From {formatTime(houseRules.checkInFrom)}{houseRules.checkInTo ? ` to ${formatTime(houseRules.checkInTo)}` : ""}
                         </span>
                       </div>
@@ -226,10 +226,10 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                   )}
                   {houseRules.checkOutTo && (
                     <div className="flex items-start gap-4 px-6 py-4 border-b border-gray-50">
-                      <span className="material-symbols-outlined text-[#0f1f3d]/40 text-lg mt-0.5">logout</span>
+                      <span className="material-symbols-outlined text-[#14213D]/40 text-lg mt-0.5">logout</span>
                       <div className="flex-1 flex justify-between flex-wrap gap-2">
-                        <span className="font-semibold text-[#0f1f3d] text-sm">Check-out</span>
-                        <span className="text-sm text-[#071B63]">
+                        <span className="font-semibold text-[#14213D] text-sm">Check-out</span>
+                        <span className="text-sm text-[#14213D]">
                           {houseRules.checkOutFrom ? `From ${formatTime(houseRules.checkOutFrom)} to ` : "By "}{formatTime(houseRules.checkOutTo)}
                         </span>
                       </div>
@@ -237,67 +237,67 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                   )}
                   {(houseRules.cancellationPolicy || houseRules.prepaymentPolicy) && (
                     <div className="flex items-start gap-4 px-6 py-4 border-b border-gray-50">
-                      <span className="material-symbols-outlined text-[#0f1f3d]/40 text-lg mt-0.5">info</span>
+                      <span className="material-symbols-outlined text-[#14213D]/40 text-lg mt-0.5">info</span>
                       <div className="flex-1">
-                        <span className="font-semibold text-[#0f1f3d] text-sm block mb-1">Cancellation / prepayment</span>
-                        {houseRules.cancellationPolicy && <p className="text-sm text-[#071B63]">{houseRules.cancellationPolicy}</p>}
-                        {houseRules.prepaymentPolicy && <p className="text-sm text-[#071B63] mt-0.5">{houseRules.prepaymentPolicy}</p>}
+                        <span className="font-semibold text-[#14213D] text-sm block mb-1">Cancellation / prepayment</span>
+                        {houseRules.cancellationPolicy && <p className="text-sm text-[#14213D]">{houseRules.cancellationPolicy}</p>}
+                        {houseRules.prepaymentPolicy && <p className="text-sm text-[#14213D] mt-0.5">{houseRules.prepaymentPolicy}</p>}
                       </div>
                     </div>
                   )}
                   {(houseRules.childrenPolicy || houseRules.cribsAvailable !== undefined || houseRules.extraBedsAvailable !== undefined) && (
                     <div className="flex items-start gap-4 px-6 py-4 border-b border-gray-50">
-                      <span className="material-symbols-outlined text-[#0f1f3d]/40 text-lg mt-0.5">child_care</span>
+                      <span className="material-symbols-outlined text-[#14213D]/40 text-lg mt-0.5">child_care</span>
                       <div className="flex-1">
-                        <span className="font-semibold text-[#0f1f3d] text-sm block mb-1">Children &amp; Beds</span>
-                        {houseRules.childrenPolicy && <p className="text-sm text-[#071B63]">{policyLabel[houseRules.childrenPolicy] ?? houseRules.childrenPolicy}</p>}
-                        {houseRules.cribsAvailable !== undefined && <p className="text-sm text-[#071B63] mt-0.5">{houseRules.cribsAvailable ? "Cribs available on request" : "No cribs available"}</p>}
-                        {houseRules.extraBedsAvailable !== undefined && <p className="text-sm text-[#071B63] mt-0.5">{houseRules.extraBedsAvailable ? "Extra beds available" : "No extra beds"}</p>}
+                        <span className="font-semibold text-[#14213D] text-sm block mb-1">Children &amp; Beds</span>
+                        {houseRules.childrenPolicy && <p className="text-sm text-[#14213D]">{policyLabel[houseRules.childrenPolicy] ?? houseRules.childrenPolicy}</p>}
+                        {houseRules.cribsAvailable !== undefined && <p className="text-sm text-[#14213D] mt-0.5">{houseRules.cribsAvailable ? "Cribs available on request" : "No cribs available"}</p>}
+                        {houseRules.extraBedsAvailable !== undefined && <p className="text-sm text-[#14213D] mt-0.5">{houseRules.extraBedsAvailable ? "Extra beds available" : "No extra beds"}</p>}
                       </div>
                     </div>
                   )}
                   {houseRules.ageRestriction && houseRules.ageRestriction !== "no_restriction" && (
                     <div className="flex items-start gap-4 px-6 py-4 border-b border-gray-50">
-                      <span className="material-symbols-outlined text-[#0f1f3d]/40 text-lg mt-0.5">person</span>
+                      <span className="material-symbols-outlined text-[#14213D]/40 text-lg mt-0.5">person</span>
                       <div className="flex-1 flex justify-between flex-wrap gap-2">
-                        <span className="font-semibold text-[#0f1f3d] text-sm">Age restriction</span>
-                        <span className="text-sm text-[#071B63]">{policyLabel[houseRules.ageRestriction] ?? houseRules.ageRestriction}</span>
+                        <span className="font-semibold text-[#14213D] text-sm">Age restriction</span>
+                        <span className="text-sm text-[#14213D]">{policyLabel[houseRules.ageRestriction] ?? houseRules.ageRestriction}</span>
                       </div>
                     </div>
                   )}
                   {houseRules.petsPolicy && (
                     <div className="flex items-start gap-4 px-6 py-4 border-b border-gray-50">
-                      <span className="material-symbols-outlined text-[#0f1f3d]/40 text-lg mt-0.5">pets</span>
+                      <span className="material-symbols-outlined text-[#14213D]/40 text-lg mt-0.5">pets</span>
                       <div className="flex-1 flex justify-between flex-wrap gap-2">
-                        <span className="font-semibold text-[#0f1f3d] text-sm">Pets</span>
-                        <span className="text-sm text-[#071B63]">{policyLabel[houseRules.petsPolicy] ?? houseRules.petsPolicy}</span>
+                        <span className="font-semibold text-[#14213D] text-sm">Pets</span>
+                        <span className="text-sm text-[#14213D]">{policyLabel[houseRules.petsPolicy] ?? houseRules.petsPolicy}</span>
                       </div>
                     </div>
                   )}
                   {houseRules.smokingPolicy && (
                     <div className="flex items-start gap-4 px-6 py-4 border-b border-gray-50">
-                      <span className="material-symbols-outlined text-[#0f1f3d]/40 text-lg mt-0.5">smoke_free</span>
+                      <span className="material-symbols-outlined text-[#14213D]/40 text-lg mt-0.5">smoke_free</span>
                       <div className="flex-1 flex justify-between flex-wrap gap-2">
-                        <span className="font-semibold text-[#0f1f3d] text-sm">Smoking</span>
-                        <span className="text-sm text-[#071B63]">{policyLabel[houseRules.smokingPolicy] ?? houseRules.smokingPolicy}</span>
+                        <span className="font-semibold text-[#14213D] text-sm">Smoking</span>
+                        <span className="text-sm text-[#14213D]">{policyLabel[houseRules.smokingPolicy] ?? houseRules.smokingPolicy}</span>
                       </div>
                     </div>
                   )}
                   {houseRules.partiesPolicy && (
                     <div className="flex items-start gap-4 px-6 py-4 border-b border-gray-50">
-                      <span className="material-symbols-outlined text-[#0f1f3d]/40 text-lg mt-0.5">celebration</span>
+                      <span className="material-symbols-outlined text-[#14213D]/40 text-lg mt-0.5">celebration</span>
                       <div className="flex-1 flex justify-between flex-wrap gap-2">
-                        <span className="font-semibold text-[#0f1f3d] text-sm">Parties / events</span>
-                        <span className="text-sm text-[#071B63]">{policyLabel[houseRules.partiesPolicy] ?? houseRules.partiesPolicy}</span>
+                        <span className="font-semibold text-[#14213D] text-sm">Parties / events</span>
+                        <span className="text-sm text-[#14213D]">{policyLabel[houseRules.partiesPolicy] ?? houseRules.partiesPolicy}</span>
                       </div>
                     </div>
                   )}
                   {houseRules.quietHours && (
                     <div className="flex items-start gap-4 px-6 py-4">
-                      <span className="material-symbols-outlined text-[#0f1f3d]/40 text-lg mt-0.5">nightlight</span>
+                      <span className="material-symbols-outlined text-[#14213D]/40 text-lg mt-0.5">nightlight</span>
                       <div className="flex-1 flex justify-between flex-wrap gap-2">
-                        <span className="font-semibold text-[#0f1f3d] text-sm">Quiet hours</span>
-                        <span className="text-sm text-[#071B63]">{houseRules.quietHours}</span>
+                        <span className="font-semibold text-[#14213D] text-sm">Quiet hours</span>
+                        <span className="text-sm text-[#14213D]">{houseRules.quietHours}</span>
                       </div>
                     </div>
                   )}
@@ -308,12 +308,12 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
             {/* Area Info */}
             {areaInfo && Object.values(areaInfo).some((arr) => arr && arr.length > 0) && (
               <section>
-                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d] mb-5">Hotel Area Info</h2>
+                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D] mb-5">Hotel Area Info</h2>
                 <div className="grid gap-6 md:grid-cols-3">
                   {/* Attractions */}
                   {areaInfo.attractions && areaInfo.attractions.length > 0 && (
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A] mb-3 flex items-center gap-1.5">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D] mb-3 flex items-center gap-1.5">
                         <span className="material-symbols-outlined text-sm">attractions</span>
                         Top Attractions
                       </p>
@@ -321,7 +321,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                         {areaInfo.attractions.map((a, i) => (
                           <div key={i} className="flex justify-between text-sm">
                             <span className="text-gray-700">{a.type && <span className="text-gray-400 text-xs">{a.type} · </span>}{a.name}</span>
-                            {a.distance != null && <span className="text-[#071B63] font-medium shrink-0 ml-2">{formatDistance(a)}</span>}
+                            {a.distance != null && <span className="text-[#14213D] font-medium shrink-0 ml-2">{formatDistance(a)}</span>}
                           </div>
                         ))}
                       </div>
@@ -330,7 +330,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                   {/* Restaurants */}
                   {areaInfo.restaurants && areaInfo.restaurants.length > 0 && (
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A] mb-3 flex items-center gap-1.5">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D] mb-3 flex items-center gap-1.5">
                         <span className="material-symbols-outlined text-sm">restaurant</span>
                         Restaurants &amp; Cafes
                       </p>
@@ -338,7 +338,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                         {areaInfo.restaurants.map((r, i) => (
                           <div key={i} className="flex justify-between text-sm">
                             <span className="text-gray-700">{r.type && <span className="text-gray-400 text-xs">{r.type} · </span>}{r.name}</span>
-                            {r.distance != null && <span className="text-[#071B63] font-medium shrink-0 ml-2">{formatDistance(r)}</span>}
+                            {r.distance != null && <span className="text-[#14213D] font-medium shrink-0 ml-2">{formatDistance(r)}</span>}
                           </div>
                         ))}
                       </div>
@@ -348,7 +348,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                   <div className="space-y-5">
                     {areaInfo.transit && areaInfo.transit.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A] mb-3 flex items-center gap-1.5">
+                        <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D] mb-3 flex items-center gap-1.5">
                           <span className="material-symbols-outlined text-sm">train</span>
                           Public Transit
                         </p>
@@ -356,7 +356,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                           {areaInfo.transit.map((t, i) => (
                             <div key={i} className="flex justify-between text-sm">
                               <span className="text-gray-700">{t.type && <span className="text-gray-400 text-xs">{t.type} · </span>}{t.name}</span>
-                              {t.distance != null && <span className="text-[#071B63] font-medium shrink-0 ml-2">{formatDistance(t)}</span>}
+                              {t.distance != null && <span className="text-[#14213D] font-medium shrink-0 ml-2">{formatDistance(t)}</span>}
                             </div>
                           ))}
                         </div>
@@ -364,7 +364,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                     )}
                     {areaInfo.airports && areaInfo.airports.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A] mb-3 flex items-center gap-1.5">
+                        <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D] mb-3 flex items-center gap-1.5">
                           <span className="material-symbols-outlined text-sm">flight</span>
                           Closest Airports
                         </p>
@@ -372,7 +372,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                           {areaInfo.airports.map((a, i) => (
                             <div key={i} className="flex justify-between text-sm">
                               <span className="text-gray-700">{a.name}</span>
-                              {a.distance != null && <span className="text-[#071B63] font-medium shrink-0 ml-2">{formatDistance(a)}</span>}
+                              {a.distance != null && <span className="text-[#14213D] font-medium shrink-0 ml-2">{formatDistance(a)}</span>}
                             </div>
                           ))}
                         </div>
@@ -380,7 +380,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                     )}
                     {areaInfo.naturalBeauty && areaInfo.naturalBeauty.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-widest text-[#D8B45A] mb-3 flex items-center gap-1.5">
+                        <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D] mb-3 flex items-center gap-1.5">
                           <span className="material-symbols-outlined text-sm">landscape</span>
                           Natural Beauty
                         </p>
@@ -388,7 +388,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                           {areaInfo.naturalBeauty.map((n, i) => (
                             <div key={i} className="flex justify-between text-sm">
                               <span className="text-gray-700">{n.type && <span className="text-gray-400 text-xs">{n.type} · </span>}{n.name}</span>
-                              {n.distance != null && <span className="text-[#071B63] font-medium shrink-0 ml-2">{formatDistance(n)}</span>}
+                              {n.distance != null && <span className="text-[#14213D] font-medium shrink-0 ml-2">{formatDistance(n)}</span>}
                             </div>
                           ))}
                         </div>
@@ -407,15 +407,15 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
             {/* Travellers are asking (FAQ) */}
             {faqs.length > 0 && (
               <section>
-                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#0f1f3d] mb-5">Travellers are asking</h2>
+                <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D] mb-5">Travellers are asking</h2>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {faqs.map((faq, i) => (
                     <div key={i} className="rounded-xl bg-white border border-gray-100 shadow-sm p-4">
                       <div className="flex items-start gap-2.5">
-                        <span className="material-symbols-outlined text-[#0f1f3d]/30 text-base mt-0.5 shrink-0">chat_bubble_outline</span>
+                        <span className="material-symbols-outlined text-[#14213D]/30 text-base mt-0.5 shrink-0">chat_bubble_outline</span>
                         <div>
-                          <p className="text-sm font-semibold text-[#0f1f3d] leading-snug">{faq.q}</p>
-                          <p className="mt-1 text-sm text-[#071B63]">{faq.a}</p>
+                          <p className="text-sm font-semibold text-[#14213D] leading-snug">{faq.q}</p>
+                          <p className="mt-1 text-sm text-[#14213D]">{faq.a}</p>
                         </div>
                       </div>
                     </div>

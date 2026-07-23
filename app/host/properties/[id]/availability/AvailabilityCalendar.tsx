@@ -389,15 +389,15 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
       case "booked-confirmed":return `${base} bg-blue-100 text-blue-700 cursor-not-allowed`;
       case "booked-pending": return `${base} bg-amber-100 text-amber-700 cursor-not-allowed`;
       case "blocked":        return `${base} bg-orange-100 text-orange-700 cursor-pointer hover:bg-orange-200`;
-      case "selection-active":return `${base} bg-[#071B63] text-white cursor-pointer`;
+      case "selection-active":return `${base} bg-[#14213D] text-white cursor-pointer`;
       default: // available
         return key === todayKey
-          ? `${base} ring-2 ring-[#D8B45A] text-[#0f1f3d] font-bold cursor-pointer hover:bg-emerald-50`
+          ? `${base} ring-2 ring-[#D9A94D] text-[#14213D] font-bold cursor-pointer hover:bg-emerald-50`
           : `${base} text-gray-700 cursor-pointer hover:bg-emerald-50 hover:text-emerald-700`;
     }
   }
 
-  const inputClass = "w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-[#071B63] focus:bg-white focus:ring-2 focus:ring-[#071B63]/10";
+  const inputClass = "w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10";
   const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400";
 
   // ─── Render ────────────────────────────────────────────────────────────────
@@ -406,13 +406,13 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
       {/* ── Room selector ── */}
       <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-          <h2 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#0f1f3d]">
+          <h2 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
             Rooms
           </h2>
           <button
             type="button"
             onClick={() => { setShowAddRoom((v) => !v); setRoomError(""); }}
-            className="flex items-center gap-1.5 rounded-lg bg-[#071B63] px-4 py-2 text-xs font-semibold text-white hover:bg-[#123EAF] transition-colors"
+            className="flex items-center gap-1.5 rounded-lg bg-[#14213D] px-4 py-2 text-xs font-semibold text-white hover:bg-[#16233F] transition-colors"
           >
             <span className="material-symbols-outlined text-sm">add</span>
             Add Room
@@ -424,7 +424,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
         ) : (
           <>
             {rooms.length === 0 && !showAddRoom && (
-              <div className="rounded-xl bg-[#faf8f5] border border-gray-100 p-6 text-center">
+              <div className="rounded-xl bg-[#F8F2E9] border border-gray-100 p-6 text-center">
                 <span className="material-symbols-outlined text-gray-300 text-3xl">meeting_room</span>
                 <p className="mt-2 text-sm text-gray-500">No rooms yet. Add your first room to manage availability.</p>
               </div>
@@ -439,7 +439,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                     onClick={() => { setSelectedRoomId(room.id); setSelStart(null); setSelEnd(null); }}
                     className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm transition-all ${
                       selectedRoomId === room.id
-                        ? "border-[#071B63] bg-[#071B63]/5 font-semibold text-[#071B63]"
+                        ? "border-[#14213D] bg-[#14213D]/5 font-semibold text-[#14213D]"
                         : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
                     }`}
                   >
@@ -455,8 +455,8 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
 
             {/* Add room form */}
             {showAddRoom && (
-              <div className="mt-4 rounded-xl border border-[#071B63]/15 bg-[#071B63]/3 p-5 space-y-3">
-                <h3 className="text-sm font-semibold text-[#0f1f3d]">New Room</h3>
+              <div className="mt-4 rounded-xl border border-[#14213D]/15 bg-[#14213D]/3 p-5 space-y-3">
+                <h3 className="text-sm font-semibold text-[#14213D]">New Room</h3>
                 {roomError && <p className="text-xs text-red-600">{roomError}</p>}
                 <div>
                   <label className={labelClass}>Room Name *</label>
@@ -477,7 +477,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                 </div>
                 <div className="flex gap-2">
                   <button onClick={handleAddRoom} disabled={addingRoom}
-                    className="rounded-lg bg-[#071B63] px-4 py-2 text-xs font-semibold text-white hover:bg-[#123EAF] transition-colors disabled:opacity-60">
+                    className="rounded-lg bg-[#14213D] px-4 py-2 text-xs font-semibold text-white hover:bg-[#16233F] transition-colors disabled:opacity-60">
                     {addingRoom ? "Creating…" : "Create Room"}
                   </button>
                   <button onClick={() => { setShowAddRoom(false); setRoomError(""); }}
@@ -497,7 +497,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
           {/* Calendar card */}
           <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
             {/* Month navigation */}
-            <div className="bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6b] px-5 py-4">
+            <div className="bg-gradient-to-br from-[#14213D] to-[#16233F] px-5 py-4">
               <div className="flex items-center justify-between">
                 <button onClick={prevMonth}
                   className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-white/15 transition-colors text-white">
@@ -579,7 +579,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                   { color: "bg-blue-400",    label: "Confirmed booking" },
                   { color: "bg-amber-400",   label: "Pending booking" },
                   { color: "bg-orange-400",  label: "Blocked by you" },
-                  { color: "bg-[#071B63]",   label: "Selected" },
+                  { color: "bg-[#14213D]",   label: "Selected" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-1.5">
                     <span className={`h-2.5 w-2.5 rounded-sm ${item.color}`} />
@@ -629,20 +629,20 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
             {/* Block creation panel */}
             {!confirmBlock && (
               <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
-                <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#0f1f3d] mb-4">
+                <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#14213D] mb-4">
                   Block Dates
                 </h3>
 
                 {!selStart ? (
-                  <div className="rounded-xl bg-[#faf8f5] border border-gray-100 p-4 text-center">
+                  <div className="rounded-xl bg-[#F8F2E9] border border-gray-100 p-4 text-center">
                     <span className="material-symbols-outlined text-gray-300 text-2xl">touch_app</span>
                     <p className="mt-1 text-xs text-gray-400">Click a date on the calendar to start selecting</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <div className="rounded-xl bg-[#071B63]/5 border border-[#071B63]/10 px-4 py-3">
-                      <p className="text-xs font-semibold text-[#071B63] uppercase tracking-widest mb-1">Selected</p>
-                      <p className="text-sm font-semibold text-[#0f1f3d]">
+                    <div className="rounded-xl bg-[#14213D]/5 border border-[#14213D]/10 px-4 py-3">
+                      <p className="text-xs font-semibold text-[#14213D] uppercase tracking-widest mb-1">Selected</p>
+                      <p className="text-sm font-semibold text-[#14213D]">
                         {selStart}
                         {selEnd && selEnd !== selStart ? ` → ${selEnd}` : ""}
                       </p>
@@ -683,7 +683,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                       <button
                         onClick={handleCreateBlock}
                         disabled={submitting || !selStart}
-                        className="flex-1 rounded-lg bg-[#071B63] py-2.5 text-xs font-semibold text-white hover:bg-[#123EAF] transition-colors disabled:opacity-60"
+                        className="flex-1 rounded-lg bg-[#14213D] py-2.5 text-xs font-semibold text-white hover:bg-[#16233F] transition-colors disabled:opacity-60"
                       >
                         {submitting ? "Blocking…" : `Block ${selectionDays} ${selectionDays === 1 ? "Day" : "Days"}`}
                       </button>
@@ -701,7 +701,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
 
             {/* Active blocks list */}
             <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
-              <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#0f1f3d] mb-3">
+              <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#14213D] mb-3">
                 Active Blocks
               </h3>
               {blocks.length === 0 ? (
@@ -743,7 +743,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
             </div>
 
             {/* How to use hint */}
-            <div className="rounded-2xl bg-[#faf8f5] border border-gray-100 p-4">
+            <div className="rounded-2xl bg-[#F8F2E9] border border-gray-100 p-4">
               <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">How it works</p>
               <ul className="space-y-1 text-xs text-gray-500">
                 <li>· Click a date to select it</li>
