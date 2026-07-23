@@ -72,13 +72,13 @@ export default function NearbyHighlightsSection({ highlights }: Props) {
                   )}
                 </div>
                 {h.locationName && (
-                  <p className="mt-1 text-xs text-gray-400 flex items-center gap-1">
+                  <p className="mt-1 text-xs text-[#7C879B] flex items-center gap-1">
                     <span className="material-symbols-outlined text-xs">location_on</span>
                     {h.locationName}
                   </p>
                 )}
                 {h.description && (
-                  <p className="mt-2 text-xs text-gray-500 leading-relaxed line-clamp-3">{h.description}</p>
+                  <p className="mt-2 text-xs text-[#5B6472] leading-relaxed line-clamp-3">{h.description}</p>
                 )}
                 {!h.imageUrl && cat && (
                   <span

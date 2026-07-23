@@ -93,7 +93,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
               Search Results
             </h1>
             {destination && (
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-[#5B6472]">
                 Showing properties in{" "}
                 <span className="font-semibold text-gray-700">{destination}</span>
               </p>
@@ -117,7 +117,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
               Available Properties
             </h2>
             {!dbError && (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-[#5B6472]">
                 {resultsToShow.length}{" "}
                 {resultsToShow.length === 1 ? "property" : "properties"} found
               </p>
@@ -132,7 +132,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
               <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
                 Unable to load properties
               </h3>
-              <p className="mt-2 text-sm text-gray-500">
+              <p className="mt-2 text-sm text-[#5B6472]">
                 There was a problem connecting to our servers. Please try again shortly.
               </p>
             </div>
@@ -158,7 +158,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
               <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
                 No properties found
               </h3>
-              <p className="mt-2 text-sm text-gray-500">
+              <p className="mt-2 text-sm text-[#5B6472]">
                 Try adjusting your filters or search for a different destination.
               </p>
             </div>

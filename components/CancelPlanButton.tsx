@@ -45,7 +45,7 @@ export default function CancelPlanButton() {
             <button
               type="button"
               onClick={() => { setPhase("idle"); setError(""); }}
-              className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+              className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-[#3B4658] hover:bg-gray-50 transition-colors"
             >
               Keep Plan
             </button>

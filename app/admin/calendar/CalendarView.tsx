@@ -118,14 +118,14 @@ export default function CalendarView() {
             className="flex h-9 w-9 items-center justify-center rounded-xl bg-white border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors"
             aria-label="Previous month"
           >
-            <span className="material-symbols-outlined text-gray-600 text-lg">chevron_left</span>
+            <span className="material-symbols-outlined text-[#3B4658] text-lg">chevron_left</span>
           </button>
 
           <div className="text-center min-w-[160px]">
             <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
               {MONTHS[month - 1]} {year}
             </h2>
-            <p className="text-xs text-gray-400 mt-0.5">
+            <p className="text-xs text-[#7C879B] mt-0.5">
               {loading ? "Loading…" : `${totalEvents} event${totalEvents !== 1 ? "s" : ""}`}
             </p>
           </div>
@@ -135,7 +135,7 @@ export default function CalendarView() {
             className="flex h-9 w-9 items-center justify-center rounded-xl bg-white border border-gray-200 shadow-sm hover:bg-gray-50 transition-colors"
             aria-label="Next month"
           >
-            <span className="material-symbols-outlined text-gray-600 text-lg">chevron_right</span>
+            <span className="material-symbols-outlined text-[#3B4658] text-lg">chevron_right</span>
           </button>
 
           <button
@@ -181,7 +181,7 @@ export default function CalendarView() {
           {activeFilters.length > 0 && (
             <button
               onClick={() => setActiveFilters([])}
-              className="text-xs text-gray-400 hover:text-gray-600 underline"
+              className="text-xs text-[#7C879B] hover:text-[#3B4658] underline"
             >
               Clear filters
             </button>
@@ -196,7 +196,7 @@ export default function CalendarView() {
           {/* Day headers */}
           <div className="grid grid-cols-7 border-b border-gray-100">
             {DAY_HEADERS.map((d) => (
-              <div key={d} className="px-2 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-widest">
+              <div key={d} className="px-2 py-3 text-center text-xs font-bold text-[#7C879B] uppercase tracking-widest">
                 {d}
               </div>
             ))}
@@ -206,7 +206,7 @@ export default function CalendarView() {
           {error ? (
             <div className="p-12 text-center">
               <span className="material-symbols-outlined text-red-300 text-4xl">error_outline</span>
-              <p className="mt-2 text-sm text-gray-500">Failed to load events.</p>
+              <p className="mt-2 text-sm text-[#5B6472]">Failed to load events.</p>
               <button onClick={() => fetchMonth(year, month)} className="mt-3 text-sm text-[#14213D] font-semibold hover:underline">
                 Retry
               </button>
@@ -266,7 +266,7 @@ export default function CalendarView() {
                         );
                       })}
                       {events.length > 3 && (
-                        <span className="text-[10px] text-gray-400 font-medium pl-1">
+                        <span className="text-[10px] text-[#7C879B] font-medium pl-1">
                           +{events.length - 3} more
                         </span>
                       )}
@@ -296,7 +296,7 @@ export default function CalendarView() {
             {selectedEvents.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 px-5 text-center">
                 <span className="material-symbols-outlined text-gray-200 text-4xl">event_available</span>
-                <p className="mt-2 text-sm text-gray-400">No events on this date.</p>
+                <p className="mt-2 text-sm text-[#7C879B]">No events on this date.</p>
               </div>
             ) : (
               <div className="p-3 space-y-2">
@@ -328,7 +328,7 @@ export default function CalendarView() {
                         <div className="flex-1 min-w-0">
                           <p className="text-xs font-semibold text-gray-800 leading-snug">{event.title}</p>
                           {event.description && (
-                            <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{event.description}</p>
+                            <p className="text-xs text-[#5B6472] mt-0.5 leading-relaxed">{event.description}</p>
                           )}
                           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                             <span
@@ -337,7 +337,7 @@ export default function CalendarView() {
                             >
                               {cfg.label}
                             </span>
-                            <span className="text-[10px] text-gray-400">{timeStr}</span>
+                            <span className="text-[10px] text-[#7C879B]">{timeStr}</span>
                             {event.bookingId && (
                               <Link
                                 href={`/admin/bookings`}
@@ -371,7 +371,7 @@ export default function CalendarView() {
 
       {/* ── Legend ── */}
       <div className="rounded-2xl bg-white border border-gray-100 shadow-sm px-6 py-4">
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Event Legend</p>
+        <p className="text-xs font-bold text-[#7C879B] uppercase tracking-widest mb-3">Event Legend</p>
         <div className="flex flex-wrap gap-3">
           {ALL_TYPES.map((type) => {
             const cfg = EVENT_CONFIG[type];
@@ -388,7 +388,7 @@ export default function CalendarView() {
                     {cfg.icon}
                   </span>
                 </span>
-                <span className="text-xs text-gray-600">{cfg.label}</span>
+                <span className="text-xs text-[#3B4658]">{cfg.label}</span>
               </div>
             );
           })}

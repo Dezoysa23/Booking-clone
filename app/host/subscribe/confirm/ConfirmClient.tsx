@@ -65,7 +65,7 @@ export default function ConfirmClient() {
             <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
               Confirming payment…
             </h1>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-[#5B6472]">
               Please wait while we activate your subscription.
             </p>
           </>
@@ -81,7 +81,7 @@ export default function ConfirmClient() {
             <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
               Subscription Activated!
             </h1>
-            <p className="mt-2 text-sm text-gray-500">{message}</p>
+            <p className="mt-2 text-sm text-[#5B6472]">{message}</p>
             <div className="mt-6 flex flex-col gap-3">
               <Link
                 href="/host/dashboard"
@@ -91,7 +91,7 @@ export default function ConfirmClient() {
               </Link>
               <button
                 onClick={() => router.refresh()}
-                className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-xs text-[#7C879B] hover:text-[#3B4658] transition-colors"
               >
                 Refresh page
               </button>
@@ -109,7 +109,7 @@ export default function ConfirmClient() {
             <h1 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
               Something went wrong
             </h1>
-            <p className="mt-2 text-sm text-gray-500">{message}</p>
+            <p className="mt-2 text-sm text-[#5B6472]">{message}</p>
             <Link
               href="/pricing"
               className="mt-6 block w-full rounded-lg bg-[#14213D] py-3 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"

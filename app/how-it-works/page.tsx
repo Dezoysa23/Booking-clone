@@ -147,7 +147,7 @@ function StepCard({ step, icon, title, description, accentColor }: StepCardProps
       <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D] leading-snug">
         {title}
       </h3>
-      <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
+      <p className="text-sm text-[#5B6472] leading-relaxed">{description}</p>
     </div>
   );
 }
@@ -190,7 +190,7 @@ export default function HowItWorksPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               Find &amp; book your perfect stay
             </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-lg leading-relaxed">
+            <p className="mt-2 text-sm text-[#5B6472] max-w-lg leading-relaxed">
               From search to check-in — here&apos;s how to book with Pearlora in six easy steps.
             </p>
           </div>
@@ -234,7 +234,7 @@ export default function HowItWorksPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               List &amp; manage your properties
             </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-lg leading-relaxed">
+            <p className="mt-2 text-sm text-[#5B6472] max-w-lg leading-relaxed">
               Turn your property into income. Here&apos;s how to get started as a Pearlora host.
             </p>
           </div>
@@ -278,7 +278,7 @@ export default function HowItWorksPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               Manage the platform
             </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-lg leading-relaxed">
+            <p className="mt-2 text-sm text-[#5B6472] max-w-lg leading-relaxed">
               The admin panel gives super admins full visibility and control across the entire platform.
             </p>
           </div>

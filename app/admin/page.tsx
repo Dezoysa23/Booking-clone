@@ -83,12 +83,12 @@ export default async function AdminPage() {
             <div>
               <p className="text-3xl font-bold text-[#14213D]">{propertyCount}</p>
               {avgRating !== null && propertyCount > 0 ? (
-                <p className="mt-1 text-xs text-gray-400 flex items-center gap-1">
+                <p className="mt-1 text-xs text-[#7C879B] flex items-center gap-1">
                   <span className="material-symbols-outlined text-[#D9A94D] filled text-xs">star</span>
                   Avg {avgRating.toFixed(1)} rating
                 </p>
               ) : (
-                <p className="mt-1 text-xs text-gray-400">Listed on Pearlora</p>
+                <p className="mt-1 text-xs text-[#7C879B]">Listed on Pearlora</p>
               )}
             </div>
           </div>
@@ -107,7 +107,7 @@ export default async function AdminPage() {
             </div>
             <div>
               <p className="text-3xl font-bold text-[#14213D]">{userCount}</p>
-              <p className="mt-1 text-xs text-gray-400">Registered accounts</p>
+              <p className="mt-1 text-xs text-[#7C879B]">Registered accounts</p>
             </div>
           </div>
 
@@ -125,7 +125,7 @@ export default async function AdminPage() {
             </div>
             <div>
               <p className="text-3xl font-bold text-[#14213D]">{bookingCount}</p>
-              <p className="mt-1 text-xs text-gray-400">All time</p>
+              <p className="mt-1 text-xs text-[#7C879B]">All time</p>
             </div>
           </div>
 
@@ -204,7 +204,7 @@ export default async function AdminPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Manage Properties
             </h2>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-[#5B6472]">
               View, edit, and delete listings.
             </p>
           </Link>
@@ -221,7 +221,7 @@ export default async function AdminPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Add Property
             </h2>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-[#5B6472]">
               Create a new listing.
             </p>
           </Link>
@@ -238,7 +238,7 @@ export default async function AdminPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               All Bookings
             </h2>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-[#5B6472]">
               View and manage reservations.
             </p>
           </Link>
@@ -255,7 +255,7 @@ export default async function AdminPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Users
             </h2>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-[#5B6472]">
               View all registered accounts.
             </p>
           </Link>
@@ -272,7 +272,7 @@ export default async function AdminPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Subscriptions
             </h2>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-[#5B6472]">
               Host plan subscriptions.
             </p>
           </Link>
@@ -289,7 +289,7 @@ export default async function AdminPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Payments
             </h2>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-[#5B6472]">
               Billing and revenue history.
             </p>
           </Link>
@@ -304,7 +304,7 @@ export default async function AdminPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Platform Calendar
             </h2>
-            <p className="mt-1 text-xs text-gray-500">Bookings, payments &amp; events.</p>
+            <p className="mt-1 text-xs text-[#5B6472]">Bookings, payments &amp; events.</p>
           </Link>
 
           <Link
@@ -317,7 +317,7 @@ export default async function AdminPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Photo Moderation
             </h2>
-            <p className="mt-1 text-xs text-gray-500">Review guest-submitted photos.</p>
+            <p className="mt-1 text-xs text-[#5B6472]">Review guest-submitted photos.</p>
           </Link>
 
           <Link
@@ -325,14 +325,14 @@ export default async function AdminPage() {
             className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-gray-200 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 mb-4">
-              <span className="material-symbols-outlined text-gray-500 text-base">
+              <span className="material-symbols-outlined text-[#5B6472] text-base">
                 arrow_back
               </span>
             </div>
             <h2 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
               Back to Site
             </h2>
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-[#5B6472]">
               Return to Pearlora.
             </p>
           </Link>

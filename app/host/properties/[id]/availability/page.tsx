@@ -29,7 +29,7 @@ export default async function PropertyAvailabilityPage({ params }: Props) {
   return (
     <div>
       {/* Breadcrumb */}
-      <div className="flex items-center gap-1.5 mb-6 text-xs text-gray-400 flex-wrap">
+      <div className="flex items-center gap-1.5 mb-6 text-xs text-[#7C879B] flex-wrap">
         <Link href="/host/dashboard" className="hover:text-[#14213D] transition-colors">Dashboard</Link>
         <span className="text-gray-300">›</span>
         <Link href="/host/properties" className="hover:text-[#14213D] transition-colors">Properties</Link>
@@ -48,14 +48,14 @@ export default async function PropertyAvailabilityPage({ params }: Props) {
             <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D]">
               Room Availability
             </h1>
-            <p className="mt-1 text-sm text-gray-500">{property.name}</p>
+            <p className="mt-1 text-sm text-[#5B6472]">{property.name}</p>
           </div>
           <div className="flex gap-2">
             <Link
               href={`/properties/${property.id}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-[#3B4658] hover:bg-gray-50 transition-colors"
             >
               <span className="material-symbols-outlined text-xs">open_in_new</span>
               View listing

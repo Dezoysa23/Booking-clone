@@ -30,7 +30,7 @@ export default async function HostDashboardPage() {
         <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
           Welcome back{currentUser.name ? `, ${currentUser.name.split(" ")[0]}` : ""}
         </h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-[#5B6472]">
           {isActive
             ? `You're on the ${subscription!.plan.name} plan.`
             : "Subscribe to start listing your properties."}
@@ -59,13 +59,13 @@ export default async function HostDashboardPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">Properties</p>
           <p className="mt-2 text-3xl font-bold text-[#14213D]">{propertyCount}</p>
           {isActive && propertyLimit !== -1 && (
-            <p className="mt-1 text-xs text-gray-400">of {propertyLimit} allowed</p>
+            <p className="mt-1 text-xs text-[#7C879B]">of {propertyLimit} allowed</p>
           )}
         </div>
         <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">Bookings</p>
           <p className="mt-2 text-3xl font-bold text-[#14213D]">{bookingCount}</p>
-          <p className="mt-1 text-xs text-gray-400">All time</p>
+          <p className="mt-1 text-xs text-[#7C879B]">All time</p>
         </div>
         <div className="rounded-2xl bg-[#14213D] p-5">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#D9A94D]">Revenue</p>
@@ -82,7 +82,7 @@ export default async function HostDashboardPage() {
             <span className="material-symbols-outlined text-white text-base">apartment</span>
           </div>
           <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">My Properties</h3>
-          <p className="mt-1 text-xs text-gray-500">Manage your listings.</p>
+          <p className="mt-1 text-xs text-[#5B6472]">Manage your listings.</p>
         </Link>
 
         <Link href="/host/properties/new" className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D9A94D]/40 transition-all">
@@ -90,7 +90,7 @@ export default async function HostDashboardPage() {
             <span className="material-symbols-outlined text-[#14213D] text-base">add_circle</span>
           </div>
           <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">Add Property</h3>
-          <p className="mt-1 text-xs text-gray-500">Create a new listing.</p>
+          <p className="mt-1 text-xs text-[#5B6472]">Create a new listing.</p>
         </Link>
 
         <Link href="/host/billing" className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#14213D]/20 transition-all">
@@ -98,7 +98,7 @@ export default async function HostDashboardPage() {
             <span className="material-symbols-outlined text-[#14213D] text-base">receipt_long</span>
           </div>
           <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">Billing</h3>
-          <p className="mt-1 text-xs text-gray-500">Subscription and payments.</p>
+          <p className="mt-1 text-xs text-[#5B6472]">Subscription and payments.</p>
         </Link>
       </div>
     </div>

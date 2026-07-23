@@ -38,7 +38,7 @@ export default async function HostLayout({ children }: { children: React.ReactNo
                 <Link
                   key={href}
                   href={href}
-                  className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-[#14213D]/5 hover:text-[#14213D] transition-colors"
+                  className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-[#3B4658] hover:bg-[#14213D]/5 hover:text-[#14213D] transition-colors"
                 >
                   <span className="material-symbols-outlined text-sm">{icon}</span>
                   {label}
@@ -50,7 +50,7 @@ export default async function HostLayout({ children }: { children: React.ReactNo
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="hidden sm:inline-flex items-center gap-1 text-xs text-gray-500 hover:text-[#14213D] transition-colors"
+              className="hidden sm:inline-flex items-center gap-1 text-xs text-[#5B6472] hover:text-[#14213D] transition-colors"
             >
               <span className="material-symbols-outlined text-xs">open_in_new</span>
               View site

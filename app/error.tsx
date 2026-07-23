@@ -23,14 +23,14 @@ export default function GlobalError({ error, reset }: Props) {
         </div>
         <div className="flex items-center justify-center gap-2 mb-4">
           <span className="text-[#D9A94D] text-sm">✦</span>
-          <span className="text-xs font-semibold tracking-widest uppercase text-gray-400">
+          <span className="text-xs font-semibold tracking-widest uppercase text-[#7C879B]">
             Something went wrong
           </span>
         </div>
         <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D] mb-3">
           An unexpected error occurred
         </h1>
-        <p className="text-sm text-gray-500 leading-relaxed mb-8">
+        <p className="text-sm text-[#5B6472] leading-relaxed mb-8">
           We&apos;re sorry for the inconvenience. Please try again, or return
           home if the problem persists.
         </p>

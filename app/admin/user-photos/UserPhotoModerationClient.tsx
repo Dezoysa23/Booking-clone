@@ -66,7 +66,7 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
         <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
           All caught up!
         </h3>
-        <p className="mt-2 text-sm text-gray-500">No pending photos to review.</p>
+        <p className="mt-2 text-sm text-[#5B6472]">No pending photos to review.</p>
       </div>
     );
   }
@@ -97,19 +97,19 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
                 {photo.caption && (
                   <p className="text-sm text-gray-700 leading-relaxed line-clamp-2">{photo.caption}</p>
                 )}
-                <div className="text-xs text-gray-400 space-y-0.5">
+                <div className="text-xs text-[#7C879B] space-y-0.5">
                   <p>
-                    <span className="font-medium text-gray-600">Property: </span>
+                    <span className="font-medium text-[#3B4658]">Property: </span>
                     <Link href={`/properties/${photo.property.id}`} className="text-[#14213D] hover:underline" target="_blank">
                       {photo.property.name}
                     </Link>
                   </p>
                   <p>
-                    <span className="font-medium text-gray-600">Submitted by: </span>
+                    <span className="font-medium text-[#3B4658]">Submitted by: </span>
                     {photo.user.name ?? photo.user.email}
                   </p>
                   <p>
-                    <span className="font-medium text-gray-600">Date: </span>
+                    <span className="font-medium text-[#3B4658]">Date: </span>
                     {new Date(photo.createdAt).toLocaleDateString()}
                   </p>
                 </div>
@@ -138,7 +138,7 @@ export default function UserPhotoModerationClient({ initialPhotos }: Props) {
                     onClick={() => deletePhoto(photo.id)}
                     disabled={busy}
                     title="Delete permanently"
-                    className="flex items-center justify-center rounded-lg border border-gray-200 px-3 py-2 text-gray-400 hover:text-red-500 hover:border-red-200 transition-colors disabled:opacity-60"
+                    className="flex items-center justify-center rounded-lg border border-gray-200 px-3 py-2 text-[#7C879B] hover:text-red-500 hover:border-red-200 transition-colors disabled:opacity-60"
                   >
                     <span className="material-symbols-outlined text-sm">delete</span>
                   </button>

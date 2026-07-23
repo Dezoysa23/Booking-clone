@@ -104,7 +104,7 @@ export default function LoginPage() {
           <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D]">
             Welcome back
           </h1>
-          <p className="mt-1.5 text-sm text-gray-500">
+          <p className="mt-1.5 text-sm text-[#5B6472]">
             Sign in to continue your journey.
           </p>
 
@@ -164,7 +164,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPw((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7C879B] hover:text-[#3B4658] transition-colors"
                   tabIndex={-1}
                   aria-label={showPw ? "Hide password" : "Show password"}
                 >
@@ -193,7 +193,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="mt-5 text-center text-sm text-gray-500">
+          <p className="mt-5 text-center text-sm text-[#5B6472]">
             Don&apos;t have an account?{" "}
             <Link href="/signup" className="font-semibold text-[#14213D] hover:text-[#D9A94D] transition-colors">
               Sign up free

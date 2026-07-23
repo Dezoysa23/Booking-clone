@@ -70,7 +70,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             <div className="flex items-center gap-1.5 mb-1">
               <Link
                 href="/admin"
-                className="text-xs text-gray-400 hover:text-[#14213D] transition-colors"
+                className="text-xs text-[#7C879B] hover:text-[#14213D] transition-colors"
               >
                 Admin
               </Link>
@@ -82,7 +82,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               All Bookings
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-[#5B6472]">
               {bookings.length}{" "}
               {bookings.length === 1 ? "booking" : "bookings"}
               {filterStatus && (
@@ -139,7 +139,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
           className="mb-6 rounded-2xl bg-white border border-gray-100 shadow-sm p-5 flex flex-wrap gap-4 items-end"
         >
           <div className="flex-1 min-w-[140px]">
-            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
               Status
             </label>
             <select
@@ -155,7 +155,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
           </div>
 
           <div className="flex-1 min-w-[160px]">
-            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
               Property
             </label>
             <select
@@ -181,7 +181,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             </button>
             <Link
               href="/admin/bookings"
-              className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+              className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-[#3B4658] hover:bg-gray-50 transition-colors"
             >
               Clear
             </Link>
@@ -199,7 +199,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
             <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
               No bookings found
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-[#5B6472]">
               {filterStatus || filterPropertyId
                 ? "Try adjusting your filters."
                 : "Bookings will appear here once guests reserve properties."}
@@ -211,28 +211,28 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
               <table className="w-full text-left text-sm">
                 <thead className="border-b border-gray-100 bg-[#F8F2E9]">
                   <tr>
-                    <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                       ID
                     </th>
-                    <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                       Guest
                     </th>
-                    <th className="hidden md:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    <th className="hidden md:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                       Property
                     </th>
-                    <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                       Check-in
                     </th>
-                    <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                       Check-out
                     </th>
-                    <th className="hidden lg:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    <th className="hidden lg:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                       Nights
                     </th>
-                    <th className="hidden lg:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    <th className="hidden lg:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                       Total
                     </th>
-                    <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                       Status
                     </th>
                   </tr>
@@ -243,7 +243,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
                       key={booking.id}
                       className="hover:bg-[#F8F2E9] transition-colors"
                     >
-                      <td className="px-5 py-4 text-xs text-gray-400 font-mono">
+                      <td className="px-5 py-4 text-xs text-[#7C879B] font-mono">
                         #{booking.id}
                       </td>
                       <td className="px-5 py-4">
@@ -251,7 +251,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
                           <p className="font-semibold text-[#14213D] text-sm">
                             {booking.user?.name || "Guest"}
                           </p>
-                          <p className="text-xs text-gray-400 mt-0.5 truncate max-w-[160px]">
+                          <p className="text-xs text-[#7C879B] mt-0.5 truncate max-w-[160px]">
                             {booking.user?.email || "—"}
                           </p>
                         </div>
@@ -261,26 +261,26 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
                           <p className="text-sm text-gray-700 font-medium">
                             {booking.property.name}
                           </p>
-                          <p className="text-xs text-gray-400 mt-0.5">
+                          <p className="text-xs text-[#7C879B] mt-0.5">
                             {booking.property.location}
                           </p>
                         </div>
                       </td>
-                      <td className="hidden sm:table-cell px-5 py-4 text-sm text-gray-600">
+                      <td className="hidden sm:table-cell px-5 py-4 text-sm text-[#3B4658]">
                         {booking.checkIn.toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
                           year: "numeric",
                         })}
                       </td>
-                      <td className="hidden sm:table-cell px-5 py-4 text-sm text-gray-600">
+                      <td className="hidden sm:table-cell px-5 py-4 text-sm text-[#3B4658]">
                         {booking.checkOut.toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
                           year: "numeric",
                         })}
                       </td>
-                      <td className="hidden lg:table-cell px-5 py-4 text-sm text-gray-600">
+                      <td className="hidden lg:table-cell px-5 py-4 text-sm text-[#3B4658]">
                         {booking.nights}
                       </td>
                       <td className="hidden lg:table-cell px-5 py-4 text-sm font-semibold text-[#14213D]">

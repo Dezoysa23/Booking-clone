@@ -62,7 +62,7 @@ export default async function AccountPage() {
                     <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D]">
                       {currentUser.name || "Guest"}
                     </h1>
-                    <p className="mt-0.5 text-sm text-gray-500">{currentUser.email}</p>
+                    <p className="mt-0.5 text-sm text-[#5B6472]">{currentUser.email}</p>
                   </div>
                   <span className="rounded-full border border-[#14213D]/15 bg-[#14213D]/6 px-3 py-1 text-xs font-semibold text-[#14213D] tracking-wide">
                     {roleLabel(currentUser.role)}
@@ -83,8 +83,8 @@ export default async function AccountPage() {
                     { label: "Account ID",    value: currentUser.id, mono: true, truncate: true },
                   ].map(({ label, value, mono, truncate }) => (
                     <div key={label}>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-400">{label}</p>
-                      <p className={`mt-1 font-medium text-gray-900 text-sm ${mono ? "font-mono text-xs text-gray-500" : ""} ${truncate ? "truncate" : ""}`}>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#7C879B]">{label}</p>
+                      <p className={`mt-1 font-medium text-gray-900 text-sm ${mono ? "font-mono text-xs text-[#5B6472]" : ""} ${truncate ? "truncate" : ""}`}>
                         {value}
                       </p>
                     </div>
@@ -138,7 +138,7 @@ export default async function AccountPage() {
               <h2 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
                 Edit Profile
               </h2>
-              <p className="text-xs text-gray-400">Update your display name</p>
+              <p className="text-xs text-[#7C879B]">Update your display name</p>
             </div>
           </div>
           <div className="p-8">
@@ -156,7 +156,7 @@ export default async function AccountPage() {
               <h2 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
                 Change Password
               </h2>
-              <p className="text-xs text-gray-400">Keep your account secure</p>
+              <p className="text-xs text-[#7C879B]">Keep your account secure</p>
             </div>
           </div>
           <div className="p-8">

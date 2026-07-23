@@ -104,7 +104,7 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
       {showForm && (
         <form onSubmit={handleSubmit} className="mb-6 rounded-2xl bg-white border border-gray-100 shadow-sm p-5 space-y-4">
           <h3 className="font-[family-name:var(--font-playfair-display)] font-semibold text-[#14213D]">Share your photo</h3>
-          <p className="text-xs text-gray-500">Your photo will be reviewed before it appears publicly.</p>
+          <p className="text-xs text-[#5B6472]">Your photo will be reviewed before it appears publicly.</p>
 
           {error && <p className="text-sm text-red-600">{error}</p>}
 
@@ -122,15 +122,15 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
               <button type="button" onClick={() => fileRef.current?.click()}
                 className="w-full flex flex-col items-center gap-2 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-8 text-center hover:border-[#14213D]/30 transition-colors cursor-pointer">
                 <span className="material-symbols-outlined text-gray-300 text-4xl">add_photo_alternate</span>
-                <span className="text-sm font-medium text-gray-600">Click to select an image</span>
-                <span className="text-xs text-gray-400">JPG, PNG, or WebP · Max 5 MB</span>
+                <span className="text-sm font-medium text-[#3B4658]">Click to select an image</span>
+                <span className="text-xs text-[#7C879B]">JPG, PNG, or WebP · Max 5 MB</span>
               </button>
             )}
             <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" onChange={handleFileChange} />
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">Category</label>
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Category</label>
             <select value={category} onChange={(e) => setCategory(e.target.value)}
               className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#14213D] focus:bg-white">
               <option value="">Select a category</option>
@@ -139,7 +139,7 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">Caption (optional)</label>
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Caption (optional)</label>
             <input type="text" value={caption} onChange={(e) => setCaption(e.target.value)} maxLength={300}
               placeholder={`A view from ${propertyName}...`}
               className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm outline-none focus:border-[#14213D] focus:bg-white" />
@@ -151,7 +151,7 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
               {submitting ? "Submitting…" : "Submit for Review"}
             </button>
             <button type="button" onClick={() => { setShowForm(false); setError(""); }}
-              className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+              className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-[#3B4658] hover:bg-gray-50 transition-colors">
               Cancel
             </button>
           </div>
@@ -180,7 +180,7 @@ export default function UserPhotoSection({ propertyId, propertyName, approvedPho
         !showForm && (
           <div className="rounded-xl bg-white border border-gray-100 p-8 text-center">
             <span className="material-symbols-outlined text-gray-200 text-4xl">photo_library</span>
-            <p className="mt-2 text-sm text-gray-400">No guest photos yet. Be the first to share!</p>
+            <p className="mt-2 text-sm text-[#7C879B]">No guest photos yet. Be the first to share!</p>
           </div>
         )
       )}

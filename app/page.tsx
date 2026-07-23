@@ -50,18 +50,18 @@ export default async function Home() {
   return (
     <div className="bg-[#F8F2E9]">
 
-      {/* ─── Hero Slider ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto pt-6 md:pt-8">
+      {/* ─── Hero Slider (full-bleed, edge-to-edge) ─── */}
+      <section className="relative">
         <HeroSlider />
 
         {/* Search box — overlaps hero bottom edge */}
-        <div className="mx-auto max-w-4xl -mt-8 md:-mt-10 relative z-10">
+        <div className="mx-auto max-w-4xl px-4 -mt-12 md:-mt-16 relative z-10">
           <SearchBox />
         </div>
       </section>
 
       {/* ─── Trust Pillars ─── */}
-      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mt-16 md:mt-20 mb-24">
+      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mt-16 md:mt-20 mb-24 md:mb-32">
         <LuxuryBotanicalSideArt side="both" />
         <ScrollReveal>
           <div className="grid gap-4 sm:grid-cols-3">
@@ -99,7 +99,7 @@ export default async function Home() {
                   <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D]">
                     {title}
                   </h3>
-                  <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">{body}</p>
+                  <p className="mt-1.5 text-sm text-[#5B6472] leading-relaxed">{body}</p>
                 </div>
               </div>
             ))}
@@ -108,7 +108,7 @@ export default async function Home() {
       </section>
 
       {/* ─── Popular Destinations ─── */}
-      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24 md:mb-32">
         <LuxuryBotanicalSideArt side="both" />
         <ScrollReveal>
           <div className="flex justify-between items-end mb-8">
@@ -119,10 +119,10 @@ export default async function Home() {
                   Explore Sri Lanka
                 </span>
               </div>
-              <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#14213D]">
+              <h2 className="font-[family-name:var(--font-playfair-display)] text-[30px] md:text-[44px] font-semibold text-[#14213D]">
                 Popular Destinations
               </h2>
-              <p className="mt-2 text-sm text-gray-500 max-w-md leading-relaxed">
+              <p className="mt-2 text-sm text-[#5B6472] max-w-md leading-relaxed">
                 Handpicked locations — each with its own light, landscape, and story.
               </p>
             </div>
@@ -156,7 +156,7 @@ export default async function Home() {
       </section>
 
       {/* ─── Featured Stays ─── */}
-      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24 md:mb-32">
         <LuxuryBotanicalSideArt side="both" />
         <ScrollReveal>
           <div className="flex justify-between items-end mb-8">
@@ -167,10 +167,10 @@ export default async function Home() {
                   Handpicked for You
                 </span>
               </div>
-              <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#14213D]">
+              <h2 className="font-[family-name:var(--font-playfair-display)] text-[30px] md:text-[44px] font-semibold text-[#14213D]">
                 Featured Stays
               </h2>
-              <p className="mt-2 text-sm text-gray-500 max-w-md leading-relaxed">
+              <p className="mt-2 text-sm text-[#5B6472] max-w-md leading-relaxed">
                 Exceptional properties selected for their setting, warmth, and character.
               </p>
             </div>
@@ -205,7 +205,7 @@ export default async function Home() {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#F8F2E9] border border-gray-100">
                 <span className="material-symbols-outlined text-[#14213D]/30 text-2xl">villa</span>
               </div>
-              <p className="text-gray-400 text-sm">Properties coming soon. Check back shortly.</p>
+              <p className="text-[#7C879B] text-sm">Properties coming soon. Check back shortly.</p>
             </div>
           </ScrollReveal>
         )}
@@ -222,7 +222,7 @@ export default async function Home() {
       </section>
 
       {/* ─── How It Works ─── */}
-      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+      <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24 md:mb-32">
         <LuxuryBotanicalSideArt side="left" />
         <ScrollReveal>
           <div className="flex items-end justify-between mb-10">
@@ -233,10 +233,10 @@ export default async function Home() {
                   Simple &amp; Transparent
                 </span>
               </div>
-              <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#14213D]">
+              <h2 className="font-[family-name:var(--font-playfair-display)] text-[30px] md:text-[44px] font-semibold text-[#14213D]">
                 How Pearlora Works
               </h2>
-              <p className="mt-2 text-sm text-gray-500 max-w-md leading-relaxed">
+              <p className="mt-2 text-sm text-[#5B6472] max-w-md leading-relaxed">
                 Whether you&apos;re booking a stay or listing a property, getting started takes only minutes.
               </p>
             </div>
@@ -273,7 +273,7 @@ export default async function Home() {
                 ].map((item) => (
                   <div key={item.icon} className="flex items-center gap-3">
                     <span className="material-symbols-outlined text-[#14213D] text-lg">{item.icon}</span>
-                    <span className="text-sm text-gray-600">{item.label}</span>
+                    <span className="text-sm text-[#3B4658]">{item.label}</span>
                   </div>
                 ))}
               </div>
@@ -339,7 +339,7 @@ export default async function Home() {
       </section>
 
       {/* ─── Brand CTA ─── */}
-      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24">
+      <section className="px-4 md:px-16 max-w-[1280px] mx-auto mb-24 md:mb-32">
         <ScrollReveal>
           <div className="relative rounded-3xl overflow-hidden px-10 py-16 flex flex-col md:flex-row items-center justify-between gap-10"
             style={{ background: "linear-gradient(135deg, #101A30 0%, #14213D 50%, #16233F 100%)" }}>

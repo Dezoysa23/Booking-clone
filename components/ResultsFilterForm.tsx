@@ -59,7 +59,7 @@ export default function ResultsFilterForm() {
   const inputClass =
     "w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10";
   const labelClass =
-    "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400";
+    "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]";
 
   const hasFilters = destination || minPrice || maxPrice || minRating || guests || sortBy || facilities.length > 0;
 
@@ -131,7 +131,7 @@ export default function ResultsFilterForm() {
             )}
           </div>
           <span
-            className="material-symbols-outlined text-gray-400 text-base transition-transform"
+            className="material-symbols-outlined text-[#7C879B] text-base transition-transform"
             style={{ transform: facilitiesOpen ? "rotate(180deg)" : "rotate(0deg)" }}
           >
             expand_more
@@ -140,13 +140,13 @@ export default function ResultsFilterForm() {
 
         {facilitiesOpen && (
           <div className="px-6 pb-5 bg-white">
-            <p className="text-xs text-gray-400 mb-4">Select facilities to find properties that offer them.</p>
+            <p className="text-xs text-[#7C879B] mb-4">Select facilities to find properties that offer them.</p>
             <div className="space-y-4">
               {FACILITY_GROUPS.map((group) => {
                 const groupItems = FACILITY_OPTIONS.filter((f) => f.group === group);
                 return (
                   <div key={group}>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">{group}</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B] mb-2">{group}</p>
                     <div className="flex flex-wrap gap-2">
                       {groupItems.map((f) => {
                         const active = facilities.includes(f.key);
@@ -158,7 +158,7 @@ export default function ResultsFilterForm() {
                             className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
                               active
                                 ? "border-[#14213D] bg-[#14213D] text-white"
-                                : "border-gray-200 bg-white text-gray-600 hover:border-[#14213D]/40 hover:text-[#14213D]"
+                                : "border-gray-200 bg-white text-[#3B4658] hover:border-[#14213D]/40 hover:text-[#14213D]"
                             }`}
                           >
                             <span className="material-symbols-outlined text-xs">{f.icon}</span>
@@ -187,7 +187,7 @@ export default function ResultsFilterForm() {
         <button
           type="button"
           onClick={clearAll}
-          className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+          className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-[#3B4658] hover:bg-gray-50 transition-colors"
         >
           Clear All
         </button>

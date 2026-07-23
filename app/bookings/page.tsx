@@ -54,7 +54,7 @@ export default async function BookingsPage() {
             <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               My Bookings
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-[#5B6472]">
               {bookings.length > 0
                 ? `${bookings.length} booking${bookings.length === 1 ? "" : "s"} on your account`
                 : "No bookings yet"}
@@ -92,11 +92,11 @@ export default async function BookingsPage() {
                       <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
                         {booking.property.name}
                       </h2>
-                      <p className="mt-0.5 text-sm text-gray-500 flex items-center gap-1">
-                        <span className="material-symbols-outlined text-xs text-gray-400">location_on</span>
+                      <p className="mt-0.5 text-sm text-[#5B6472] flex items-center gap-1">
+                        <span className="material-symbols-outlined text-xs text-[#7C879B]">location_on</span>
                         {booking.property.location}
                       </p>
-                      <p className="mt-1.5 text-[11px] text-gray-400 font-mono">
+                      <p className="mt-1.5 text-[11px] text-[#7C879B] font-mono">
                         #{booking.id}
                       </p>
                     </div>
@@ -134,7 +134,7 @@ export default async function BookingsPage() {
                         <div key={label} className="rounded-xl bg-[#F8F2E9] border border-gray-100 p-4 flex items-start gap-3">
                           <span className="material-symbols-outlined text-[#14213D]/35 text-base mt-0.5">{icon}</span>
                           <div>
-                            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-400">{label}</p>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#7C879B]">{label}</p>
                             <p className="mt-1 font-semibold text-gray-900 text-sm">{value}</p>
                           </div>
                         </div>
@@ -174,7 +174,7 @@ export default async function BookingsPage() {
             <h2 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D]">
               No journeys yet
             </h2>
-            <p className="mt-2 text-sm text-gray-500 max-w-xs mx-auto leading-relaxed">
+            <p className="mt-2 text-sm text-[#5B6472] max-w-xs mx-auto leading-relaxed">
               Your bookings will appear here once you reserve a property. Start exploring Sri Lanka.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">

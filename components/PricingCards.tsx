@@ -61,7 +61,7 @@ export default function PricingCards({ plans, isLoggedIn }: Props) {
               className={`rounded-lg px-5 py-2 text-sm font-semibold transition-all ${
                 cycle === c
                   ? "bg-[#14213D] text-white shadow-sm"
-                  : "text-gray-500 hover:text-[#14213D]"
+                  : "text-[#5B6472] hover:text-[#14213D]"
               }`}
             >
               {c === "MONTHLY" ? "Monthly" : `Yearly`}
@@ -109,7 +109,7 @@ export default function PricingCards({ plans, isLoggedIn }: Props) {
                 <h3 className={`font-[family-name:var(--font-playfair-display)] text-xl font-semibold mb-1 ${isPopular ? "text-white" : "text-[#14213D]"}`}>
                   {plan.name}
                 </h3>
-                <p className={`text-sm ${isPopular ? "text-white/60" : "text-gray-500"}`}>{plan.description}</p>
+                <p className={`text-sm ${isPopular ? "text-white/60" : "text-[#5B6472]"}`}>{plan.description}</p>
               </div>
 
               <div className="mb-6">
@@ -117,14 +117,14 @@ export default function PricingCards({ plans, isLoggedIn }: Props) {
                   <span className={`text-4xl font-bold ${isPopular ? "text-white" : "text-[#14213D]"}`}>
                     LKR {monthlyEquiv.toLocaleString()}
                   </span>
-                  <span className={`text-sm mb-1 ${isPopular ? "text-white/60" : "text-gray-400"}`}>/mo</span>
+                  <span className={`text-sm mb-1 ${isPopular ? "text-white/60" : "text-[#7C879B]"}`}>/mo</span>
                 </div>
                 {cycle === "YEARLY" && (
-                  <p className={`text-xs mt-1 ${isPopular ? "text-[#D9A94D]" : "text-gray-400"}`}>
+                  <p className={`text-xs mt-1 ${isPopular ? "text-[#D9A94D]" : "text-[#7C879B]"}`}>
                     LKR {price.toLocaleString()} billed yearly
                   </p>
                 )}
-                <p className={`text-xs mt-2 ${isPopular ? "text-white/60" : "text-gray-500"}`}>
+                <p className={`text-xs mt-2 ${isPopular ? "text-white/60" : "text-[#5B6472]"}`}>
                   {plan.propertyLimit === -1 ? "Unlimited properties" : `Up to ${plan.propertyLimit} ${plan.propertyLimit === 1 ? "property" : "properties"}`}
                 </p>
               </div>
@@ -135,7 +135,7 @@ export default function PricingCards({ plans, isLoggedIn }: Props) {
                     <span className={`material-symbols-outlined text-base mt-0.5 shrink-0 ${isPopular ? "text-[#D9A94D]" : "text-[#14213D]"}`}>
                       check_circle
                     </span>
-                    <span className={isPopular ? "text-white/80" : "text-gray-600"}>{feature}</span>
+                    <span className={isPopular ? "text-white/80" : "text-[#3B4658]"}>{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -156,7 +156,7 @@ export default function PricingCards({ plans, isLoggedIn }: Props) {
         })}
       </div>
 
-      <p className="text-center text-xs text-gray-400 mt-8">
+      <p className="text-center text-xs text-[#7C879B] mt-8">
         All prices in Sri Lankan Rupees (LKR). No hidden fees.{" "}
         <Link href="/become-a-host" className="text-[#14213D] hover:underline">Learn more</Link>
       </p>

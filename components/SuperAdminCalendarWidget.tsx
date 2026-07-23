@@ -241,7 +241,7 @@ export default function SuperAdminCalendarWidget() {
             {/* Day-of-week headers */}
             <div className="grid grid-cols-7 mb-1">
               {DAYS.map((d) => (
-                <div key={d} className="text-center text-[10px] font-bold text-gray-400 py-1 uppercase tracking-widest">
+                <div key={d} className="text-center text-[10px] font-bold text-[#7C879B] py-1 uppercase tracking-widest">
                   {d}
                 </div>
               ))}
@@ -308,7 +308,7 @@ export default function SuperAdminCalendarWidget() {
           {/* Selected day events */}
           <div className="mt-1 border-t border-gray-100">
             <div className="flex items-center justify-between px-4 py-2.5">
-              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">
+              <p className="text-[11px] font-bold text-[#7C879B] uppercase tracking-widest">
                 {selectedKey === todayKey ? "Today" : selectedLabel}
               </p>
               {selectedEvents.length > 0 && (
@@ -323,7 +323,7 @@ export default function SuperAdminCalendarWidget() {
             ) : (
               <div className="max-h-[160px] overflow-y-auto px-3 pb-3 space-y-1.5">
                 {selectedEvents.length === 0 ? (
-                  <p className="text-xs text-gray-400 italic py-1">No events on this date.</p>
+                  <p className="text-xs text-[#7C879B] italic py-1">No events on this date.</p>
                 ) : (
                   selectedEvents.map((event) => {
                     const cfg = EVENT_CONFIG[event.type];
@@ -349,7 +349,7 @@ export default function SuperAdminCalendarWidget() {
                             {event.title}
                           </p>
                           {event.description && (
-                            <p className="text-xs text-gray-500 truncate">{event.description}</p>
+                            <p className="text-xs text-[#5B6472] truncate">{event.description}</p>
                           )}
                           <p className="text-[10px] font-medium mt-0.5" style={{ color: cfg.color }}>
                             {cfg.label} · {timeStr}

@@ -55,7 +55,7 @@ export default function SearchBox() {
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                className="bg-transparent border-none focus:ring-0 text-sm p-0 w-full truncate text-gray-900 font-medium outline-none placeholder:text-gray-400"
+                className="bg-transparent border-none focus:ring-0 text-sm p-0 w-full truncate text-gray-900 font-medium outline-none placeholder:text-[#7C879B]"
               />
             </div>
           </div>

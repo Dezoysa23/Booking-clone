@@ -75,7 +75,7 @@ export default async function BecomeAHostPage() {
                   <span className="text-2xl font-bold text-[#14213D]/20">0{i + 1}</span>
                 </div>
                 <h3 className="font-[family-name:var(--font-playfair-display)] text-base font-semibold text-[#14213D] mb-2">{step.title}</h3>
-                <p className="text-sm text-gray-500">{step.body}</p>
+                <p className="text-sm text-[#5B6472]">{step.body}</p>
               </div>
             ))}
           </div>
@@ -99,7 +99,7 @@ export default async function BecomeAHostPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-[#14213D] text-sm mb-1">{b.title}</h3>
-                  <p className="text-sm text-gray-500">{b.body}</p>
+                  <p className="text-sm text-[#5B6472]">{b.body}</p>
                 </div>
               </div>
             ))}
@@ -113,7 +113,7 @@ export default async function BecomeAHostPage() {
           <h2 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D] mb-3">
             Ready to list?
           </h2>
-          <p className="text-gray-500 mb-8">
+          <p className="text-[#5B6472] mb-8">
             Join the growing community of hosts earning through Pearlora.
           </p>
           <Link

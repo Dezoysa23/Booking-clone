@@ -154,7 +154,7 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
         {availabilityLoading && (
           <div className="flex items-center gap-2 rounded-lg bg-[#F8F2E9] border border-gray-100 px-4 py-2.5">
             <span className="h-2 w-2 rounded-full bg-[#D9A94D] animate-pulse" />
-            <span className="text-xs text-gray-500">Checking availability…</span>
+            <span className="text-xs text-[#5B6472]">Checking availability…</span>
           </div>
         )}
         {availabilityError && (
@@ -184,7 +184,7 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
         )}
 
         <div>
-          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
+          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
             Check-in
           </label>
           <input
@@ -200,7 +200,7 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
         </div>
 
         <div>
-          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
+          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
             Check-out
           </label>
           <input
@@ -226,7 +226,7 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
         )}
 
         <div>
-          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
+          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
             Guests
           </label>
           <input
@@ -243,12 +243,12 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
         {/* Price summary */}
         <div className="rounded-xl bg-[#F8F2E9] border border-gray-100 px-4 py-4 space-y-1.5">
           {numberOfNights === 0 ? (
-            <p className="text-xs text-gray-400 text-center py-1">
+            <p className="text-xs text-[#7C879B] text-center py-1">
               Select your dates to see the price breakdown.
             </p>
           ) : (
             <>
-              <div className="flex justify-between text-sm text-gray-500">
+              <div className="flex justify-between text-sm text-[#5B6472]">
                 <span>
                   {numberOfNights} night{numberOfNights !== 1 ? "s" : ""} × LKR{" "}
                   {pricePerNight.toLocaleString()}
@@ -257,7 +257,7 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
                   LKR {(numberOfNights * pricePerNight).toLocaleString()}
                 </span>
               </div>
-              <div className="flex justify-between text-sm text-gray-500">
+              <div className="flex justify-between text-sm text-[#5B6472]">
                 <span>Guests</span>
                 <span className="font-medium text-gray-700">{guests}</span>
               </div>
@@ -285,7 +285,7 @@ export default function BookingForm({ propertyId, pricePerNight }: Props) {
           {isSubmitting ? "Reserving…" : "Reserve Now"}
         </button>
 
-        <p className="text-center text-xs text-gray-400">
+        <p className="text-center text-xs text-[#7C879B]">
           Your booking will be confirmed instantly.
         </p>
       </div>

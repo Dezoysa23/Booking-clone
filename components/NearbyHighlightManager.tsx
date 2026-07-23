@@ -182,11 +182,11 @@ function HighlightForm({
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+          className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-[#3B4658] hover:bg-gray-50 transition-colors"
         >
           Cancel
         </button>
-        <label className="flex items-center gap-2 text-xs text-gray-500 ml-auto cursor-pointer">
+        <label className="flex items-center gap-2 text-xs text-[#5B6472] ml-auto cursor-pointer">
           <input
             type="checkbox"
             checked={form.isActive}
@@ -361,10 +361,10 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
                   </span>
                 )}
                 {!h.isActive && (
-                  <span className="text-xs text-gray-400 border border-gray-200 rounded-full px-2 py-0.5">Hidden</span>
+                  <span className="text-xs text-[#7C879B] border border-gray-200 rounded-full px-2 py-0.5">Hidden</span>
                 )}
               </div>
-              <div className="flex items-center gap-3 mt-0.5 text-xs text-gray-400">
+              <div className="flex items-center gap-3 mt-0.5 text-xs text-[#7C879B]">
                 {h.locationName && <span>{h.locationName}</span>}
                 {h.distance != null && <span>{h.distance} {h.distanceUnit ?? "km"}</span>}
               </div>
@@ -373,7 +373,7 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
               <button
                 type="button"
                 onClick={() => startEdit(h)}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:text-[#14213D] hover:bg-[#14213D]/5 transition-colors"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-[#7C879B] hover:text-[#14213D] hover:bg-[#14213D]/5 transition-colors"
                 title="Edit"
               >
                 <span className="material-symbols-outlined text-base">edit</span>
@@ -382,7 +382,7 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
                 type="button"
                 onClick={() => deleteHighlight(h.id)}
                 disabled={deletingId === h.id}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors disabled:opacity-50"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-[#7C879B] hover:text-red-500 hover:bg-red-50 transition-colors disabled:opacity-50"
                 title="Delete"
               >
                 <span className="material-symbols-outlined text-base">delete</span>
@@ -393,7 +393,7 @@ export default function NearbyHighlightManager({ propertyId }: Props) {
       })}
 
       {highlights.length === 0 && !addingNew && (
-        <p className="text-xs text-gray-400 italic">No highlights yet.</p>
+        <p className="text-xs text-[#7C879B] italic">No highlights yet.</p>
       )}
 
       {addingNew ? (

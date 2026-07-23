@@ -11,14 +11,14 @@ export default function NotFound() {
         </div>
         <div className="flex items-center justify-center gap-2 mb-4">
           <span className="text-[#D9A94D] text-sm">✦</span>
-          <span className="text-xs font-semibold tracking-widest uppercase text-gray-400">
+          <span className="text-xs font-semibold tracking-widest uppercase text-[#7C879B]">
             404 — Page Not Found
           </span>
         </div>
         <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D] mb-3">
           We couldn&apos;t find that page
         </h1>
-        <p className="text-sm text-gray-500 leading-relaxed mb-8">
+        <p className="text-sm text-[#5B6472] leading-relaxed mb-8">
           The page you&apos;re looking for may have been moved, deleted, or
           never existed. Let&apos;s get you back on track.
         </p>

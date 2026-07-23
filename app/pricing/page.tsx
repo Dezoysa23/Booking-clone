@@ -41,7 +41,7 @@ export default async function PricingPage() {
         <div className="mx-auto max-w-5xl">
           {plans.length === 0 ? (
             <div className="text-center py-16">
-              <p className="text-gray-500">Pricing plans are not available yet. Please check back soon.</p>
+              <p className="text-[#5B6472]">Pricing plans are not available yet. Please check back soon.</p>
             </div>
           ) : (
             <PricingCards plans={plans} isLoggedIn={!!currentUser} />
@@ -64,7 +64,7 @@ export default async function PricingPage() {
             ].map(({ q, a }) => (
               <div key={q} className="rounded-xl border border-gray-100 bg-[#F8F2E9] p-5">
                 <p className="font-semibold text-[#14213D] text-sm">{q}</p>
-                <p className="mt-2 text-sm text-gray-500">{a}</p>
+                <p className="mt-2 text-sm text-[#5B6472]">{a}</p>
               </div>
             ))}
           </div>
@@ -76,7 +76,7 @@ export default async function PricingPage() {
         <h2 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D] mb-3">
           Ready to become a Pearlora host?
         </h2>
-        <p className="text-gray-500 text-sm mb-6">Join hundreds of hosts earning through Sri Lanka&apos;s premium booking platform.</p>
+        <p className="text-[#5B6472] text-sm mb-6">Join hundreds of hosts earning through Sri Lanka&apos;s premium booking platform.</p>
         <Link
           href={currentUser ? "#plans" : "/signup"}
           className="inline-block rounded-xl bg-[#14213D] px-8 py-3.5 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"

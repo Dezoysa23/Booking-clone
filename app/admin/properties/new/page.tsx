@@ -19,7 +19,7 @@ export default async function NewPropertyPage() {
   return (
     <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-4xl">
-        <div className="flex items-center gap-1.5 mb-4 text-xs text-gray-400">
+        <div className="flex items-center gap-1.5 mb-4 text-xs text-[#7C879B]">
           <Link href="/admin" className="hover:text-[#14213D] transition-colors">Admin</Link>
           <span className="text-gray-300">›</span>
           <Link href="/admin/properties" className="hover:text-[#14213D] transition-colors">Properties</Link>

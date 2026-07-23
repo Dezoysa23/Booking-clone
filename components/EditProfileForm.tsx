@@ -55,7 +55,7 @@ export default function EditProfileForm({ initialName }: Props) {
       <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
         Edit Profile
       </h2>
-      <p className="mt-1 text-sm text-gray-500">Update your display name.</p>
+      <p className="mt-1 text-sm text-[#5B6472]">Update your display name.</p>
 
       {errorMessage && (
         <div className="mt-5 rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700">
@@ -70,7 +70,7 @@ export default function EditProfileForm({ initialName }: Props) {
       )}
 
       <div className="mt-6">
-        <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
+        <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
           Display Name
         </label>
         <input

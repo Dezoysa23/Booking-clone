@@ -128,7 +128,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
             <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl md:text-4xl font-semibold text-[#14213D]">
               {property.name}
             </h1>
-            <p className="mt-1.5 flex items-center gap-1 text-gray-500 text-sm">
+            <p className="mt-1.5 flex items-center gap-1 text-[#5B6472] text-sm">
               <span className="material-symbols-outlined text-sm text-[#14213D]/40">location_on</span>
               {property.location}
             </p>
@@ -138,7 +138,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
               <span className="material-symbols-outlined text-[#D9A94D] text-sm filled">star</span>
               {property.rating.toFixed(1)}
             </span>
-            <span className="text-sm text-gray-500">{property.reviews.toLocaleString()} reviews</span>
+            <span className="text-sm text-[#5B6472]">{property.reviews.toLocaleString()} reviews</span>
           </div>
         </div>
 
@@ -158,7 +158,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
               );
             })}
             {property.facilities.length > 8 && (
-              <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-500">
+              <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-[#5B6472]">
                 +{property.facilities.length - 8} more
               </span>
             )}
@@ -171,7 +171,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
             {/* About */}
             <section>
               <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D] mb-4">About this property</h2>
-              <p className="leading-7 text-gray-600 text-sm">{property.description}</p>
+              <p className="leading-7 text-[#3B4658] text-sm">{property.description}</p>
             </section>
 
             {/* Full Facilities */}
@@ -320,7 +320,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                       <div className="space-y-2">
                         {areaInfo.attractions.map((a, i) => (
                           <div key={i} className="flex justify-between text-sm">
-                            <span className="text-gray-700">{a.type && <span className="text-gray-400 text-xs">{a.type} · </span>}{a.name}</span>
+                            <span className="text-gray-700">{a.type && <span className="text-[#7C879B] text-xs">{a.type} · </span>}{a.name}</span>
                             {a.distance != null && <span className="text-[#14213D] font-medium shrink-0 ml-2">{formatDistance(a)}</span>}
                           </div>
                         ))}
@@ -337,7 +337,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                       <div className="space-y-2">
                         {areaInfo.restaurants.map((r, i) => (
                           <div key={i} className="flex justify-between text-sm">
-                            <span className="text-gray-700">{r.type && <span className="text-gray-400 text-xs">{r.type} · </span>}{r.name}</span>
+                            <span className="text-gray-700">{r.type && <span className="text-[#7C879B] text-xs">{r.type} · </span>}{r.name}</span>
                             {r.distance != null && <span className="text-[#14213D] font-medium shrink-0 ml-2">{formatDistance(r)}</span>}
                           </div>
                         ))}
@@ -355,7 +355,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                         <div className="space-y-2">
                           {areaInfo.transit.map((t, i) => (
                             <div key={i} className="flex justify-between text-sm">
-                              <span className="text-gray-700">{t.type && <span className="text-gray-400 text-xs">{t.type} · </span>}{t.name}</span>
+                              <span className="text-gray-700">{t.type && <span className="text-[#7C879B] text-xs">{t.type} · </span>}{t.name}</span>
                               {t.distance != null && <span className="text-[#14213D] font-medium shrink-0 ml-2">{formatDistance(t)}</span>}
                             </div>
                           ))}
@@ -387,7 +387,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                         <div className="space-y-2">
                           {areaInfo.naturalBeauty.map((n, i) => (
                             <div key={i} className="flex justify-between text-sm">
-                              <span className="text-gray-700">{n.type && <span className="text-gray-400 text-xs">{n.type} · </span>}{n.name}</span>
+                              <span className="text-gray-700">{n.type && <span className="text-[#7C879B] text-xs">{n.type} · </span>}{n.name}</span>
                               {n.distance != null && <span className="text-[#14213D] font-medium shrink-0 ml-2">{formatDistance(n)}</span>}
                             </div>
                           ))}

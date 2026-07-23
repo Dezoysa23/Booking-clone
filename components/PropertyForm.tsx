@@ -107,7 +107,7 @@ function Section({ title, icon, badge, children }: { title: string; icon: string
             <span className="inline-flex items-center justify-center h-5 min-w-5 rounded-full bg-[#14213D] text-white text-xs font-bold px-1.5">{badge}</span>
           )}
         </div>
-        <span className="material-symbols-outlined text-gray-400 text-xl transition-transform" style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>expand_more</span>
+        <span className="material-symbols-outlined text-[#7C879B] text-xl transition-transform" style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>expand_more</span>
       </button>
       {open && <div className="px-6 pb-6 pt-2 bg-white border-t border-gray-50">{children}</div>}
     </div>
@@ -165,7 +165,7 @@ function AreaItemRow({
         <option value="m">m</option>
         <option value="km">km</option>
       </select>
-      <button type="button" onClick={onRemove} className="text-gray-400 hover:text-red-500 transition-colors">
+      <button type="button" onClick={onRemove} className="text-[#7C879B] hover:text-red-500 transition-colors">
         <span className="material-symbols-outlined text-lg">close</span>
       </button>
     </div>
@@ -240,7 +240,7 @@ function NearbyHighlightEditor({
             />
           </div>
         </div>
-        <button type="button" onClick={onRemove} className="text-gray-400 hover:text-red-500 transition-colors shrink-0">
+        <button type="button" onClick={onRemove} className="text-[#7C879B] hover:text-red-500 transition-colors shrink-0">
           <span className="material-symbols-outlined text-xl">delete</span>
         </button>
       </div>
@@ -529,9 +529,9 @@ export default function PropertyForm(props: Props) {
   // ─── Styles ──────────────────────────────────────────────────────────────
 
   const inputClass =
-    "w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10";
+    "w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 placeholder:text-[#7C879B] outline-none transition focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10";
   const labelClass =
-    "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400";
+    "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]";
   const uploadZoneBase =
     "w-full flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-200 bg-gray-50 py-8 px-4 text-center transition-colors cursor-pointer hover:border-[#14213D]/30 hover:bg-gray-100";
 
@@ -583,12 +583,12 @@ export default function PropertyForm(props: Props) {
             <div>
               <label className={labelClass}>Rating <span className="text-red-400 normal-case tracking-normal">*</span></label>
               <input type="number" step="0.1" value={rating} onChange={(e) => setRating(e.target.value)} className={inputClass} placeholder="8.9" min="1" max="10" required />
-              <p className="mt-1 text-xs text-gray-400">Between 1.0 and 10.0</p>
+              <p className="mt-1 text-xs text-[#7C879B]">Between 1.0 and 10.0</p>
             </div>
             <div>
               <label className={labelClass}>Max Guests</label>
               <input type="number" value={maxGuests} onChange={(e) => setMaxGuests(e.target.value)} className={inputClass} placeholder="e.g. 6" min="1" max="100" />
-              <p className="mt-1 text-xs text-gray-400">Leave blank for no guest limit.</p>
+              <p className="mt-1 text-xs text-[#7C879B]">Leave blank for no guest limit.</p>
             </div>
             <div className="hidden md:block" />
 
@@ -611,11 +611,11 @@ export default function PropertyForm(props: Props) {
                 </div>
               ) : (
                 <button type="button" onClick={() => mainInputRef.current?.click()} disabled={mainImageUploading} className={`${uploadZoneBase} ${mainImageUploading ? "opacity-60 cursor-not-allowed" : ""}`}>
-                  {mainImageUploading ? <span className="text-sm text-gray-400">Uploading…</span> : (
+                  {mainImageUploading ? <span className="text-sm text-[#7C879B]">Uploading…</span> : (
                     <>
                       <span className="material-symbols-outlined text-gray-300 text-4xl">upload</span>
-                      <span className="text-sm font-medium text-gray-600">Click to upload main image</span>
-                      <span className="text-xs text-gray-400">JPG, PNG, or WebP · Max 5 MB</span>
+                      <span className="text-sm font-medium text-[#3B4658]">Click to upload main image</span>
+                      <span className="text-xs text-[#7C879B]">JPG, PNG, or WebP · Max 5 MB</span>
                     </>
                   )}
                 </button>
@@ -641,11 +641,11 @@ export default function PropertyForm(props: Props) {
               )}
               {galleryUrls.length < MAX_GALLERY ? (
                 <button type="button" onClick={() => galleryInputRef.current?.click()} disabled={galleryUploading} className={`${uploadZoneBase} ${galleryUploading ? "opacity-60 cursor-not-allowed" : ""}`}>
-                  {galleryUploading ? <span className="text-sm text-gray-400">Uploading…</span> : (
+                  {galleryUploading ? <span className="text-sm text-[#7C879B]">Uploading…</span> : (
                     <>
                       <span className="material-symbols-outlined text-gray-300 text-4xl">add_photo_alternate</span>
-                      <span className="text-sm font-medium text-gray-600">Click to add gallery images</span>
-                      <span className="text-xs text-gray-400">{galleryUrls.length}/{MAX_GALLERY} · JPG, PNG, or WebP · Max 5 MB each</span>
+                      <span className="text-sm font-medium text-[#3B4658]">Click to add gallery images</span>
+                      <span className="text-xs text-[#7C879B]">{galleryUrls.length}/{MAX_GALLERY} · JPG, PNG, or WebP · Max 5 MB each</span>
                     </>
                   )}
                 </button>
@@ -665,25 +665,25 @@ export default function PropertyForm(props: Props) {
             <div className="md:col-span-2">
               <label className={labelClass}>Custom Amenities</label>
               <input type="text" value={amenities} onChange={(e) => setAmenities(e.target.value)} className={inputClass} placeholder="e.g. Rooftop terrace, Private chef, Helipad" />
-              <p className="mt-1 text-xs text-gray-400">Separate with commas. Use structured facilities below for filtering.</p>
+              <p className="mt-1 text-xs text-[#7C879B]">Separate with commas. Use structured facilities below for filtering.</p>
             </div>
           </div>
         </div>
 
         {/* ── Section 2: Facilities ── */}
         <Section title="Facilities & Amenities" icon="checklist" badge={facilitiesCount}>
-          <p className="text-xs text-gray-500 mb-4">Select all facilities available at this property. These power the guest facility filters.</p>
+          <p className="text-xs text-[#5B6472] mb-4">Select all facilities available at this property. These power the guest facility filters.</p>
           <div className="space-y-5">
             {FACILITY_GROUPS.map((group) => {
               const groupFacilities = FACILITY_OPTIONS.filter((f) => f.group === group);
               return (
                 <div key={group}>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">{group}</p>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B] mb-2">{group}</p>
                   <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                     {groupFacilities.map((f) => {
                       const checked = selectedFacilities.includes(f.key);
                       return (
-                        <label key={f.key} className={`flex items-center gap-2.5 rounded-lg border px-3 py-2.5 cursor-pointer transition-all text-sm ${checked ? "border-[#14213D] bg-[#14213D]/5 text-[#14213D] font-medium" : "border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300"}`}>
+                        <label key={f.key} className={`flex items-center gap-2.5 rounded-lg border px-3 py-2.5 cursor-pointer transition-all text-sm ${checked ? "border-[#14213D] bg-[#14213D]/5 text-[#14213D] font-medium" : "border-gray-200 bg-gray-50 text-[#3B4658] hover:border-gray-300"}`}>
                           <input
                             type="checkbox"
                             checked={checked}
@@ -795,7 +795,7 @@ export default function PropertyForm(props: Props) {
 
         {/* ── Section 4: Area Info ── */}
         <Section title="Hotel Area Information" icon="location_on" badge={areaCount}>
-          <p className="text-xs text-gray-500 mb-5">Add nearby places to help guests understand the location. Leave distance blank if unknown.</p>
+          <p className="text-xs text-[#5B6472] mb-5">Add nearby places to help guests understand the location. Leave distance blank if unknown.</p>
 
           {(["attractions", "restaurants", "transit", "airports", "naturalBeauty"] as const).map((section) => {
             const labels: Record<string, { label: string; placeholder: string; showType: boolean }> = {
@@ -809,7 +809,7 @@ export default function PropertyForm(props: Props) {
             return (
               <div key={section} className="mb-5">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">{cfg.label}</p>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B]">{cfg.label}</p>
                   <button type="button" onClick={() => addAreaItem(section)} className="text-xs font-semibold text-[#14213D] hover:underline flex items-center gap-1">
                     <span className="material-symbols-outlined text-sm">add</span> Add
                   </button>
@@ -826,7 +826,7 @@ export default function PropertyForm(props: Props) {
                     />
                   ))}
                   {(areaInfo[section] ?? []).length === 0 && (
-                    <p className="text-xs text-gray-400 italic">No entries yet.</p>
+                    <p className="text-xs text-[#7C879B] italic">No entries yet.</p>
                   )}
                 </div>
               </div>
@@ -836,7 +836,7 @@ export default function PropertyForm(props: Props) {
 
         {/* ── Section 5: Nearby Highlights ── */}
         <Section title="Nearby Highlights" icon="auto_awesome" badge={isEdit ? undefined : highlights.length}>
-          <p className="text-xs text-gray-500 mb-5">
+          <p className="text-xs text-[#5B6472] mb-5">
             {isEdit
               ? "Add or edit captivating nearby places. Changes are saved immediately."
               : "Add captivating nearby places that make this property special. Images optional."}

@@ -46,7 +46,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
             <div className="flex items-center gap-1.5 mb-1">
               <Link
                 href="/admin"
-                className="text-xs text-gray-400 hover:text-[#14213D] transition-colors"
+                className="text-xs text-[#7C879B] hover:text-[#14213D] transition-colors"
               >
                 Admin
               </Link>
@@ -58,7 +58,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
             <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
               Manage Properties
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-[#5B6472]">
               {properties.length}{" "}
               {properties.length === 1 ? "property" : "properties"} listed
             </p>
@@ -104,7 +104,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
             <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
               No properties yet
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-[#5B6472]">
               Add the first property to get started.
             </p>
             <Link
@@ -119,25 +119,25 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
             <table className="w-full text-left text-sm">
               <thead className="border-b border-gray-100 bg-[#F8F2E9]">
                 <tr>
-                  <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                     ID
                   </th>
-                  <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                     Property
                   </th>
-                  <th className="hidden md:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  <th className="hidden md:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                     Location
                   </th>
-                  <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                     Price / night
                   </th>
-                  <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                     Rating
                   </th>
-                  <th className="hidden lg:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  <th className="hidden lg:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                     Bookings
                   </th>
-                  <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
                     Actions
                   </th>
                 </tr>
@@ -148,7 +148,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
                     key={property.id}
                     className="hover:bg-[#F8F2E9] transition-colors"
                   >
-                    <td className="px-5 py-4 text-xs text-gray-400 font-mono">
+                    <td className="px-5 py-4 text-xs text-[#7C879B] font-mono">
                       #{property.id}
                     </td>
                     <td className="px-5 py-4">
@@ -166,10 +166,10 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
                         </span>
                       </div>
                     </td>
-                    <td className="hidden md:table-cell px-5 py-4 text-sm text-gray-500">
+                    <td className="hidden md:table-cell px-5 py-4 text-sm text-[#5B6472]">
                       {property.location}
                     </td>
-                    <td className="hidden sm:table-cell px-5 py-4 text-sm text-gray-600">
+                    <td className="hidden sm:table-cell px-5 py-4 text-sm text-[#3B4658]">
                       LKR {property.price.toLocaleString()}
                     </td>
                     <td className="hidden sm:table-cell px-5 py-4">
@@ -180,7 +180,7 @@ export default async function AdminPropertiesPage({ searchParams }: Props) {
                         {property.rating.toFixed(1)}
                       </span>
                     </td>
-                    <td className="hidden lg:table-cell px-5 py-4 text-sm text-gray-500">
+                    <td className="hidden lg:table-cell px-5 py-4 text-sm text-[#5B6472]">
                       {property._count.bookings}{" "}
                       {property._count.bookings === 1 ? "booking" : "bookings"}
                     </td>

@@ -110,7 +110,7 @@ export default function SignupPage() {
           <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D]">
             Create Account
           </h1>
-          <p className="mt-1.5 text-sm text-gray-500">
+          <p className="mt-1.5 text-sm text-[#5B6472]">
             Join Pearlora and unlock extraordinary stays.
           </p>
 
@@ -173,7 +173,7 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={() => setShowPw((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7C879B] hover:text-[#3B4658] transition-colors"
                   tabIndex={-1}
                   aria-label={showPw ? "Hide password" : "Show password"}
                 >
@@ -227,14 +227,14 @@ export default function SignupPage() {
               { icon: "verified_user", text: "Verified email required" },
               { icon: "lock",          text: "Encrypted & secure"       },
             ].map(({ icon, text }) => (
-              <span key={text} className="flex items-center gap-1 text-[11px] text-gray-400">
+              <span key={text} className="flex items-center gap-1 text-[11px] text-[#7C879B]">
                 <span className="material-symbols-outlined text-[13px] text-emerald-500">{icon}</span>
                 {text}
               </span>
             ))}
           </div>
 
-          <p className="mt-5 text-center text-sm text-gray-500">
+          <p className="mt-5 text-center text-sm text-[#5B6472]">
             Already have an account?{" "}
             <Link href="/login" className="font-semibold text-[#14213D] hover:text-[#D9A94D] transition-colors">
               Sign in

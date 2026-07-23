@@ -398,7 +398,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
   }
 
   const inputClass = "w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-[#14213D] focus:bg-white focus:ring-2 focus:ring-[#14213D]/10";
-  const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400";
+  const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]";
 
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
@@ -420,13 +420,13 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
         </div>
 
         {roomsLoading ? (
-          <p className="text-sm text-gray-400">Loading rooms…</p>
+          <p className="text-sm text-[#7C879B]">Loading rooms…</p>
         ) : (
           <>
             {rooms.length === 0 && !showAddRoom && (
               <div className="rounded-xl bg-[#F8F2E9] border border-gray-100 p-6 text-center">
                 <span className="material-symbols-outlined text-gray-300 text-3xl">meeting_room</span>
-                <p className="mt-2 text-sm text-gray-500">No rooms yet. Add your first room to manage availability.</p>
+                <p className="mt-2 text-sm text-[#5B6472]">No rooms yet. Add your first room to manage availability.</p>
               </div>
             )}
 
@@ -446,7 +446,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                     <span className="material-symbols-outlined text-base">meeting_room</span>
                     {room.name}
                     {room.maxGuests && (
-                      <span className="text-xs text-gray-400">· {room.maxGuests}g</span>
+                      <span className="text-xs text-[#7C879B]">· {room.maxGuests}g</span>
                     )}
                   </button>
                 ))}
@@ -481,7 +481,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                     {addingRoom ? "Creating…" : "Create Room"}
                   </button>
                   <button onClick={() => { setShowAddRoom(false); setRoomError(""); }}
-                    className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                    className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-xs font-medium text-[#3B4658] hover:bg-gray-50 transition-colors">
                     Cancel
                   </button>
                 </div>
@@ -525,7 +525,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
               {/* Day headers */}
               <div className="grid grid-cols-7 mb-1">
                 {DAYS.map((d) => (
-                  <div key={d} className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest py-1">{d}</div>
+                  <div key={d} className="text-center text-[10px] font-bold text-[#7C879B] uppercase tracking-widest py-1">{d}</div>
                 ))}
               </div>
 
@@ -583,7 +583,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-1.5">
                     <span className={`h-2.5 w-2.5 rounded-sm ${item.color}`} />
-                    <span className="text-xs text-gray-500">{item.label}</span>
+                    <span className="text-xs text-[#5B6472]">{item.label}</span>
                   </div>
                 ))}
               </div>
@@ -636,7 +636,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                 {!selStart ? (
                   <div className="rounded-xl bg-[#F8F2E9] border border-gray-100 p-4 text-center">
                     <span className="material-symbols-outlined text-gray-300 text-2xl">touch_app</span>
-                    <p className="mt-1 text-xs text-gray-400">Click a date on the calendar to start selecting</p>
+                    <p className="mt-1 text-xs text-[#7C879B]">Click a date on the calendar to start selecting</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -646,7 +646,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                         {selStart}
                         {selEnd && selEnd !== selStart ? ` → ${selEnd}` : ""}
                       </p>
-                      <p className="text-xs text-gray-500 mt-0.5">
+                      <p className="text-xs text-[#5B6472] mt-0.5">
                         {selectionDays} {selectionDays === 1 ? "day" : "days"}
                         {!selEnd ? " — click a second date to set range" : ""}
                       </p>
@@ -689,7 +689,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                       </button>
                       <button
                         onClick={() => { setSelStart(null); setSelEnd(null); setBlockError(""); }}
-                        className="rounded-lg border border-gray-200 bg-white px-4 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                        className="rounded-lg border border-gray-200 bg-white px-4 text-xs font-medium text-[#3B4658] hover:bg-gray-50 transition-colors"
                       >
                         Clear
                       </button>
@@ -705,7 +705,7 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
                 Active Blocks
               </h3>
               {blocks.length === 0 ? (
-                <p className="text-xs text-gray-400 italic">No manual blocks for this room.</p>
+                <p className="text-xs text-[#7C879B] italic">No manual blocks for this room.</p>
               ) : (
                 <div className="space-y-2">
                   {blocks.map((block) => (
@@ -744,8 +744,8 @@ export default function AvailabilityCalendar({ propertyId }: Props) {
 
             {/* How to use hint */}
             <div className="rounded-2xl bg-[#F8F2E9] border border-gray-100 p-4">
-              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">How it works</p>
-              <ul className="space-y-1 text-xs text-gray-500">
+              <p className="text-[11px] font-bold text-[#7C879B] uppercase tracking-widest mb-2">How it works</p>
+              <ul className="space-y-1 text-xs text-[#5B6472]">
                 <li>· Click a date to select it</li>
                 <li>· Click a second date to select a range</li>
                 <li>· Choose a reason and click <strong>Block</strong></li>

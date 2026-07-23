@@ -51,7 +51,7 @@ export default function PropertyCard({ id, name, location, rating, price, image 
         <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D] leading-snug line-clamp-2">
           {name}
         </h3>
-        <p className="mt-1.5 text-sm text-gray-500 flex items-center gap-1">
+        <p className="mt-1.5 text-sm text-[#5B6472] flex items-center gap-1">
           <span className="material-symbols-outlined text-sm text-[#14213D]/40">location_on</span>
           {location}
         </p>
@@ -59,10 +59,10 @@ export default function PropertyCard({ id, name, location, rating, price, image 
         {/* Price + CTA row */}
         <div className="mt-auto pt-5 flex items-end justify-between">
           <div>
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">From</span>
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-[#7C879B]">From</span>
             <p className="text-xl font-bold text-[#14213D] leading-tight mt-0.5">
               LKR {price.toLocaleString()}
-              <span className="text-xs font-normal text-gray-400"> /night</span>
+              <span className="text-xs font-normal text-[#7C879B]"> /night</span>
             </p>
           </div>
           <Link

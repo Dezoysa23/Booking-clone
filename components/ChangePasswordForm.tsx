@@ -71,7 +71,7 @@ export default function ChangePasswordForm() {
       <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
         Change Password
       </h2>
-      <p className="mt-1 text-sm text-gray-500">
+      <p className="mt-1 text-sm text-[#5B6472]">
         Update your account password securely.
       </p>
 
@@ -89,7 +89,7 @@ export default function ChangePasswordForm() {
 
       <div className="mt-6 space-y-4">
         <div>
-          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
+          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
             Current Password
           </label>
           <input
@@ -103,7 +103,7 @@ export default function ChangePasswordForm() {
         </div>
 
         <div>
-          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-gray-400">
+          <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-[#7C879B]">
             New Password
           </label>
           <input
@@ -115,7 +115,7 @@ export default function ChangePasswordForm() {
             required
             minLength={8}
           />
-          <p className="mt-1 text-xs text-gray-400">Minimum 8 characters.</p>
+          <p className="mt-1 text-xs text-[#7C879B]">Minimum 8 characters.</p>
         </div>
       </div>
 

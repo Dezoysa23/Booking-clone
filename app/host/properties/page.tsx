@@ -27,7 +27,7 @@ export default async function HostPropertiesPage() {
           <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
             My Properties
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-[#5B6472]">
             {properties.length} listing{properties.length !== 1 ? "s" : ""}
             {subscription && propertyLimit !== -1 && ` · ${propertyLimit - properties.length} slots remaining`}
           </p>
@@ -64,7 +64,7 @@ export default async function HostPropertiesPage() {
           <h3 className="font-[family-name:var(--font-playfair-display)] text-lg font-semibold text-[#14213D]">
             No properties yet
           </h3>
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-sm text-[#5B6472]">
             {subscription ? "Add your first property to get started." : "Subscribe to a plan to start listing."}
           </p>
           {subscription && (
@@ -78,11 +78,11 @@ export default async function HostPropertiesPage() {
           <table className="w-full text-left text-sm">
             <thead className="border-b border-gray-100 bg-[#F8F2E9]">
               <tr>
-                <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Property</th>
-                <th className="hidden md:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Location</th>
-                <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Price/night</th>
-                <th className="hidden lg:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Bookings</th>
-                <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-gray-400">Actions</th>
+                <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Property</th>
+                <th className="hidden md:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Location</th>
+                <th className="hidden sm:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Price/night</th>
+                <th className="hidden lg:table-cell px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Bookings</th>
+                <th className="px-5 py-4 text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -97,9 +97,9 @@ export default async function HostPropertiesPage() {
                       <span className="font-semibold text-[#14213D] text-sm">{property.name}</span>
                     </div>
                   </td>
-                  <td className="hidden md:table-cell px-5 py-4 text-sm text-gray-500">{property.location}</td>
-                  <td className="hidden sm:table-cell px-5 py-4 text-sm text-gray-600">LKR {property.price.toLocaleString()}</td>
-                  <td className="hidden lg:table-cell px-5 py-4 text-sm text-gray-500">{property._count.bookings}</td>
+                  <td className="hidden md:table-cell px-5 py-4 text-sm text-[#5B6472]">{property.location}</td>
+                  <td className="hidden sm:table-cell px-5 py-4 text-sm text-[#3B4658]">LKR {property.price.toLocaleString()}</td>
+                  <td className="hidden lg:table-cell px-5 py-4 text-sm text-[#5B6472]">{property._count.bookings}</td>
                   <td className="px-5 py-4">
                     <div className="flex items-start gap-2 flex-wrap">
                       <Link href={`/properties/${property.id}`} target="_blank" rel="noopener noreferrer"

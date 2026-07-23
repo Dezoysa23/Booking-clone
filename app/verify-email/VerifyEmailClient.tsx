@@ -134,7 +134,7 @@ export default function VerifyEmailClient() {
             <Image src="/brand/pearlora-logo.jpg" alt="Pearlora" width={34} height={34} className="rounded-lg" unoptimized />
             <span className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold">Pearlora</span>
           </Link>
-          <p className="mt-2 text-sm text-gray-400">Email Verification</p>
+          <p className="mt-2 text-sm text-[#7C879B]">Email Verification</p>
         </div>
 
         {/* Glass card */}
@@ -175,7 +175,7 @@ export default function VerifyEmailClient() {
               <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D]">
                 Account Unlocked
               </h2>
-              <p className="mt-2 text-sm text-gray-500 leading-relaxed">
+              <p className="mt-2 text-sm text-[#5B6472] leading-relaxed">
                 Your email has been verified.<br />Signing you in to Pearlora…
               </p>
               <div className="mt-4 h-1 w-20 rounded-full bg-gray-100 overflow-hidden">
@@ -207,7 +207,7 @@ export default function VerifyEmailClient() {
               <h1 className="font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D] text-center">
                 Check your email
               </h1>
-              <p className="mt-2 text-sm text-gray-500 text-center leading-relaxed">
+              <p className="mt-2 text-sm text-[#5B6472] text-center leading-relaxed">
                 We sent a 6-digit code to{" "}
                 <span className="font-semibold text-[#14213D]">{maskEmail(email)}</span>
               </p>
@@ -252,7 +252,7 @@ export default function VerifyEmailClient() {
                 ))}
               </div>
 
-              <p className="mt-2.5 text-center text-xs text-gray-400">
+              <p className="mt-2.5 text-center text-xs text-[#7C879B]">
                 Enter the 6-digit code from your email
               </p>
 
@@ -274,19 +274,19 @@ export default function VerifyEmailClient() {
               </button>
 
               {/* Resend */}
-              <p className="mt-5 text-center text-sm text-gray-500">
+              <p className="mt-5 text-center text-sm text-[#5B6472]">
                 Didn&apos;t receive a code?{" "}
                 <button
                   onClick={handleResend}
                   disabled={resendCountdown > 0 || resendLoading}
-                  className="font-semibold text-[#14213D] hover:text-[#D9A94D] transition-colors disabled:text-gray-400 disabled:cursor-not-allowed"
+                  className="font-semibold text-[#14213D] hover:text-[#D9A94D] transition-colors disabled:text-[#7C879B] disabled:cursor-not-allowed"
                 >
                   {resendLoading ? "Sending…" : resendCountdown > 0 ? `Resend in ${resendCountdown}s` : "Resend code"}
                 </button>
               </p>
 
               <div className="mt-5 pt-5 border-t border-gray-100 text-center">
-                <Link href="/signup" className="text-xs text-gray-400 hover:text-[#14213D] transition-colors">
+                <Link href="/signup" className="text-xs text-[#7C879B] hover:text-[#14213D] transition-colors">
                   ← Back to sign up
                 </Link>
               </div>
@@ -294,7 +294,7 @@ export default function VerifyEmailClient() {
           )}
         </div>
 
-        <p className="mt-5 text-center text-xs text-gray-400 leading-relaxed">
+        <p className="mt-5 text-center text-xs text-[#7C879B] leading-relaxed">
           Having trouble? Check your spam folder or{" "}
           <Link href="/login" className="text-[#14213D] font-medium hover:text-[#D9A94D] transition-colors">
             sign in

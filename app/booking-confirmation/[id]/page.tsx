@@ -88,25 +88,25 @@ export default async function BookingConfirmationPage({
             <h1 className="mt-7 font-[family-name:var(--font-playfair-display)] text-2xl font-semibold text-[#14213D]">
               Booking Confirmation
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-[#5B6472]">
               Your reservation details are shown below.
             </p>
 
             {/* Details */}
             <div className="mt-7 space-y-0 divide-y divide-gray-100 rounded-xl border border-gray-100 overflow-hidden">
               <div className="flex justify-between items-center px-5 py-4 bg-[#F8F2E9]">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Booking ID</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Booking ID</p>
                 <p className="font-mono text-sm font-semibold text-gray-700">#{booking.id}</p>
               </div>
               <div className="flex justify-between items-start px-5 py-4">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Property</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Property</p>
                 <div className="text-right">
                   <p className="font-semibold text-gray-900 text-sm">{booking.property.name}</p>
-                  <p className="text-xs text-gray-500 mt-0.5">{booking.property.location}</p>
+                  <p className="text-xs text-[#5B6472] mt-0.5">{booking.property.location}</p>
                 </div>
               </div>
               <div className="flex justify-between items-center px-5 py-4 bg-[#F8F2E9]">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Check-in</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Check-in</p>
                 <p className="text-sm font-semibold text-gray-900">
                   {booking.checkIn.toLocaleDateString("en-US", {
                     weekday: "short",
@@ -117,7 +117,7 @@ export default async function BookingConfirmationPage({
                 </p>
               </div>
               <div className="flex justify-between items-center px-5 py-4">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Check-out</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Check-out</p>
                 <p className="text-sm font-semibold text-gray-900">
                   {booking.checkOut.toLocaleDateString("en-US", {
                     weekday: "short",
@@ -128,15 +128,15 @@ export default async function BookingConfirmationPage({
                 </p>
               </div>
               <div className="flex justify-between items-center px-5 py-4 bg-[#F8F2E9]">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Guests</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Guests</p>
                 <p className="text-sm font-semibold text-gray-900">{booking.guests}</p>
               </div>
               <div className="flex justify-between items-center px-5 py-4">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Nights</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Nights</p>
                 <p className="text-sm font-semibold text-gray-900">{booking.nights}</p>
               </div>
               <div className="flex justify-between items-center px-5 py-4 bg-[#F8F2E9]">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Status</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#7C879B]">Status</p>
                 <span className={`rounded-full px-3 py-1 text-xs font-semibold tracking-wide ${statusClass}`}>
                   {statusLabel}
                 </span>
