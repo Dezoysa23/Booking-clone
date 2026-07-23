@@ -22,6 +22,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import PearlHero from "@/components/ui/PearlHero";
+import { Frond } from "@/components/ui/LuxuryBotanicalSideArt";
 
 // ── Slide data ────────────────────────────────────────────────────────────────
 
@@ -119,7 +120,7 @@ export default function HeroSlider() {
 
   return (
     <div
-      className="relative w-full h-[92vh] min-h-[560px] overflow-hidden select-none"
+      className="relative w-full h-[100svh] min-h-[560px] overflow-hidden select-none"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       role="region"
@@ -161,11 +162,19 @@ export default function HeroSlider() {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#101A30]/80 via-[#14213D]/30 to-[#101A30]/55" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101A30]/72 via-transparent to-transparent" />
 
+      {/* ── Botanical accents over the hero image (desktop) ──────────────── */}
+      <div className="pointer-events-none absolute inset-0 z-[8] hidden md:block" aria-hidden="true">
+        <div className="absolute left-10 top-[24%] bottom-[24%] w-px bg-gradient-to-b from-transparent via-[#D9A94D]/45 to-transparent" />
+        <div className="absolute right-10 top-[24%] bottom-[24%] w-px bg-gradient-to-b from-transparent via-[#D9A94D]/45 to-transparent" />
+        <Frond className="absolute -bottom-8 left-0 h-[44%] w-auto -scale-x-100 text-[#D9A94D]/20" />
+        <Frond className="absolute -bottom-8 right-0 h-[44%] w-auto text-[#D9A94D]/20" />
+      </div>
+
       {/* ── Pearl 3D centerpiece (desktop only) ───────────────────────────── */}
       <PearlHero />
 
       {/* ── Destination badge (top-left, changes per slide) ──────────────── */}
-      <div className="absolute top-5 left-5 z-30 pointer-events-none" aria-live="polite" aria-atomic="true">
+      <div className="absolute top-20 left-5 z-30 pointer-events-none" aria-live="polite" aria-atomic="true">
         <AnimatePresence mode="wait">
           <motion.span
             key={`badge-${index}`}

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
 import { isSuperAdmin, isHostOrAdmin } from "@/lib/roles";
+import NavbarShell from "@/components/NavbarShell";
 import LogoutButton from "@/components/LogoutButton";
 import NavLinks from "@/components/NavLinks";
 import SuperAdminCalendarWidget from "@/components/SuperAdminCalendarWidget";
@@ -10,7 +11,7 @@ export default async function Navbar() {
   const currentUser = await getCurrentUser();
 
   return (
-    <header className="bg-[#14213D] w-full top-0 sticky z-50 border-b border-white/10">
+    <NavbarShell>
       <div className="flex justify-between items-center w-full px-4 md:px-16 py-4 max-w-[1280px] mx-auto">
         <div className="flex items-center gap-8">
           <Link
@@ -92,6 +93,6 @@ export default async function Navbar() {
           )}
         </div>
       </div>
-    </header>
+    </NavbarShell>
   );
 }

@@ -13,7 +13,7 @@
 type Side = "left" | "right" | "both";
 
 /** A single elegant palm frond drawn as thin line-art (no fill). */
-function Frond({ className = "" }: { className?: string }) {
+export function Frond({ className = "" }: { className?: string }) {
   // Leaflets branch symmetrically off a gently curved spine.
   const leaflets = [
     { t: 0.16, len: 46, ang: 38 },
