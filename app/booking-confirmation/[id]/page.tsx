@@ -48,12 +48,12 @@ export default async function BookingConfirmationPage({
       ? "bg-green-50 text-green-700 border border-green-100"
       : booking.status === "CANCELLED"
       ? "bg-red-50 text-red-600 border border-red-100"
-      : "bg-[#eef2fa] text-[#14213D] border border-[#14213D]/10";
+      : "bg-[#14213D]/5 text-[#14213D] border border-[#14213D]/10";
 
   return (
     <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
       <div className="mx-auto max-w-2xl">
-        <div className="rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
+        <div className="rounded-3xl bg-white border border-gray-100 shadow-[0_10px_40px_-12px_rgba(20,33,61,0.12)] overflow-hidden">
           {/* Success bar */}
           <div className="h-1.5 bg-[#14213D]" />
 
@@ -76,7 +76,7 @@ export default async function BookingConfirmationPage({
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-3 rounded-xl bg-[#eef2fa] border border-[#14213D]/10 px-5 py-4">
+              <div className="flex items-center gap-3 rounded-xl bg-[#14213D]/5 border border-[#14213D]/10 px-5 py-4">
                 <span className="material-symbols-outlined text-[#14213D] text-xl">schedule</span>
                 <div>
                   <p className="text-sm font-semibold text-[#14213D]">Reservation Received</p>
@@ -156,13 +156,13 @@ export default async function BookingConfirmationPage({
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 href="/bookings"
-                className="rounded-lg bg-[#14213D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"
+                className="rounded-full bg-[#14213D] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#16233F] transition-colors"
               >
                 View All Bookings
               </Link>
               <Link
                 href="/"
-                className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                className="rounded-full border border-[#14213D]/20 bg-white px-6 py-2.5 text-sm font-semibold text-[#14213D] hover:border-[#D9A94D] hover:text-[#c99a3f] transition-colors"
               >
                 Back to Home
               </Link>
