@@ -18,7 +18,7 @@ export default function PropertyCard({ id, name, location, rating, price, image 
     <motion.div
       whileHover={{ y: -6 }}
       transition={{ duration: 0.22, ease: "easeOut" }}
-      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_16px_48px_rgba(15,31,61,0.14)] transition-shadow duration-300 border border-gray-100 hover:border-[#D9A94D]/30 flex flex-col h-full"
+      className="group bg-white rounded-3xl overflow-hidden shadow-[0_2px_12px_rgba(20,33,61,0.05)] hover:shadow-[0_20px_50px_-12px_rgba(20,33,61,0.20)] transition-shadow duration-300 border border-gray-100 hover:border-[#D9A94D]/40 flex flex-col h-full"
     >
       {/* Image */}
       <div className="relative h-60 overflow-hidden shrink-0">

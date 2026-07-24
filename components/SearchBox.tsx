@@ -37,7 +37,7 @@ export default function SearchBox() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-[0_8px_40px_rgba(15,31,61,0.16)] border border-white/80 overflow-visible">
+    <div className="bg-white rounded-[20px] md:rounded-2xl shadow-[0_16px_50px_-12px_rgba(20,33,61,0.28)] border border-white/80 overflow-visible">
       <div className="flex flex-col md:flex-row items-stretch md:items-center p-2 md:p-2.5 gap-0">
         {/* Destination */}
         <div className="flex flex-1 items-center px-5 py-4 md:py-3 border-b md:border-b-0 md:border-r border-gray-100">

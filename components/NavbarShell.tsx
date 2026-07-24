@@ -35,7 +35,7 @@ export default function NavbarShell({ children }: { children: React.ReactNode })
     <header
       className={`${isHome ? "fixed" : "sticky"} top-0 inset-x-0 z-50 transition-colors duration-300 ${
         transparent
-          ? "bg-gradient-to-b from-[#14213D]/50 to-transparent"
+          ? "bg-gradient-to-b from-[#14213D]/70 via-[#14213D]/20 to-transparent"
           : "bg-[#14213D]/95 backdrop-blur-md border-b border-white/10 shadow-[0_2px_20px_rgba(20,33,61,0.22)]"
       }`}
     >

@@ -159,7 +159,7 @@ export default function HeroSlider() {
       </AnimatePresence>
 
       {/* ── Gradient overlays (static) ────────────────────────────────────── */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#101A30]/80 via-[#14213D]/30 to-[#101A30]/55" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#101A30]/72 via-[#14213D]/25 to-[#101A30]/50" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101A30]/72 via-transparent to-transparent" />
 
       {/* ── Botanical accents over the hero image (desktop) ──────────────── */}
@@ -214,15 +214,15 @@ export default function HeroSlider() {
 
         {/* Headline */}
         <h1
-          className="pointer-events-none mb-5 max-w-3xl font-[family-name:var(--font-playfair-display)] font-semibold leading-[1.12] text-white"
-          style={{ fontSize: "clamp(2rem, 5.2vw, 3.9rem)", letterSpacing: "-0.01em" }}
+          className="pointer-events-none mb-5 max-w-3xl font-[family-name:var(--font-playfair-display)] font-semibold leading-[1.08] text-white [text-shadow:0_2px_24px_rgba(9,15,30,0.45)]"
+          style={{ fontSize: "clamp(2.35rem, 5.8vw, 4.6rem)", letterSpacing: "-0.02em" }}
         >
           Discover Extraordinary Stays
           <br className="hidden md:block" /> Across Sri Lanka
         </h1>
 
         {/* Sub-headline */}
-        <p className="pointer-events-none max-w-xl text-base font-light leading-relaxed text-white/72 md:text-lg">
+        <p className="pointer-events-none max-w-xl text-base font-light leading-relaxed text-white/80 md:text-lg [text-shadow:0_1px_12px_rgba(9,15,30,0.4)]">
           From colonial coastal forts to misty highland estates —
           <br className="hidden md:block" /> Pearlora curates rare stays for the discerning traveller.
         </p>
