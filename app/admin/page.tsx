@@ -69,7 +69,7 @@ export default async function AdminPage() {
         {/* Analytics stat cards */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
           {/* Properties */}
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 flex flex-col justify-between">
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">
                 Properties
@@ -94,7 +94,7 @@ export default async function AdminPage() {
           </div>
 
           {/* Registered users */}
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 flex flex-col justify-between">
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">
                 Users
@@ -112,7 +112,7 @@ export default async function AdminPage() {
           </div>
 
           {/* Total bookings */}
-          <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 flex flex-col justify-between">
+          <div className="rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-[#14213D]/50">
                 Total Bookings
@@ -194,7 +194,7 @@ export default async function AdminPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <Link
             href="/admin/properties"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#14213D]/20 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.18)] hover:-translate-y-1 hover:border-[#14213D]/20 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D] mb-4">
               <span className="material-symbols-outlined text-white text-base">
@@ -211,7 +211,7 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/properties/new"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D9A94D]/40 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.18)] hover:-translate-y-1 hover:border-[#D9A94D]/40 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D9A94D] mb-4">
               <span className="material-symbols-outlined text-[#14213D] text-base">
@@ -228,7 +228,7 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/bookings"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#14213D]/20 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.18)] hover:-translate-y-1 hover:border-[#14213D]/20 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D]/8 mb-4">
               <span className="material-symbols-outlined text-[#14213D] text-base">
@@ -245,7 +245,7 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/users"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#14213D]/20 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.18)] hover:-translate-y-1 hover:border-[#14213D]/20 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D]/8 mb-4">
               <span className="material-symbols-outlined text-[#14213D] text-base">
@@ -262,7 +262,7 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/subscriptions"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D9A94D]/40 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.18)] hover:-translate-y-1 hover:border-[#D9A94D]/40 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D9A94D]/15 mb-4">
               <span className="material-symbols-outlined text-[#8a6c2a] text-base">
@@ -279,7 +279,7 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/payments"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-green-200 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.18)] hover:-translate-y-1 hover:border-green-200 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-50 mb-4">
               <span className="material-symbols-outlined text-green-600 text-base">
@@ -296,7 +296,7 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/calendar"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-[#D9A94D]/40 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.18)] hover:-translate-y-1 hover:border-[#D9A94D]/40 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D9A94D]/10 mb-4">
               <span className="material-symbols-outlined text-[#B8860B] text-base">calendar_month</span>
@@ -309,7 +309,7 @@ export default async function AdminPage() {
 
           <Link
             href="/admin/user-photos"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-amber-200 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.18)] hover:-translate-y-1 hover:border-amber-200 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 mb-4">
               <span className="material-symbols-outlined text-amber-600 text-base">photo_library</span>
@@ -322,7 +322,7 @@ export default async function AdminPage() {
 
           <Link
             href="/"
-            className="group rounded-2xl bg-white border border-gray-100 shadow-sm p-6 hover:shadow-md hover:border-gray-200 transition-all"
+            className="group rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.18)] hover:-translate-y-1 hover:border-gray-200 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 mb-4">
               <span className="material-symbols-outlined text-[#5B6472] text-base">
