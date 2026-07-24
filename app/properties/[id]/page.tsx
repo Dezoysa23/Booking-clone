@@ -4,6 +4,7 @@ import BookingForm from "@/components/BookingForm";
 import PropertyGallery from "@/components/PropertyGallery";
 import UserPhotoSection from "@/components/UserPhotoSection";
 import NearbyHighlightsSection from "@/components/NearbyHighlightsSection";
+import LuxuryBotanicalSideArt from "@/components/ui/LuxuryBotanicalSideArt";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { getFacilityByKey } from "@/lib/property-constants";
@@ -116,8 +117,9 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
   };
 
   return (
-    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
-      <div className="mx-auto max-w-6xl">
+    <main className="relative overflow-hidden min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
+      <LuxuryBotanicalSideArt side="both" />
+      <div className="relative mx-auto max-w-6xl">
         <div className="mb-6">
           <BackButton label="Back to Results" />
         </div>
@@ -183,7 +185,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                     const f = getFacilityByKey(key);
                     if (!f) return null;
                     return (
-                      <div key={key} className="flex items-center gap-2.5 rounded-lg bg-white border border-gray-100 p-3.5 shadow-sm text-sm text-gray-700">
+                      <div key={key} className="flex items-center gap-2.5 rounded-xl bg-white border border-gray-100 p-3.5 shadow-[0_2px_10px_rgba(20,33,61,0.04)] hover:border-[#D9A94D]/30 transition-colors text-sm text-[#3B4658]">
                         <span className="material-symbols-outlined text-[#14213D] text-base">{f.icon}</span>
                         {f.label}
                       </div>
@@ -199,7 +201,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
                 <h2 className="font-[family-name:var(--font-playfair-display)] text-xl font-semibold text-[#14213D] mb-4">Amenities</h2>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {property.amenities.map((amenity) => (
-                    <div key={amenity} className="flex items-center gap-2.5 rounded-lg bg-white border border-gray-100 p-3.5 shadow-sm text-sm text-gray-700">
+                    <div key={amenity} className="flex items-center gap-2.5 rounded-xl bg-white border border-gray-100 p-3.5 shadow-[0_2px_10px_rgba(20,33,61,0.04)] hover:border-[#D9A94D]/30 transition-colors text-sm text-[#3B4658]">
                       <span className="material-symbols-outlined text-[#D9A94D] text-sm">check_circle</span>
                       {amenity}
                     </div>

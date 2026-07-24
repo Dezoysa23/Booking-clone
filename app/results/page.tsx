@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import type { Property } from "@prisma/client";
 import PropertyCard from "@/components/PropertyCard";
 import ResultsFilterForm from "@/components/ResultsFilterForm";
+import LuxuryBotanicalSideArt from "@/components/ui/LuxuryBotanicalSideArt";
 import { prisma } from "@/lib/prisma";
 
 type ResultsPageProps = {
@@ -84,26 +85,34 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
+    <main className="relative overflow-hidden min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
+      <LuxuryBotanicalSideArt side="both" />
       <div className="mx-auto max-w-6xl">
 
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-[family-name:var(--font-playfair-display)] text-3xl font-semibold text-[#14213D]">
-              Search Results
+            <div className="mb-3 flex items-center gap-3">
+              <span className="h-px w-8 bg-[#D9A94D]" />
+              <span className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#D9A94D]">
+                Curated Stays
+              </span>
+            </div>
+            <h1 className="font-[family-name:var(--font-playfair-display)] text-[30px] md:text-4xl font-semibold text-[#14213D]">
+              {destination ? `Stays in ${destination}` : "Browse Stays"}
             </h1>
             {destination && (
-              <p className="mt-1 text-sm text-[#5B6472]">
-                Showing properties in{" "}
-                <span className="font-semibold text-gray-700">{destination}</span>
+              <p className="mt-1.5 text-sm text-[#5B6472]">
+                Handpicked properties in{" "}
+                <span className="font-semibold text-[#14213D]">{destination}</span>
               </p>
             )}
           </div>
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[#14213D]/20 bg-white px-5 py-2.5 text-sm font-semibold text-[#14213D] hover:border-[#D9A94D] hover:text-[#c99a3f] transition-colors shadow-[0_2px_10px_rgba(20,33,61,0.05)]"
           >
-            ← Back to Home
+            <span className="material-symbols-outlined text-base">arrow_back</span>
+            Home
           </Link>
         </div>
 
