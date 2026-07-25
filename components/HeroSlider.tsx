@@ -8,7 +8,7 @@
  *  - Ken Burns slow-zoom effect on each slide (GPU-accelerated CSS transform)
  *  - Auto-advance every 7 s, reset on any user interaction
  *  - Touch/swipe support (mobile-first, threshold 48 px)
- *  - Prev/Next arrow buttons (visible on sm+ screens)
+ *  - Tap / click the image to advance to the next slide
  *  - Navigation dot indicators with active pill expansion
  *  - prefers-reduced-motion: all animations are skipped instantly
  *  - Per-slide destination badge (top-left, animated on change)
@@ -162,6 +162,14 @@ export default function HeroSlider() {
       {/* ── Bottom fade — the image melts into the cream page background ──── */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[9] h-28 bg-gradient-to-t from-[#F8F2E9] via-[#F8F2E9]/70 to-transparent" />
 
+      {/* ── Tap / click anywhere on the image to advance to the next slide ── */}
+      <button
+        type="button"
+        onClick={() => goTo(index + 1)}
+        aria-label="Next destination"
+        className="absolute inset-0 z-[15] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/60"
+      />
+
       {/* ── Destination badge (top-left, changes per slide) ──────────────── */}
       <div className="absolute top-20 left-5 z-30 pointer-events-none" aria-live="polite" aria-atomic="true">
         <AnimatePresence mode="wait">
@@ -186,7 +194,9 @@ export default function HeroSlider() {
       </div>
 
       {/* ── Hero content (static across all slides) ───────────────────────── */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 pb-14 text-center">
+      {/* pointer-events-none so empty areas fall through to the tap-to-advance
+          layer; interactive controls below re-enable pointer events. */}
+      <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-6 pb-14 text-center">
 
         {/* Eyebrow */}
         <div className="pointer-events-none mb-7 flex items-center justify-center gap-4">
@@ -217,7 +227,7 @@ export default function HeroSlider() {
         </p>
 
         {/* CTAs */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
+        <div className="pointer-events-auto mt-8 flex flex-wrap items-center justify-center gap-5">
           <Link
             href="/results?destination="
             className="rounded-full bg-[#D9A94D] px-8 py-3 text-sm font-bold text-[#14213D] shadow-[0_4px_20px_rgba(216,180,90,0.35)] transition-colors hover:bg-[#E8C892] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9A94D]"
@@ -233,22 +243,6 @@ export default function HeroSlider() {
           </Link>
         </div>
       </div>
-
-      {/* ── Prev / Next buttons (sm+) ─────────────────────────────────────── */}
-      <button
-        onClick={() => goTo(index - 1)}
-        aria-label="Previous destination"
-        className="absolute left-4 top-1/2 z-30 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/25 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:flex"
-      >
-        <span className="material-symbols-outlined text-lg" aria-hidden>chevron_left</span>
-      </button>
-      <button
-        onClick={() => goTo(index + 1)}
-        aria-label="Next destination"
-        className="absolute right-4 top-1/2 z-30 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/25 text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/20 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:flex"
-      >
-        <span className="material-symbols-outlined text-lg" aria-hidden>chevron_right</span>
-      </button>
 
       {/* ── Dot / pill navigation ─────────────────────────────────────────── */}
       <div

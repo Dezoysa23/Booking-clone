@@ -24,12 +24,15 @@ const SUPPORT_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden w-full mt-[120px] bg-[#101A30] text-white border-t border-[#D9A94D]/15">
-      {/* Gold shimmer top border */}
-      <div className="h-px bg-gradient-to-r from-transparent via-[#D9A94D]/30 to-transparent" />
+    <footer className="relative overflow-hidden w-full bg-[#101A30] text-white">
+      {/* Cream → navy fade: the page background dissolves smoothly into the footer */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none h-40 md:h-60 w-full bg-gradient-to-b from-[#F8F2E9] to-[#101A30]"
+      />
 
-      {/* Footer-top botanical glow */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-72 overflow-hidden" aria-hidden="true">
+      {/* Footer-top botanical glow (kept within the navy area, below the fade) */}
+      <div className="pointer-events-none absolute inset-x-0 top-40 md:top-60 z-0 h-72 overflow-hidden" aria-hidden="true">
         <div
           className="absolute left-1/2 -top-28 h-72 w-[42rem] -translate-x-1/2 rounded-full blur-3xl"
           style={{ background: "radial-gradient(ellipse, rgba(217,169,77,0.12) 0%, transparent 70%)" }}
