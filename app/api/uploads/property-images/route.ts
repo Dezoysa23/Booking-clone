@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Forbidden." }, { status: 403 });
     }
 
-    const rl = checkRateLimit(`upload:image:${currentUser.id}`, 40, 60 * 1000);
+    const rl = await checkRateLimit(`upload:image:${currentUser.id}`, 40, 60 * 1000);
     if (!rl.success) {
       return NextResponse.json({ error: "Too many uploads. Please slow down." }, { status: 429 });
     }

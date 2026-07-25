@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     const currentUser = await getCurrentUser();
     if (!currentUser) return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
 
-    const rl = checkRateLimit(`subscribe:${currentUser.id}`, 10, 60 * 1000);
+    const rl = await checkRateLimit(`subscribe:${currentUser.id}`, 10, 60 * 1000);
     if (!rl.success) {
       return NextResponse.json({ error: "Too many requests. Please wait and try again." }, { status: 429 });
     }

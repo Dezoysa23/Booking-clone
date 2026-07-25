@@ -30,7 +30,7 @@ export async function PATCH(request: Request) {
     }
 
     // Rate-limit by userId to prevent brute-forcing the current password
-    const rl = checkRateLimit(`change-pwd:${userId}`, RATE_LIMIT, RATE_WINDOW_MS);
+    const rl = await checkRateLimit(`change-pwd:${userId}`, RATE_LIMIT, RATE_WINDOW_MS);
     if (!rl.success) {
       return NextResponse.json(
         { error: "Too many password change attempts. Please try again later." },

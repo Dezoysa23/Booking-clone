@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   const ip = getClientIp(request);
 
   // Rate limit: 5 attempts per 10 min per IP
-  const ipLimit = checkRateLimit(`login:ip:${ip}`, 5, 10 * 60 * 1000);
+  const ipLimit = await checkRateLimit(`login:ip:${ip}`, 5, 10 * 60 * 1000);
   if (!ipLimit.success) {
     return NextResponse.json(
       { error: "Too many login attempts. Please try again later." },
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     const { email, password } = parsed.data;
 
     // Rate limit: 5 attempts per 10 min per email (catches distributed IP attacks)
-    const emailLimit = checkRateLimit(`login:email:${email}`, 5, 10 * 60 * 1000);
+    const emailLimit = await checkRateLimit(`login:email:${email}`, 5, 10 * 60 * 1000);
     if (!emailLimit.success) {
       return NextResponse.json(
         { error: "Too many login attempts. Please try again later." },

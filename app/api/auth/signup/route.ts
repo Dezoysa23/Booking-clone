@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const ip = getClientIp(request);
 
   // Rate limit: 5 signups per 10 min per IP
-  const ipLimit = checkRateLimit(`signup:ip:${ip}`, 5, 10 * 60 * 1000);
+  const ipLimit = await checkRateLimit(`signup:ip:${ip}`, 5, 10 * 60 * 1000);
   if (!ipLimit.success) {
     return NextResponse.json(
       { error: "Too many signup attempts. Please try again later." },

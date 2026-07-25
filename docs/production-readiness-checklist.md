@@ -67,14 +67,15 @@ Legend: ✅ Implemented · ⚠️ Gap / partial · 📋 Planned / document-only 
   payload, admin search params. These validate ad-hoc; migrating them to shared Zod schemas is
   a **safe future refactor** (not a security hole today).
 
-### Rate limiting — ✅ improved this pass / ⚠️ platform limit
+### Rate limiting — ✅
 - [lib/security/rate-limit.ts](../lib/security/rate-limit.ts) sliding-window limiter with XFF
   spoof protection ([get-client-ip.ts](../lib/security/get-client-ip.ts) `isPlausibleIp`).
-- Applied to: login, signup, verify-email, resend-verification, change-password, payment webhook.
-- **Added this pass:** booking create, image uploads, host subscribe.
-- ⚠️ **In-memory = per-serverless-instance on Vercel.** It is not shared across lambdas, so a
-  determined attacker across many cold starts gets more attempts than the nominal limit.
-  Upgrade path (🔒 needs decision — adds a dependency): Upstash Redis, see §Recommendations.
+- Applied to: login, signup, verify-email, resend-verification, change-password, payment webhook,
+  booking create, image uploads, host subscribe.
+- **Distributed backend:** uses **Upstash Redis** when `UPSTASH_REDIS_REST_URL` +
+  `UPSTASH_REDIS_REST_TOKEN` are set (shared across all serverless instances). Falls back to the
+  in-memory limiter when unset (dev) or on any Upstash error. **Remaining action:** provision an
+  Upstash Redis DB + set the two env vars in Vercel for real cross-instance enforcement.
 
 ### CORS — ✅
 - No `Access-Control-Allow-Origin` anywhere; all APIs same-origin. Nothing to fix. Keep it this
@@ -173,10 +174,17 @@ rate limiting and any future AI features.
   `next.config.ts` allow-lists Blob image hosts; `.env.example` documents `BLOB_READ_WRITE_TOKEN`.
 - No migrations run, no API contracts changed, no auth/booking/host/admin behavior altered.
 
+**Rate-limit backend commit (approved follow-up):**
+- ✅ `checkRateLimit` now uses **Upstash Redis** when configured (adds `@upstash/ratelimit` +
+  `@upstash/redis`), else in-memory fallback; all 12 call sites awaited. `.env.example` documents
+  the two Upstash vars. Behavior identical when Upstash is unset.
+
 ## Recommendations needing your decision (not done — would add deps/migrations/features)
 1. ✅ **Object storage for uploads** — implemented with Vercel Blob. **Remaining action:** provision
    a Blob store + set `BLOB_READ_WRITE_TOKEN` in the Vercel dashboard.
-2. 🔒 **Distributed rate limiting** — Upstash Redis (`@upstash/ratelimit` + `@upstash/redis`).
+2. ✅ **Distributed rate limiting** — implemented (Upstash when configured, in-memory fallback).
+   **Remaining action:** create an Upstash Redis DB + set `UPSTASH_REDIS_REST_URL` /
+   `UPSTASH_REDIS_REST_TOKEN`.
 3. 🔒 **Error monitoring** — Sentry or equivalent.
 4. 🔒 **Recommended DB indexes** — after reconciling migration drift.
 5. 🔒 **Password-reset feature** — build to the spec in §2 if wanted.

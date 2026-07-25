@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     }
 
     // Rate limit booking creation per user (in-memory; see docs/production-readiness-checklist.md)
-    const rl = checkRateLimit(`booking:create:${userId}`, 15, 60 * 1000);
+    const rl = await checkRateLimit(`booking:create:${userId}`, 15, 60 * 1000);
     if (!rl.success) {
       return NextResponse.json(
         { error: "Too many booking attempts. Please wait a moment and try again." },
