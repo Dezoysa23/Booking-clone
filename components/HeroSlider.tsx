@@ -60,7 +60,7 @@ const SLIDES: Slide[] = [
   },
 ];
 
-const INTERVAL_MS = 6000;
+const INTERVAL_MS = 7000;
 
 // ── Component ────────────────────────────────────────────────────────────────
 
@@ -228,7 +228,7 @@ export default function HeroSlider() {
         </p>
 
         {/* CTAs */}
-        <div className="mt-8 flex items-center gap-5">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
           <Link
             href="/results?destination="
             className="rounded-full bg-[#D9A94D] px-8 py-3 text-sm font-bold text-[#14213D] shadow-[0_4px_20px_rgba(216,180,90,0.35)] transition-colors hover:bg-[#E8C892] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D9A94D]"
