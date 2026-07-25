@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { paymentService } from "@/lib/payment";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { checkRateLimit } from "@/lib/security/rate-limit";
 
 export async function POST(request: Request) {
   if (!verifyCsrfOrigin(request)) {
@@ -11,6 +12,11 @@ export async function POST(request: Request) {
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser) return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+
+    const rl = checkRateLimit(`subscribe:${currentUser.id}`, 10, 60 * 1000);
+    if (!rl.success) {
+      return NextResponse.json({ error: "Too many requests. Please wait and try again." }, { status: 429 });
+    }
 
     const body = await request.json();
     const planId = typeof body.planId === "string" ? body.planId.trim() : "";
