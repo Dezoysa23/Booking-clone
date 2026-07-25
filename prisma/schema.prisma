@@ -70,14 +70,28 @@ model User {
   subscription       Subscription?
   payments           Payment[]
   sessions           UserSession[]
-  userPhotos         UserPropertyPhoto[]
-  emailVerifications EmailVerification[]
+  userPhotos          UserPropertyPhoto[]
+  emailVerifications  EmailVerification[]
+  passwordResetTokens PasswordResetToken[]
 }
 
 model EmailVerification {
   id        String    @id @default(cuid())
   userId    String
   codeHash  String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique // SHA-256 of the token; the raw token is only ever in the email link
   expiresAt DateTime
   usedAt    DateTime?
   createdAt DateTime  @default(now())

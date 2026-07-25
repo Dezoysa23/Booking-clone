@@ -55,6 +55,15 @@ export const resendVerificationSchema = z.object({
   email: emailField,
 });
 
+export const forgotPasswordSchema = z.object({
+  email: emailField,
+});
+
+export const resetPasswordSchema = z.object({
+  token: z.string().min(1, "Reset token is required.").max(500),
+  newPassword: newPasswordField,
+});
+
 // ─── Booking schemas ──────────────────────────────────────────────────────────
 
 export const createBookingSchema = z
