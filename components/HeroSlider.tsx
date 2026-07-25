@@ -10,7 +10,6 @@
  *  - Touch/swipe support (mobile-first, threshold 48 px)
  *  - Prev/Next arrow buttons (visible on sm+ screens)
  *  - Navigation dot indicators with active pill expansion
- *  - Auto-advance progress bar (thin gold line at bottom of slide)
  *  - prefers-reduced-motion: all animations are skipped instantly
  *  - Per-slide destination badge (top-left, animated on change)
  *  - Static headline, subtitle, and CTAs — only the background image changes
@@ -272,18 +271,6 @@ export default function HeroSlider() {
           />
         ))}
       </div>
-
-      {/* ── Auto-advance progress bar ─────────────────────────────────────── */}
-      {!prefersReducedMotion && (
-        <motion.div
-          key={`progress-${index}`}
-          className="pointer-events-none absolute bottom-0 left-0 z-30 h-0.5 bg-[#D9A94D]/55"
-          initial={{ width: "0%" }}
-          animate={{ width: "100%" }}
-          transition={{ duration: INTERVAL_MS / 1000, ease: "linear" }}
-          aria-hidden
-        />
-      )}
     </div>
   );
 }

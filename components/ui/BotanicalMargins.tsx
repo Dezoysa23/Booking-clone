@@ -148,8 +148,6 @@ function Band({ side }: { side: "left" | "right" }) {
         <Leaf className="absolute left-[14%] top-[41%] h-24 w-auto rotate-[24deg] text-[#D9A94D]/50" />
         <Leaf className="absolute left-[30%] top-[55%] h-16 w-auto -rotate-[18deg] text-[#C99A3F]/42" />
         <Leaf className="absolute left-[4%] top-[65%] h-20 w-auto rotate-[8deg] text-[#D9A94D]/40" />
-        {/* Thin gold editorial line toward the inner edge */}
-        <div className="absolute right-7 top-[12%] bottom-[12%] w-px bg-gradient-to-b from-transparent via-[#D9A94D]/55 to-transparent" />
       </div>
     </div>
   );
