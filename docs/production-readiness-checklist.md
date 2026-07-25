@@ -128,12 +128,14 @@ Booking creation uses a **SERIALIZABLE transaction** to prevent double-booking.
   errors go to `console.error`. `getSessionUserId` / cron / webhook fail closed.
 - App has `app/error.tsx`, `app/not-found.tsx`, `app/loading.tsx`; data pages have empty states.
 
-### File uploads — ⚠️ **production blocker**
-[lib/uploads/image-upload.ts](../lib/uploads/image-upload.ts) writes to `public/uploads/` on the
-local filesystem. **Vercel's serverless filesystem is ephemeral/read-only** — uploaded files
-won't persist or be served in production. The file comment already flags this. Before hosts rely
-on uploads in prod, swap to object storage (**Vercel Blob**, Cloudinary, S3, or UploadThing).
-🔒 Needs decision (adds a dependency/service).
+### File uploads — ✅ object storage (needs token provisioned)
+[lib/uploads/image-upload.ts](../lib/uploads/image-upload.ts) now uploads to **Vercel Blob** when
+`BLOB_READ_WRITE_TOKEN` is set, returning persistent public https URLs
+(`*.public.blob.vercel-storage.com`, allow-listed in `next.config.ts`). Without a token it falls
+back to local disk in **dev only**, and fails with a clear config error in production rather than
+silently losing files on the ephemeral/read-only serverless filesystem.
+- **Action required:** create a Blob store in the Vercel dashboard (Storage → Blob) and set
+  `BLOB_READ_WRITE_TOKEN`. Swappable to Cloudinary/S3/UploadThing by replacing one function body.
 - Minor hardening: current MIME check trusts `file.type`; magic-byte sniffing is a future nicety.
 
 ### Monitoring & logging — ⚠️ / 🔒
@@ -159,16 +161,21 @@ rate limiting and any future AI features.
 
 ---
 
-## Changes made in this pass (safe, low-risk only)
+## Changes made
+**Audit commit (safe, no deps/migrations):**
 - ✅ Rate limiting added to **booking create**, **image upload**, **host subscribe** routes
   (existing in-memory limiter; generous per-user limits; returns 429 with a clear message).
-- ✅ `.env.example` extended with commented **optional/future** vars (Upstash, Sentry).
+- ✅ `.env.example` extended with optional/future vars.
 - ✅ Documentation: this checklist, `rollback-strategy.md`, `rag-readiness-plan.md`.
-- ❌ No dependencies added, no migrations run, no API contracts changed, no auth/booking/host/admin
-  behavior altered.
+
+**Uploads commit (approved follow-up):**
+- ✅ Property image uploads now use **Vercel Blob** (adds `@vercel/blob`) with a dev local fallback;
+  `next.config.ts` allow-lists Blob image hosts; `.env.example` documents `BLOB_READ_WRITE_TOKEN`.
+- No migrations run, no API contracts changed, no auth/booking/host/admin behavior altered.
 
 ## Recommendations needing your decision (not done — would add deps/migrations/features)
-1. 🔒 **Object storage for uploads** (production blocker) — Vercel Blob / Cloudinary / S3.
+1. ✅ **Object storage for uploads** — implemented with Vercel Blob. **Remaining action:** provision
+   a Blob store + set `BLOB_READ_WRITE_TOKEN` in the Vercel dashboard.
 2. 🔒 **Distributed rate limiting** — Upstash Redis (`@upstash/ratelimit` + `@upstash/redis`).
 3. 🔒 **Error monitoring** — Sentry or equivalent.
 4. 🔒 **Recommended DB indexes** — after reconciling migration drift.
