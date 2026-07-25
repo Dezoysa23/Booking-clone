@@ -1,12 +1,12 @@
 "use client";
 
 /**
- * HeroSlider — full-screen immersive image slider for the Pearlora homepage.
+ * HeroSlider — ~75vh immersive image slider for the Pearlora homepage.
  *
  * Features:
  *  - Smooth crossfade transitions via Framer Motion AnimatePresence
  *  - Ken Burns slow-zoom effect on each slide (GPU-accelerated CSS transform)
- *  - Auto-advance every 6 s, reset on any user interaction
+ *  - Auto-advance every 7 s, reset on any user interaction
  *  - Touch/swipe support (mobile-first, threshold 48 px)
  *  - Prev/Next arrow buttons (visible on sm+ screens)
  *  - Navigation dot indicators with active pill expansion
@@ -14,15 +14,13 @@
  *  - prefers-reduced-motion: all animations are skipped instantly
  *  - Per-slide destination badge (top-left, animated on change)
  *  - Static headline, subtitle, and CTAs — only the background image changes
- *  - PearlHero 3D pearl orb (desktop only) remains centred across all slides
+ *  - Bottom fade blends the image into the cream page background
  */
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import PearlHero from "@/components/ui/PearlHero";
-import { Frond } from "@/components/ui/LuxuryBotanicalSideArt";
 
 // ── Slide data ────────────────────────────────────────────────────────────────
 
@@ -120,7 +118,7 @@ export default function HeroSlider() {
 
   return (
     <div
-      className="relative w-full h-[100svh] min-h-[560px] overflow-hidden select-none"
+      className="relative w-full h-[60vh] min-h-[440px] md:h-[68vh] lg:h-[75vh] overflow-hidden select-none"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       role="region"
@@ -162,16 +160,8 @@ export default function HeroSlider() {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#101A30]/72 via-[#14213D]/25 to-[#101A30]/50" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101A30]/72 via-transparent to-transparent" />
 
-      {/* ── Botanical accents over the hero image (desktop) ──────────────── */}
-      <div className="pointer-events-none absolute inset-0 z-[8] hidden md:block" aria-hidden="true">
-        <div className="absolute left-10 top-[24%] bottom-[24%] w-px bg-gradient-to-b from-transparent via-[#D9A94D]/45 to-transparent" />
-        <div className="absolute right-10 top-[24%] bottom-[24%] w-px bg-gradient-to-b from-transparent via-[#D9A94D]/45 to-transparent" />
-        <Frond className="absolute -bottom-8 left-0 h-[44%] w-auto -scale-x-100 text-[#D9A94D]/20" />
-        <Frond className="absolute -bottom-8 right-0 h-[44%] w-auto text-[#D9A94D]/20" />
-      </div>
-
-      {/* ── Pearl 3D centerpiece (desktop only) ───────────────────────────── */}
-      <PearlHero />
+      {/* ── Bottom fade — the image melts into the cream page background ──── */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[9] h-28 bg-gradient-to-t from-[#F8F2E9] via-[#F8F2E9]/70 to-transparent" />
 
       {/* ── Destination badge (top-left, changes per slide) ──────────────── */}
       <div className="absolute top-20 left-5 z-30 pointer-events-none" aria-live="polite" aria-atomic="true">
@@ -263,7 +253,7 @@ export default function HeroSlider() {
 
       {/* ── Dot / pill navigation ─────────────────────────────────────────── */}
       <div
-        className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2"
+        className="absolute bottom-24 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2"
         role="tablist"
         aria-label="Slide navigation"
       >
