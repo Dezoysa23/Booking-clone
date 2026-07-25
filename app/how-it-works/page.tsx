@@ -154,7 +154,7 @@ function StepCard({ step, icon, title, description, accentColor }: StepCardProps
 
 export default function HowItWorksPage() {
   return (
-    <main className="min-h-screen bg-[#F8F2E9]">
+    <main className="min-h-screen">
       {/* Hero */}
       <section className="bg-gradient-to-br from-[#14213D] to-[#16233F] px-4 md:px-16 py-20 text-center">
         <div className="mx-auto max-w-3xl">

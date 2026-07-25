@@ -51,7 +51,7 @@ export default async function BookingConfirmationPage({
       : "bg-[#14213D]/5 text-[#14213D] border border-[#14213D]/10";
 
   return (
-    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
+    <main className="min-h-screen px-4 md:px-6 py-10">
       <div className="mx-auto max-w-2xl">
         <div className="rounded-3xl bg-white border border-gray-100 shadow-[0_10px_40px_-12px_rgba(20,33,61,0.12)] overflow-hidden">
           {/* Success bar */}

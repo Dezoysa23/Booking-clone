@@ -28,7 +28,7 @@ export default async function AdminSubscriptionsPage() {
   const activeCount = subscriptions.filter((s) => s.status === "ACTIVE").length;
 
   return (
-    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
+    <main className="min-h-screen px-4 md:px-6 py-10">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>

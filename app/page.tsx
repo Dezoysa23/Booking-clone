@@ -6,7 +6,6 @@ import PropertyCard from "@/components/PropertyCard";
 import DestinationCard from "@/components/DestinationCard";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import HeroSlider from "@/components/HeroSlider";
-import LuxuryBotanicalSideArt from "@/components/ui/LuxuryBotanicalSideArt";
 import { prisma } from "@/lib/prisma";
 
 const DESTINATIONS = [
@@ -48,7 +47,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="bg-[#F8F2E9]">
+    <div>
 
       {/* ─── Hero Slider (full-bleed, edge-to-edge) ─── */}
       <section className="relative">
@@ -62,7 +61,6 @@ export default async function Home() {
 
       {/* ─── Trust Pillars ─── */}
       <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mt-16 md:mt-20 mb-24 md:mb-32">
-        <LuxuryBotanicalSideArt side="both" />
         <ScrollReveal>
           <div className="grid gap-4 sm:grid-cols-3">
             {[
@@ -109,7 +107,6 @@ export default async function Home() {
 
       {/* ─── Popular Destinations ─── */}
       <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24 md:mb-32">
-        <LuxuryBotanicalSideArt side="both" />
         <ScrollReveal>
           <div className="flex justify-between items-end mb-8">
             <div>
@@ -157,7 +154,6 @@ export default async function Home() {
 
       {/* ─── Featured Stays ─── */}
       <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24 md:mb-32">
-        <LuxuryBotanicalSideArt side="both" />
         <ScrollReveal>
           <div className="flex justify-between items-end mb-8">
             <div>
@@ -223,7 +219,6 @@ export default async function Home() {
 
       {/* ─── How It Works ─── */}
       <section className="relative overflow-hidden px-4 md:px-16 max-w-[1280px] mx-auto mb-24 md:mb-32">
-        <LuxuryBotanicalSideArt side="left" />
         <ScrollReveal>
           <div className="flex items-end justify-between mb-10">
             <div>

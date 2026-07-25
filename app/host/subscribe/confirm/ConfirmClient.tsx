@@ -46,7 +46,7 @@ export default function ConfirmClient() {
   }, [subscriptionId, sessionId]);
 
   return (
-    <div className="min-h-screen bg-[#F8F2E9] flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md rounded-2xl bg-white border border-gray-100 shadow-sm p-10 text-center">
         <div className="flex justify-center mb-6">
           <Image

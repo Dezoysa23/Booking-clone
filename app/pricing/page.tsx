@@ -19,7 +19,7 @@ export default async function PricingPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#F8F2E9]">
+    <main className="min-h-screen">
       {/* Hero */}
       <section className="bg-[#14213D] px-4 py-20 text-center">
         <div className="mx-auto max-w-3xl">

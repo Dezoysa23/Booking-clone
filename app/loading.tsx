@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-[#F8F2E9] flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center gap-2">
           <span className="text-[#D9A94D] text-xl animate-pulse">✦</span>

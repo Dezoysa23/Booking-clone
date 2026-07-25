@@ -10,7 +10,7 @@ export default async function HostLayout({ children }: { children: React.ReactNo
   if (!isHostOrAdmin(currentUser)) redirect("/pricing");
 
   return (
-    <div className="min-h-screen bg-[#F8F2E9]">
+    <div className="min-h-screen">
       {/* Host sidebar nav */}
       <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">

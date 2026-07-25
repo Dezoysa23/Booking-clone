@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BotanicalMargins from "@/components/ui/BotanicalMargins";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${playfairDisplay.variable} min-h-screen antialiased bg-background text-on-background font-body-md selection:bg-secondary-container selection:text-on-secondary-container flex flex-col`}
       >
+        <BotanicalMargins />
         <Navbar />
         <div className="flex-1 flex flex-col">{children}</div>
         <Footer />

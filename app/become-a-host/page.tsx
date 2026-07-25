@@ -20,7 +20,7 @@ export default async function BecomeAHostPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#F8F2E9]">
+    <main className="min-h-screen">
       {/* Hero */}
       <section className="relative overflow-hidden bg-[#14213D] px-4 pt-20 pb-28 text-center">
         <div className="mx-auto max-w-3xl relative z-10">

@@ -4,7 +4,6 @@ import BookingForm from "@/components/BookingForm";
 import PropertyGallery from "@/components/PropertyGallery";
 import UserPhotoSection from "@/components/UserPhotoSection";
 import NearbyHighlightsSection from "@/components/NearbyHighlightsSection";
-import LuxuryBotanicalSideArt from "@/components/ui/LuxuryBotanicalSideArt";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { getFacilityByKey } from "@/lib/property-constants";
@@ -117,8 +116,7 @@ export default async function PropertyDetailsPage({ params }: PropertyDetailsPag
   };
 
   return (
-    <main className="relative overflow-hidden min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
-      <LuxuryBotanicalSideArt side="both" />
+    <main className="relative overflow-hidden min-h-screen px-4 md:px-6 py-10">
       <div className="relative mx-auto max-w-6xl">
         <div className="mb-6">
           <BackButton label="Back to Results" />

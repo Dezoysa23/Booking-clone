@@ -41,7 +41,7 @@ export default async function BookingsPage() {
     });
 
   return (
-    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
+    <main className="min-h-screen px-4 md:px-6 py-10">
       <div className="mx-auto max-w-5xl">
 
         {/* Page header */}

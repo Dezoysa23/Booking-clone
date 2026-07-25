@@ -15,7 +15,7 @@ export default async function AdminCalendarPage() {
   if (!isSuperAdmin(currentUser)) redirect("/");
 
   return (
-    <main className="min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
+    <main className="min-h-screen px-4 md:px-6 py-10">
       <div className="mx-auto max-w-6xl">
         {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 mb-4 text-xs text-[#7C879B]">

@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import type { Property } from "@prisma/client";
 import PropertyCard from "@/components/PropertyCard";
 import ResultsFilterForm from "@/components/ResultsFilterForm";
-import LuxuryBotanicalSideArt from "@/components/ui/LuxuryBotanicalSideArt";
 import { prisma } from "@/lib/prisma";
 
 type ResultsPageProps = {
@@ -85,8 +84,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
   }
 
   return (
-    <main className="relative overflow-hidden min-h-screen bg-[#F8F2E9] px-4 md:px-6 py-10">
-      <LuxuryBotanicalSideArt side="both" />
+    <main className="relative overflow-hidden min-h-screen px-4 md:px-6 py-10">
       <div className="mx-auto max-w-6xl">
 
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">

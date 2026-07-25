@@ -14,7 +14,7 @@ export default function GlobalError({ error, reset }: Props) {
   }, [error]);
 
   return (
-    <main className="min-h-screen bg-[#F8F2E9] flex items-center justify-center px-4 py-16">
+    <main className="min-h-screen flex items-center justify-center px-4 py-16">
       <div className="text-center max-w-md">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-50 border border-red-100 mb-6">
           <span className="material-symbols-outlined text-red-400 text-2xl">
