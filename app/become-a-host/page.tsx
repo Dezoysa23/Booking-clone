@@ -67,7 +67,7 @@ export default async function BecomeAHostPage() {
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, i) => (
-              <div key={step.title} className="rounded-2xl bg-white border border-gray-100 shadow-sm p-6">
+              <div key={step.title} className="rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-6 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.16)] hover:-translate-y-1 transition-all">
                 <div className="mb-4 flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#14213D]">
                     <span className="material-symbols-outlined text-white text-base">{step.icon}</span>

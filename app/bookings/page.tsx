@@ -7,7 +7,7 @@ import { getSessionUserId } from "@/lib/auth";
 const STATUS_STYLES: Record<string, string> = {
   CONFIRMED: "bg-emerald-50 text-emerald-700 border border-emerald-100",
   CANCELLED:  "bg-red-50 text-red-600 border border-red-100",
-  PENDING:    "bg-[#eef2fa] text-[#14213D] border border-[#14213D]/10",
+  PENDING:    "bg-[#14213D]/5 text-[#14213D] border border-[#14213D]/10",
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -62,7 +62,7 @@ export default async function BookingsPage() {
           </div>
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[#14213D]/20 bg-white px-5 py-2.5 text-sm font-semibold text-[#14213D] shadow-[0_2px_10px_rgba(20,33,61,0.05)] hover:border-[#D9A94D] hover:text-[#c99a3f] transition-colors"
           >
             <span className="material-symbols-outlined text-sm">home</span>
             Back to Home
@@ -187,7 +187,7 @@ export default async function BookingsPage() {
               </Link>
               <Link
                 href="/"
-                className="rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                className="rounded-full border border-[#14213D]/20 bg-white px-6 py-3 text-sm font-semibold text-[#14213D] hover:border-[#D9A94D] hover:text-[#c99a3f] transition-colors"
               >
                 Back to Home
               </Link>

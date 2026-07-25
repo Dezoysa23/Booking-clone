@@ -124,7 +124,7 @@ type StepCardProps = {
 
 function StepCard({ step, icon, title, description, accentColor }: StepCardProps) {
   return (
-    <div className="relative rounded-2xl bg-white border border-gray-100 shadow-sm p-7 flex flex-col gap-4 hover:shadow-md transition-shadow">
+    <div className="relative rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(20,33,61,0.05)] p-7 flex flex-col gap-4 hover:shadow-[0_18px_44px_-14px_rgba(20,33,61,0.16)] hover:-translate-y-1 transition-all">
       <div className="flex items-start justify-between gap-4">
         <div
           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
@@ -210,7 +210,7 @@ export default function HowItWorksPage() {
             </Link>
             <Link
               href="/bookings"
-              className="rounded-full border border-gray-200 bg-white px-7 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className="rounded-full border border-[#14213D]/20 bg-white px-7 py-3 text-sm font-semibold text-[#14213D] hover:border-[#D9A94D] hover:text-[#c99a3f] transition-colors"
             >
               View My Bookings
             </Link>
@@ -254,7 +254,7 @@ export default function HowItWorksPage() {
             </Link>
             <Link
               href="/pricing"
-              className="rounded-full border border-gray-200 bg-white px-7 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className="rounded-full border border-[#14213D]/20 bg-white px-7 py-3 text-sm font-semibold text-[#14213D] hover:border-[#D9A94D] hover:text-[#c99a3f] transition-colors"
             >
               View Plans
             </Link>

@@ -119,7 +119,7 @@ export default async function AccountPage() {
               </Link>
               <Link
                 href="/"
-                className="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-1.5"
+                className="rounded-full border border-[#14213D]/20 bg-white px-5 py-2.5 text-sm font-semibold text-[#14213D] hover:border-[#D9A94D] hover:text-[#c99a3f] transition-colors flex items-center gap-1.5"
               >
                 <span className="material-symbols-outlined text-sm">home</span>
                 Back to Home
