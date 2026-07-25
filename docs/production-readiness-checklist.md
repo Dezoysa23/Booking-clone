@@ -139,11 +139,17 @@ silently losing files on the ephemeral/read-only serverless filesystem.
   `BLOB_READ_WRITE_TOKEN`. Swappable to Cloudinary/S3/UploadThing by replacing one function body.
 - Minor hardening: current MIME check trusts `file.type`; magic-byte sniffing is a future nicety.
 
-### Monitoring & logging — ⚠️ / 🔒
-- Today: Vercel platform logs + `console.*`. No error aggregation, alerting, or tracing.
-- 🔒 Recommend **Sentry** (`@sentry/nextjs`) for error tracking + release health, or Axiom/Logtail
-  for structured logs. Adds a dependency → needs your go-ahead. Until then, Vercel logs cover the
-  critical flows (auth failures, rate-limit blocks, booking/webhook/db errors all `console.error`).
+### Monitoring & logging — ✅ (Sentry wired, off until DSN set)
+- **Sentry** (`@sentry/nextjs`) integrated via `instrumentation.ts` (server/edge init),
+  `instrumentation-client.ts` (browser), and `onRequestError` for server / RSC / route-handler /
+  server-action errors. Initialized clients also auto-capture unhandled browser errors.
+- **Off by default:** initializes only when `SENTRY_DSN` / `NEXT_PUBLIC_SENTRY_DSN` are set. When
+  unset the SDK isn't initialized and the browser SDK is dead-code-eliminated (no bundle cost).
+- **Remaining action:** create a Sentry project and set the two DSN env vars in Vercel.
+- Future enhancements: wrap `next.config.ts` with `withSentryConfig` for source-map upload
+  (readable stack traces) + release tagging; capture React error-boundary errors in `error.tsx`.
+- Vercel platform logs + `console.error` still cover critical flows (auth, rate-limit, booking,
+  webhook, db).
 
 ---
 
@@ -179,13 +185,19 @@ rate limiting and any future AI features.
   `@upstash/redis`), else in-memory fallback; all 12 call sites awaited. `.env.example` documents
   the two Upstash vars. Behavior identical when Upstash is unset.
 
+**Monitoring commit (approved follow-up):**
+- ✅ **Sentry** wired (adds `@sentry/nextjs`) via `instrumentation.ts`, `instrumentation-client.ts`,
+  and `onRequestError`. Off unless `SENTRY_DSN` / `NEXT_PUBLIC_SENTRY_DSN` are set — no
+  initialization and no browser SDK shipped when unset. No behavior change until configured.
+
 ## Recommendations needing your decision (not done — would add deps/migrations/features)
 1. ✅ **Object storage for uploads** — implemented with Vercel Blob. **Remaining action:** provision
    a Blob store + set `BLOB_READ_WRITE_TOKEN` in the Vercel dashboard.
 2. ✅ **Distributed rate limiting** — implemented (Upstash when configured, in-memory fallback).
    **Remaining action:** create an Upstash Redis DB + set `UPSTASH_REDIS_REST_URL` /
    `UPSTASH_REDIS_REST_TOKEN`.
-3. 🔒 **Error monitoring** — Sentry or equivalent.
+3. ✅ **Error monitoring** — Sentry wired (off until DSN set). **Remaining action:** create a
+   Sentry project + set `SENTRY_DSN` / `NEXT_PUBLIC_SENTRY_DSN`.
 4. 🔒 **Recommended DB indexes** — after reconciling migration drift.
 5. 🔒 **Password-reset feature** — build to the spec in §2 if wanted.
 6. 🔒 **AI/RAG** — only if/when the product needs it (see RAG plan).
