@@ -27,6 +27,8 @@ model Booking {
   @@index([propertyId])
   @@index([userId])
   @@index([status, checkIn])
+  // Availability-overlap lookups (assertPropertyAvailable) run on every booking attempt.
+  @@index([propertyId, checkIn, checkOut])
 }
 
 model Property {
@@ -120,6 +122,8 @@ model Subscription {
 
   @@index([userId])
   @@index([planId])
+  // Super-admin subscriptions list orders by createdAt desc.
+  @@index([createdAt])
 }
 
 model Payment {
@@ -141,6 +145,8 @@ model Payment {
 
   @@index([subscriptionId])
   @@index([userId])
+  // Super-admin payments list orders by createdAt desc.
+  @@index([createdAt])
 }
 
 model UserSession {
