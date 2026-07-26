@@ -12,7 +12,7 @@ export async function POST(request: Request) {
   }
 
   const ip = getClientIp(request);
-  const ipLimit = checkRateLimit(`verify-email:ip:${ip}`, 10, 15 * 60 * 1000);
+  const ipLimit = await checkRateLimit(`verify-email:ip:${ip}`, 10, 15 * 60 * 1000);
   if (!ipLimit.success) {
     return NextResponse.json(
       { error: "Too many attempts. Please try again later." },
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     }
 
     // Per-user attempt rate limit
-    const userLimit = checkRateLimit(`verify-email:user:${user.id}`, 10, 15 * 60 * 1000);
+    const userLimit = await checkRateLimit(`verify-email:user:${user.id}`, 10, 15 * 60 * 1000);
     if (!userLimit.success) {
       return NextResponse.json(
         { error: "Too many attempts. Please request a new code." },

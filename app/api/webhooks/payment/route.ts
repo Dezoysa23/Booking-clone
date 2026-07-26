@@ -7,7 +7,7 @@ import { getClientIp } from "@/lib/security/get-client-ip";
 
 export async function POST(request: Request) {
   try {
-    const rl = checkRateLimit(`webhook:payment:${getClientIp(request)}`, 60, 60 * 1000);
+    const rl = await checkRateLimit(`webhook:payment:${getClientIp(request)}`, 60, 60 * 1000);
     if (!rl.success) {
       return NextResponse.json({ error: "Too many requests." }, { status: 429 });
     }

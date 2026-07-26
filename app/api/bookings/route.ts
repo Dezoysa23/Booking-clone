@@ -6,6 +6,7 @@ import { verifyCsrfOrigin } from "@/lib/security/csrf";
 import { assertPropertyAvailable } from "@/lib/bookings/availability";
 import { sendBookingConfirmationEmail } from "@/lib/email/templates/booking-confirmation";
 import { createBookingSchema, firstError } from "@/lib/validation/schemas";
+import { checkRateLimit } from "@/lib/security/rate-limit";
 
 // GET /api/bookings — returns all bookings for the logged-in user
 export async function GET() {
@@ -49,6 +50,15 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "You must be logged in to create a booking." },
         { status: 401 }
+      );
+    }
+
+    // Rate limit booking creation per user (in-memory; see docs/production-readiness-checklist.md)
+    const rl = await checkRateLimit(`booking:create:${userId}`, 15, 60 * 1000);
+    if (!rl.success) {
+      return NextResponse.json(
+        { error: "Too many booking attempts. Please wait a moment and try again." },
+        { status: 429 }
       );
     }
 

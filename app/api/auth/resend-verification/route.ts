@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   }
 
   const ip = getClientIp(request);
-  const ipLimit = checkRateLimit(`resend-verification:ip:${ip}`, 3, 15 * 60 * 1000);
+  const ipLimit = await checkRateLimit(`resend-verification:ip:${ip}`, 3, 15 * 60 * 1000);
   if (!ipLimit.success) {
     return NextResponse.json(
       { error: "Too many resend attempts. Please try again later." },
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     }
 
-    const userLimit = checkRateLimit(`resend-verification:user:${user.id}`, 3, 15 * 60 * 1000);
+    const userLimit = await checkRateLimit(`resend-verification:user:${user.id}`, 3, 15 * 60 * 1000);
     if (!userLimit.success) {
       return NextResponse.json(
         { error: "Too many resend attempts. Please wait a few minutes." },

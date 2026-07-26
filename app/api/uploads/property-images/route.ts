@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { isHostOrAdmin } from "@/lib/roles";
 import { savePropertyImage } from "@/lib/uploads/image-upload";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
+import { checkRateLimit } from "@/lib/security/rate-limit";
 
 export async function POST(request: Request) {
   if (!verifyCsrfOrigin(request)) {
@@ -15,6 +16,11 @@ export async function POST(request: Request) {
     }
     if (!isHostOrAdmin(currentUser)) {
       return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+    }
+
+    const rl = await checkRateLimit(`upload:image:${currentUser.id}`, 40, 60 * 1000);
+    if (!rl.success) {
+      return NextResponse.json({ error: "Too many uploads. Please slow down." }, { status: 429 });
     }
 
     const formData = await request.formData();
