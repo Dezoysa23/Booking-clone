@@ -81,16 +81,39 @@ export async function POST(request: Request) {
       );
     }
 
+    // Cap how far out a booking can start — prevents blocking a property's calendar
+    // years into the future (availability DoS).
+    const MAX_HORIZON_DAYS = 540; // ~18 months
+    const horizonLimit = new Date(today);
+    horizonLimit.setDate(horizonLimit.getDate() + MAX_HORIZON_DAYS);
+    if (checkInDate > horizonLimit) {
+      return NextResponse.json(
+        { error: "Check-in date is too far in the future." },
+        { status: 400 }
+      );
+    }
+
     // Fetch property to get authoritative price (never trust client-sent price)
     const property = await prisma.property.findUnique({
       where: { id: propertyIdNum },
-      select: { id: true, price: true, name: true },
+      select: { id: true, price: true, name: true, maxGuests: true },
     });
 
     if (!property) {
       return NextResponse.json(
         { error: "Property not found." },
         { status: 404 }
+      );
+    }
+
+    if (property.maxGuests != null && guestsNum > property.maxGuests) {
+      return NextResponse.json(
+        {
+          error: `This property allows up to ${property.maxGuests} guest${
+            property.maxGuests === 1 ? "" : "s"
+          }.`,
+        },
+        { status: 400 }
       );
     }
 
@@ -101,6 +124,16 @@ export async function POST(request: Request) {
     if (nightsNum < 1) {
       return NextResponse.json(
         { error: "Booking must be for at least 1 night." },
+        { status: 400 }
+      );
+    }
+
+    // Cap stay length — bounds the availability-DoS vector and keeps totalPrice within
+    // safe integer range.
+    const MAX_NIGHTS = 90;
+    if (nightsNum > MAX_NIGHTS) {
+      return NextResponse.json(
+        { error: `Bookings cannot exceed ${MAX_NIGHTS} nights.` },
         { status: 400 }
       );
     }

@@ -8,6 +8,10 @@ import { getClientIp } from "@/lib/security/get-client-ip";
 import { verifyCsrfOrigin } from "@/lib/security/csrf";
 import { loginSchema, firstError } from "@/lib/validation/schemas";
 
+// Constant bcrypt hash used to equalize response time on the "no such user" path,
+// preventing timing-based account enumeration. Computed once at module load.
+const TIMING_EQUALIZER_HASH = bcrypt.hashSync("timing-equalizer-dummy-value", 10);
+
 export async function POST(request: Request) {
   if (!verifyCsrfOrigin(request)) {
     return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
@@ -56,6 +60,9 @@ export async function POST(request: Request) {
     });
 
     if (!user || !user.password) {
+      // Run a dummy compare so this branch takes ~the same time as a real password
+      // check — otherwise the latency difference leaks whether an account exists.
+      await bcrypt.compare(password, TIMING_EQUALIZER_HASH);
       return NextResponse.json(
         { error: "Invalid email or password." },
         { status: 401 }

@@ -50,20 +50,14 @@ export async function POST(request: Request) {
     }
 
     if (user.emailVerified) {
-      // Already verified — just create a session so they can log in
-      const sessionToken = await createSessionToken(user.id, {
-        ipAddress: ip,
-        userAgent: request.headers.get("user-agent") ?? undefined,
-      });
-      const response = NextResponse.json({ success: true });
-      response.cookies.set(SESSION_COOKIE_NAME, sessionToken, {
-        httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7,
-      });
-      return response;
+      // Already verified. Do NOT mint a session here — verifying an email is not
+      // authentication, and the 6-digit code is never validated on this path. Handing
+      // out a session from the email address alone was an account-takeover vector.
+      // Direct the user to sign in with their password instead.
+      return NextResponse.json(
+        { error: "This email is already verified. Please sign in.", alreadyVerified: true },
+        { status: 400 }
+      );
     }
 
     // Per-user attempt rate limit
