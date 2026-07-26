@@ -25,8 +25,12 @@ export async function GET(request: Request) {
   }
 
   if (cronSecret) {
+    // Prefer the Authorization: Bearer header (what Vercel Cron sends) so the secret
+    // never lands in URLs/access logs; fall back to ?secret= for manual/legacy callers.
+    const authHeader = request.headers.get("authorization") ?? "";
+    const bearer = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
     const { searchParams } = new URL(request.url);
-    const provided = searchParams.get("secret") ?? "";
+    const provided = bearer || (searchParams.get("secret") ?? "");
 
     // Timing-safe comparison prevents timing-based enumeration of the secret
     let isValid = false;

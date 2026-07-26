@@ -9,12 +9,19 @@ function isPlausibleIp(raw: string): boolean {
 }
 
 export function getClientIp(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) {
-    const first = forwarded.split(",")[0].trim();
-    if (isPlausibleIp(first)) return first;
-  }
+  // Prefer x-real-ip: on Vercel (and most platforms) this is the true client IP set by
+  // the platform edge and cannot be forged by a client-supplied header.
   const realIp = request.headers.get("x-real-ip")?.trim() ?? "";
   if (isPlausibleIp(realIp)) return realIp;
+
+  // Fall back to X-Forwarded-For. Use the LAST (rightmost) entry — the one appended by
+  // the nearest trusted proxy — NOT the leftmost, which a client can spoof/prepend to
+  // bypass IP-keyed rate limits.
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    const parts = forwarded.split(",").map((p) => p.trim()).filter(Boolean);
+    const last = parts[parts.length - 1];
+    if (last && isPlausibleIp(last)) return last;
+  }
   return "unknown";
 }
